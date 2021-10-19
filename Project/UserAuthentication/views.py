@@ -9,7 +9,9 @@ def index(request):
     return render(request, "UserAuthentication/index.html")
 
 def login(request):
-    user = models.User(id = request.user.id, name = request.user.username, email = request.user.email, 
-        lastname = request.user.username, type = 1, photo_profile = "test")
-    user.save()
-    return HttpResponse("Hello")
+    if models.User.objects.filter(pk = request.user.id).exists():
+        return HttpResponse("Hello")
+    else:
+        context = {}
+        context["email"] = request.user.email
+        return render(request, "UserAuthentication/register.html", context)

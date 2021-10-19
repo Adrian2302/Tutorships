@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% include "baseHead.html" %}
+    </head>
+
+    <body>
+        <div class = "container-md" style = "margin-top: 1.5vw;">
+            <form>
+                <div class="mb-3">
+                    <label class="form-label" for="nameUser">Nombre</label>
+                    <input class="form-control" type="text" id="nameUser" aria-describedby="nameUser">
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label" for="lastnameUser">Apellidos</label>
+                    <input class="form-control" type="text" id="lastnameUser" aria-describedby="lastnameUser">
+                </div>
+    
+                <div class= "mb-3">
+                    <label class="form-label" for="inputEmail">Correo</label>
+                    <input class="form-control" type="text" id="email" placeholder={{email}} disabled>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label" for="selectionRole">Choose your poison</label>
+                    <select class="form-select" id="selectionRole">
+                    <option selected>Elegir uno...</option>
+                    <option value="requester">Tutorando</option>
+                    <option value="tutor">Tutor</option>
+                    </select>
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end" style = "margin-top: 1.5vw;">
+                    <button class="btn btn-primary" type="button">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

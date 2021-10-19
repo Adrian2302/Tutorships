@@ -7,4 +7,5 @@ urlpatterns = [
     path("login", views.login, name= "login"),
     path('accounts/', include('allauth.urls')),
     path('logout', LogoutView.as_view()),
+    
 ]
