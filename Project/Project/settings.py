@@ -79,8 +79,10 @@ WSGI_APPLICATION = 'Project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'TUTORSHIP_SYSTEM',
-        'HOST': 'DESKTOP-05HJI34',
+        'NAME': 'KAIZEN_TUTORSHIP_SYSTEM',
+        'USER': 'eq1',
+        'PASSWORD': 'kaizen1',
+        'HOST': '172.16.202.128',
         'PORT': '1433',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
@@ -143,7 +145,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
-SITE_ID = 5
+SITE_ID = 6
 
 LOGIN_REDIRECT_URL = 'login'
 LOGOUT_REDIRECT_URL = '/'
