@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>My Google OAuth Project </h1>
+  <h1 id="header1">Página principal</h1>
   {% if user.is_authenticated %}
-    <p>Welcome, You are logged in as {{ user.username }}</p>
+  <p id="paragraph_login">Bienvenido(a), {{ user.username }}!</p>
   {% endif %}
 {% endblock content %}
