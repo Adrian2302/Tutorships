@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class User(models.Model):
     """Model for the User"""
@@ -14,4 +15,3 @@ class User(models.Model):
         verbose_name = 'User'
         verbose_name_plural = 'Users'
         db_table = 'User'
-

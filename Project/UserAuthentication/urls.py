@@ -3,9 +3,9 @@ from django.contrib.auth.views import LogoutView
 from . import views
 
 urlpatterns = [
-    path("", views.index, name= "index"),
-    path("login", views.login, name= "login"),
+    path("", views.index, name="index"),
+    path("login", views.login, name="login"),
     path('accounts/', include('allauth.urls')),
-    path('logout', LogoutView.as_view()),
-    
+    path('logout', LogoutView.as_view(), name="logout"),
+    path('admin_module', views.admin_login, name="admin_module")
 ]
