@@ -7,27 +7,27 @@ class CreateTutorshipForm(forms.ModelForm):
     class Meta:
         model = models.Tutorship
         fields = [
-            'maxPeople',
-            'amountPerPerson',
-            'incrementPerHalfHour',
-            'typeSession',
-            'typeMode'
+            'max_people',
+            'amount_per_person',
+            'increment_per_half_hour',
+            'type_session',
+            'type_mode'
         ]
 
         labels = {
-            'maxPeople': 'Máximo de Personas',
-            'amountPerPerson': 'Precio',
-            'incrementPerHalfHour': 'Precio por 30 Minutos Extra',
-            'typeSession': 'Tipo',
-            'typeMode': 'Modalidad'
+            'max_people': 'Máximo de Personas',
+            'amount_per_person': 'Precio',
+            'increment_per_half_hour': 'Precio por 30 Minutos Extra',
+            'type_session': 'Tipo',
+            'type_mode': 'Modalidad'
         }
 
         widgets = {
-            'maxPeople': forms.NumberInput(attrs={'class': 'form-control', 'min': '1', 'required': 'true'}),
-            'amountPerPerson': forms.NumberInput(attrs={'class': 'form-control', 'min': '0', 'required': 'true'}),
-            'incrementPerHalfHour': forms.NumberInput(attrs={'class': 'form-control', 'min': '0', 'required': 'true'}),
-            'typeSession': forms.Select(choices=[('1', 'Individual'), ('2', 'Grupal')], attrs={'class': 'form-select'}),
-            'typeMode': forms.Select(choices=[('1', 'Presencial'), ('2', 'Virtual')], attrs={'class': 'form-select'})
+            'max_people': forms.NumberInput(attrs={'class': 'form-control', 'min': '1', 'required': 'true'}),
+            'amount_per_person': forms.NumberInput(attrs={'class': 'form-control', 'min': '0', 'required': 'true'}),
+            'increment_per_half_hour': forms.NumberInput(attrs={'class': 'form-control', 'min': '0', 'required': 'true'}),
+            'type_session': forms.Select(choices=[('1', 'Individual'), ('2', 'Grupal')], attrs={'class': 'form-select'}),
+            'type_mode': forms.Select(choices=[('1', 'Presencial'), ('2', 'Virtual')], attrs={'class': 'form-select'})
         }
 
 class CreateTutorshipForm2(forms.ModelForm):
@@ -35,18 +35,18 @@ class CreateTutorshipForm2(forms.ModelForm):
         model = models.TutorshipAvailableSchedule
         fields = [
             'date',
-            'startHour',
-            'endHour'
+            'start_hour',
+            'end_hour'
         ]
 
         labels = {
             'date': 'Fecha',
-            'startHour': 'Hora de Inicio',
-            'endHour': 'Hora de Finalización'
+            'start_hour': 'Hora de Inicio',
+            'end_hour': 'Hora de Finalización'
         }
 
         widgets = {
             'date': DatePickerInput(format='%m/%d/%Y'),
-            'startHour': TimePickerInput().start_of('party time'),
-            'endHour': TimePickerInput().end_of('party time'),
+            'start_hour': TimePickerInput().start_of('party time'),
+            'end_hour': TimePickerInput().end_of('party time'),
         }

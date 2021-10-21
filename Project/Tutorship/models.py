@@ -6,21 +6,21 @@ from datetime import datetime, date
 # Create your models here.
 class Tutorship(models.Model):
     """Model for the Tutorship"""
-    maxPeople = models.IntegerField()
-    amountPerPerson = models.IntegerField()
-    incrementPerHalfHour = models.IntegerField()
+    max_people = models.IntegerField()
+    amount_per_person = models.IntegerField()
+    increment_per_half_hour = models.IntegerField()
     state = models.IntegerField()
-    typeSession = models.IntegerField()
-    typeMode = models.IntegerField()
+    type_session = models.IntegerField()
+    type_mode = models.IntegerField()
 
 class CourseTutorship(models.Model):
     """Model for the CourseTutorship"""
-    idTutorship = models.ForeignKey(Tutorship, on_delete=models.CASCADE)
+    id_tutorship = models.ForeignKey(Tutorship, on_delete=models.CASCADE)
 
 class TutorshipAvailableSchedule(models.Model):
     """Model for the Tutorship"""
-    idTutorship = models.ForeignKey(Tutorship, on_delete=models.CASCADE)
+    id_tutorship = models.ForeignKey(Tutorship, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=False, auto_now=False, blank=True)
-    startHour = models.TimeField()
-    endHour = models.TimeField()
+    start_hour = models.TimeField()
+    end_hour = models.TimeField()
     

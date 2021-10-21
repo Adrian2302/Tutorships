@@ -3,6 +3,6 @@ from django.contrib.auth.views import LogoutView
 from . import views
 
 urlpatterns = [
-    path('create-Tutorship', views.tutorCreateTutorship),
+    path('create-Tutorship', views.tutor_create_tutorship),
     
 ]

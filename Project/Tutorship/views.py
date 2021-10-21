@@ -10,7 +10,7 @@ from .models import TutorshipAvailableSchedule
 from .models import CourseTutorship
 
 
-def tutorCreateTutorship(request):
+def tutor_create_tutorship(request):
     user: User = User.objects.get(pk=request.user.id)
 
     if user.type == 2:
