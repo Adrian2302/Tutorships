@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include("Modality.urls")),
     path('', include("Session.urls")),
     path('', include("Payment.urls")),
+    path('tutorship/', include("Tutorship.urls")),
 ]
