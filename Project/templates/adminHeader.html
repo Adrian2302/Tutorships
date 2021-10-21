@@ -48,7 +48,7 @@
             Modalidades
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Agregar modalidad</a></li>
+            <li><a class="dropdown-item" href="{% url 'add_modality' %}">Agregar modalidad</a></li>
             <li><a class="dropdown-item" href="#">Modificar modalidades</a></li>
             </ul>
         </li>
@@ -57,16 +57,16 @@
             Sesiones
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Agregar sesión</a></li>
+            <li><a class="dropdown-item" href="{% url 'add_session' %}">Agregar sesión</a></li>
             <li><a class="dropdown-item" href="#">Modificar modalidades</a></li>
             </ul>
         </li>
-                <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarRetributions" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarRetributions" role="button" data-toggle="dropdown" aria-expanded="false">
             Retribuciones
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Agregar retribución</a></li>
+            <li><a class="dropdown-item" href="{% url 'add_payment' %}">Agregar retribución</a></li>
             <li><a class="dropdown-item" href="#">Actualizar retribuciones</a></li>
             </ul>
         </li>

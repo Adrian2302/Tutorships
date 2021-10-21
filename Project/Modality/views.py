@@ -1,27 +1,24 @@
 from django.shortcuts import render
 from . import forms
-from .forms import ResourceForm
-from .models import Resource
+from .forms import AddModalityForm
+from .models import Modality
 # noinspection PyUnresolvedReferences
 from UserAuthentication.models import User
 
 
-def add_resource(request):
-    """This is the view for the add resource admin page."""
+def add_modality(request):
+    """This is the view for the add modality admin page."""
     user: User = User.objects.get(pk=request.user.id)
 
-    if user.type == 3:
-        form: ResourceForm = forms.ResourceForm(request.POST or None)
+    if user.is_admin():
+        form: AddModalityForm = forms.AddModalityForm(request.POST or None)
 
         if form.is_valid():
-            resource: Resource = Resource(
+            modality: Modality = Modality(
                 name=form.cleaned_data['name'],
-                is_public=form.cleaned_data['is_public'],
                 description=form.cleaned_data['description'],
-                url=form.cleaned_data['url'],
-                author=form.cleaned_data['author']
             )
-            resource.save()
+            modality.save()
 
         context = {
             'form': form

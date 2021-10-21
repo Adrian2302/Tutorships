@@ -20,4 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("UserAuthentication.urls")),
     path('', include("Resource.urls")),
+    path('', include("Modality.urls")),
+    path('', include("Session.urls")),
+    path('', include("Payment.urls")),
 ]

@@ -11,6 +11,9 @@ class User(models.Model):
     type = models.IntegerField()
     photo_profile = models.CharField(max_length=300)
 
+    def is_admin(self):
+        return True if self.type == 3 else False
+
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
