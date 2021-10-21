@@ -37,7 +37,7 @@ def login(request):
         return render(request, "UserAuthentication/register.html", context)
 
 
-def admin_login(request):
+def add_administrator(request):
     """This is the view for the admin manager."""
     user: User = models.User.objects.get(pk=request.user.id)
 
@@ -54,7 +54,7 @@ def admin_login(request):
         context = {
             'form': form
         }
-        return render(request, 'UserAuthentication/adminManagerAdmin.html', context)
+        return render(request, 'adminCrudForm.html', context)
 
     else:
         return render(request, 'UserAuthentication/index.html')
