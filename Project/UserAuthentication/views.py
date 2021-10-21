@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.shortcuts import HttpResponse
 from . import models
 from . import forms
@@ -9,18 +9,20 @@ from .models import User
 
 
 def index(request):
-    return render(request, "UserAuthentication/index.html")
-
-
-def login(request):
     if models.User.objects.filter(pk=request.user.id).exists():
 
         user: User = models.User.objects.get(pk=request.user.id)
 
         if user.type == 3:
             return render(request, "UserAuthentication/adminLogin.html")
+    else:
+        return render(request, "UserAuthentication/index.html")
+    
 
-        return HttpResponse("Hello")
+def login(request):
+    if models.User.objects.filter(pk=request.user.id).exists():
+        print("ee")
+        return redirect('index')
     else:
         form = forms.UserForm(request.POST or None)
 

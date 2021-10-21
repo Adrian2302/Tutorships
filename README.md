@@ -14,7 +14,17 @@ pip install mssql-django
 ```bash
 pip install django-allauth 
 ```
+
+```bash
+pip install django-bootstrap4
+```
+
+```bash
+pip install django-bootstrap-datepicker-plus
+```
+
 ## Execute
 ```bash
 py manage.py runserver
 ```
+
