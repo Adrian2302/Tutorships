@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'UserAuthentication',
     'Resource',
+    'Modality',
+    'Session',
+    'Payment',
     'bootstrap4',
     'bootstrap_datepicker_plus',
 ]
