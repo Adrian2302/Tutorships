@@ -15,6 +15,8 @@ def index(request):
 
         if user.type == 3:
             return render(request, "UserAuthentication/adminLogin.html")
+
+        return HttpResponse("Hello")
     else:
         return render(request, "UserAuthentication/index.html")
     

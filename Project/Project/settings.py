@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'Modality',
     'Session',
     'Payment',
+    'Tutorship',
     'bootstrap4',
     'bootstrap_datepicker_plus',
 ]
@@ -152,6 +153,10 @@ SOCIALACCOUNT_PROVIDERS = {
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 SITE_ID = 6
+
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
 
 LOGIN_REDIRECT_URL = 'login'
 LOGOUT_REDIRECT_URL = '/'
