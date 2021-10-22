@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'Session',
     'Payment',
     'Tutorship',
+    'Course',
     'bootstrap4',
     'bootstrap_datepicker_plus',
 ]
