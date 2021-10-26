@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class Course(models.Model):
     """Model for the User"""
