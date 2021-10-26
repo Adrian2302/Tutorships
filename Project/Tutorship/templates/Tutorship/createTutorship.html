@@ -6,17 +6,36 @@
             <form method = "POST">
                 {% csrf_token %}
                 <div class= "mb-3">
-                    <label class="form-label" for="courseName">Curso</label>
-                    <select class="form-select" id="courseName">
-                        <option selected>Elegir uno...</option>
+                    <label class="form-label" for="course_name">Curso</label>
+                    <select class="form-select" id="course_name" name="course_name">
+                        <option selected disabled>Elegir uno...</option>
                         {% for results in CourseTutorship %}
-                        <option>{{results.idTutorship}} </option>
+                        <option value={{results.id}}>{{results.course_name}}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <br>
                 {{form.as_p}}
+                <div class= "mb-3">
+                    <label class="form-label" for="session_name">Sesión</label>
+                    <select class="form-select" id="session_name" name="session_name">
+                        <option selected disabled>Elegir uno...</option>
+                        {% for results in TableSession %}
+                        <option value={{results.id}}>{{results.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class= "mb-3">
+                    <label class="form-label" for="modality_name">Modalidad</label>
+                    <select class="form-select" id="modality_name" name="modality_name">
+                        <option selected disabled>Elegir uno...</option>
+                        {% for results in TableModality %}
+                        <option value={{results.id}}>{{results.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
                 {{form2.as_p}}
+                {{form3.as_p}}
                 <input  class="btn btn-primary" type="submit" value = "Submit">
             </form>
         </div>

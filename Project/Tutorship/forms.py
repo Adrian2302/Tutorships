@@ -9,25 +9,19 @@ class CreateTutorshipForm(forms.ModelForm):
         fields = [
             'max_people',
             'amount_per_person',
-            'increment_per_half_hour',
-            'type_session',
-            'type_mode'
+            'increment_per_half_hour'
         ]
 
         labels = {
             'max_people': 'Máximo de Personas',
             'amount_per_person': 'Precio',
-            'increment_per_half_hour': 'Precio por 30 Minutos Extra',
-            'type_session': 'Tipo',
-            'type_mode': 'Modalidad'
+            'increment_per_half_hour': 'Precio por 30 Minutos Extra'
         }
 
         widgets = {
             'max_people': forms.NumberInput(attrs={'class': 'form-control', 'min': '1', 'required': 'true'}),
             'amount_per_person': forms.NumberInput(attrs={'class': 'form-control', 'min': '0', 'required': 'true'}),
-            'increment_per_half_hour': forms.NumberInput(attrs={'class': 'form-control', 'min': '0', 'required': 'true'}),
-            'type_session': forms.Select(choices=[('1', 'Individual'), ('2', 'Grupal')], attrs={'class': 'form-select'}),
-            'type_mode': forms.Select(choices=[('1', 'Presencial'), ('2', 'Virtual')], attrs={'class': 'form-select'})
+            'increment_per_half_hour': forms.NumberInput(attrs={'class': 'form-control', 'min': '0', 'required': 'true'})
         }
 
 class CreateTutorshipForm2(forms.ModelForm):
@@ -46,7 +40,7 @@ class CreateTutorshipForm2(forms.ModelForm):
         }
 
         widgets = {
-            'date': DatePickerInput(format='%m/%d/%Y'),
+            'date': DatePickerInput(format='%Y/%m/%d'),
             'start_hour': TimePickerInput().start_of('party time'),
             'end_hour': TimePickerInput().end_of('party time'),
         }
