@@ -1,14 +1,13 @@
 from django.shortcuts import render, redirect
-from django.shortcuts import HttpResponse
-from . import models
-from . import forms
+from Tutorship import models
+from Tutorship import forms
 from UserAuthentication.models import User
 from Resource.models import Resource
 from Resource.forms import ResourceForm
 from Course.models import Course
 from Modality.models import Modality
 from Session.models import Session
-# Create your views here.
+
 
 def tutor_create_tutorship(request):
     user: User = User.objects.get(pk=request.user.id)
@@ -40,7 +39,7 @@ def tutor_create_tutorship(request):
             tutorshipAvailableSchedule.save()
 
         #if form3.is_valid():
-            resource = Resource(name=form.cleaned_data['name'], 
+            resource = Resource(name=form.cleaned_data['name'],
                                 is_public=form.cleaned_data['is_public'],
                                 description=form.cleaned_data['description'],
                                 url=form.cleaned_data['url'],

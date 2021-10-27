@@ -11,8 +11,14 @@ class User(models.Model):
     type = models.IntegerField()
     photo_profile = models.CharField(max_length=300)
 
+    def is_student(self):
+        return self.type == 1
+
+    def is_tutor(self):
+        return self.type == 2
+
     def is_admin(self):
-        return True if self.type == 3 else False
+        return self.type == 3
 
     class Meta:
         verbose_name = 'User'

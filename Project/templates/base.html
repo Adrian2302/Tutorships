@@ -1,9 +1,9 @@
-  {% load socialaccount %}
 <!DOCTYPE html>
+  {% load socialaccount %}
 <html>
   {% include "baseHead.html" %}
   <body>
-  
+
     <nav class="navbar navbar-dark bg-dark ml-auto">
       <ul class="navbar-nav ml-auto">
           {% if user.is_authenticated %}
@@ -26,7 +26,8 @@
       </ul>
     </nav>
 
-    {% block content %}{% endblock content %}
+    {% block content %}
+    {% endblock content %}
     
   </body>
   
