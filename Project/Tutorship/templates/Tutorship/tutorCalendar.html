@@ -58,7 +58,9 @@
                 console.log('clicked event')
             },
             editable: true,
-            dayMaxEvents: true,
+            allDay: false,
+            nextDayThreshold: '00:00',
+            displayEventTime: false,
             events: [
                 {% for event in events %}
                     {

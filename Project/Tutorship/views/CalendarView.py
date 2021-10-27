@@ -7,7 +7,7 @@ from Tutorship import models
 
 
 def create_context(user: User, form: TutorshipForm):
-    events = models.TutorAvailableSchedule.objects.filter(
+    events = models.TutorshipAvailableSchedule.objects.filter(
         user=user
     ).order_by('start_time')
     event_list = []
@@ -17,8 +17,8 @@ def create_context(user: User, form: TutorshipForm):
                 'message': "Reservado: "
                            + event.start_time.strftime("%H:%M")
                            + " - " + event.end_time.strftime("%H:%M"),
-                'start': event.start_time.strftime("%Y-%m-%d"),
-                'end': event.end_time.strftime("%Y-%m-%d"),
+                'start': event.start_time.strftime("%Y-%m-%d %H:%M"),
+                'end': event.end_time.strftime("%Y-%m-%d %H:%M"),
             }
         )
     context = {
@@ -45,7 +45,7 @@ class CalendarView(generic.View):
         form = self.form_class(request.POST)
         user: User = User.objects.get(pk=request.user.id)
         if form.is_valid():
-            scheduled_block: TutorAvailableSchedule = models.TutorAvailableSchedule(
+            scheduled_block = models.TutorshipAvailableSchedule(
                 user_id=user.id,
                 start_time=form.cleaned_data['start_time'],
                 end_time=form.cleaned_data['end_time'],
