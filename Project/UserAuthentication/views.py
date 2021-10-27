@@ -18,7 +18,7 @@ def index(request):
 
         return HttpResponse("Hello")
     else:
-        return render(request, "UserAuthentication/index.html")
+        return render(request, "Student/index.html")
     
 
 def login(request):
