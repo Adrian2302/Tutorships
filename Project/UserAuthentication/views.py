@@ -13,17 +13,18 @@ def index(request):
 
         user: User = models.User.objects.get(pk=request.user.id)
 
-        if user.type == 3:
+        if user.is_tutor():
+            return render(request, "UserAuthentication/tutorLogin.html")
+        elif user.is_admin():
             return render(request, "UserAuthentication/adminLogin.html")
-
-        return HttpResponse("Hello")
+        else:
+            return HttpResponse("Hello")
     else:
         return render(request, "UserAuthentication/index.html")
     
 
 def login(request):
     if models.User.objects.filter(pk=request.user.id).exists():
-        print("ee")
         return redirect('index')
     else:
         form = forms.UserForm(request.POST or None)
