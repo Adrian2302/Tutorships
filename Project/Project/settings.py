@@ -160,6 +160,8 @@ BOOTSTRAP4 = {
     'include_jquery': True,
 }
 
+PAGE_SIZE = 10
+
 LOGIN_REDIRECT_URL = 'login'
 LOGOUT_REDIRECT_URL = '/'
 
