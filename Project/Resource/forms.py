@@ -31,8 +31,7 @@ class ResourceForm(forms.ModelForm):
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'is_public': forms.RadioSelect(choices=[(True, 'Yes'),
-                                                                        (False, 'No')]),
+            'is_public': forms.RadioSelect(choices=[(True, 'Yes'), (False, 'No')]),
             'description': forms.TextInput(attrs={'class': 'form-control'}),
             'url': forms.TextInput(attrs={'class': 'form-control'}),
             'author': forms.TextInput(attrs={'class': 'form-control'}),

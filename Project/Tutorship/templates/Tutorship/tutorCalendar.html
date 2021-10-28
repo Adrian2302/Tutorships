@@ -4,14 +4,12 @@
     <head>
         {% include "baseHead.html" %}
         <link rel="stylesheet" href="{% static 'fullcalendar/lib/main.css' %}">
-
     </head>
     <body>
         {% include "tutorHeader.html" %}
     <div class="container mt-2">
         <div id="calendar">
         </div>
-
         <div class="modal fade show" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -30,8 +28,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button id="modalClose2" type="button" class="btn btn-danger">Close</button>
-                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button id="modalClose2" type="button" class="btn btn-danger">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
                             </div>
                         </form>
                     </div>

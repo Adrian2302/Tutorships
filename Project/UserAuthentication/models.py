@@ -1,4 +1,5 @@
 from django.db import models
+from Course.models import Course
 
 
 # Create your models here.
@@ -24,3 +25,9 @@ class User(models.Model):
         verbose_name = 'User'
         verbose_name_plural = 'Users'
         db_table = 'User'
+
+
+class TutorCourse(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+
