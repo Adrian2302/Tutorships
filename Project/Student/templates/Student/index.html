@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="container-fluid" style="margin-top: 4vw;">
+    <h1 class="text-center" id="header1">Bienvenido(a)</h1>
+    <form action="student/search" method = "GET" style="margin-top: 2vw;">
+      <div class="form-row align-items-center justify-content-center">
+        <div class="col-md-3 my-1 text-center">
+          <input type="text" class="form-control" name="search_query" placeholder="Ejemplo: Informática">
+        </div>
+        <div class="col-auto my-1 text-center">
+          <input type="submit" class="btn btn-primary" value="Buscar">
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+  
+{% endblock content %}
