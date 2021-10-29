@@ -14,7 +14,7 @@ class UserForm(forms.ModelForm):
         labels = {
             'name': 'Nombre',
             'lastname': 'Apellido',
-            'type': 'Choose your poison'
+            'type': 'Registrarse como'
         }
 
         widgets = {

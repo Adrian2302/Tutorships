@@ -1,4 +1,5 @@
 from django.db import models
+from Tutorship.models import Tutorship
 
 
 # Create your models here.
@@ -13,4 +14,5 @@ class Resource(models.Model):
 
 class ResourceTutorship(models.Model):
     """Model for the relation between Resource and Tutorship."""
-    id_resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
+    resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
+    tutorship = models.ForeignKey(Tutorship, on_delete=models.CASCADE, null=True)
