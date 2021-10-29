@@ -28,16 +28,17 @@ class CourseView(generic.View):
         return redirect('index')
 
     def post(self, request):
-        uxer: User = None
         user: User = User.objects.get(pk=request.user.id)
         if user.is_tutor():
-            choice = request.POST.get('choices')
-
-            if choice is not None and int(choice) > -1 :
-                user: User = User.objects.get(pk=request.user.id)
-                course = Course.objects.get(pk=choice)
-                tutor_course = TutorCourse(user=user, course=course)
-                tutor_course.save()
+            dic = {'user': user}
+            choiceForm = AddCourseForm(request.POST or None, **dic)
+            if choiceForm.is_valid():
+                choice = choiceForm.cleaned_data['choices']
+                print(choice)
+                if choice is not None and choice != '' :
+                    course = Course.objects.get(course_name=choice)
+                    tutor_course = TutorCourse(user=user, course=course)
+                    tutor_course.save()
 
         return redirect('index')
 
