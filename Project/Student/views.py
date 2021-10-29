@@ -13,8 +13,8 @@ def student_index(request):
 
     
 def search_course(request): 
-    search_query = request.GET.get('search_query')
-    page_number = request.GET.get('page')
+    search_query = request.GET.get('buscar')
+    page_number = request.GET.get('pagina')
 
     if search_query=="all":
         results = Course.objects.all()
