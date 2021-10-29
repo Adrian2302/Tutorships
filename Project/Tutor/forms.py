@@ -76,16 +76,18 @@ class ProfilePaymentForm(forms.Form):
 class AddCourseForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
-        
-        user = kwargs.pop('user')
-        super(AddCourseForm, self).__init__(*args, **kwargs)
-        
-        user_courses = TutorCourse.objects.filter(user_id=user.id).values('course_id')
+        if kwargs.get('user'):
+            user = kwargs.pop('user')
+            super(AddCourseForm, self).__init__(*args, **kwargs)
+            
+            user_courses = TutorCourse.objects.filter(user_id=user.id).values('course_id')
 
-        if user_courses is not None and user_courses.count() > 0:
-            not_added_courses = Course.objects.exclude(id__in = user_courses)
-            self.fields['choices'].queryset = not_added_courses
-
+            if user_courses is not None and user_courses.count() > 0:
+                not_added_courses = Course.objects.exclude(id__in = user_courses)
+                self.fields['choices'].queryset = not_added_courses
+        else:
+            super(AddCourseForm, self).__init__(*args, **kwargs)
+    
     fields = ['course_name']
 
     choices = forms.ModelChoiceField(widget=forms.Select(

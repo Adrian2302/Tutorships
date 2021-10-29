@@ -30,8 +30,7 @@ class CourseView(generic.View):
     def post(self, request):
         user: User = User.objects.get(pk=request.user.id)
         if user.is_tutor():
-            dic = {'user': user}
-            choiceForm = AddCourseForm(request.POST or None, **dic)
+            choiceForm = AddCourseForm(request.POST or None)
             if choiceForm.is_valid():
                 choice = choiceForm.cleaned_data['choices']
                 print(choice)
