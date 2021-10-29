@@ -13,6 +13,6 @@ class Resource(models.Model):
 
 
 class ResourceTutorship(models.Model):
-    """Model for the relation between Resource and Tutorship."""
+    """Model for the relation between Resource and Tutor."""
     resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
     tutorship = models.ForeignKey(Tutorship, on_delete=models.CASCADE, null=True)

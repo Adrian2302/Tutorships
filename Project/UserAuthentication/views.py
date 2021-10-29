@@ -3,9 +3,10 @@ from django.shortcuts import HttpResponse
 from . import models
 from . import forms
 
-# Create your views here.
 from .forms import NewAdminForm
 from .models import User
+
+from Tutor.models import Tutor
 
 
 def index(request):
@@ -34,6 +35,12 @@ def login(request):
                                name=form.cleaned_data['name'], lastname=form.cleaned_data['lastname'],
                                type=form.cleaned_data['type'])
             user.save()
+
+            # if the user is a tutor save the tutor object as well.
+            if user.is_tutor():
+                tutor = Tutor(user=user)
+                tutor.save()
+
         context = {
             'form': form,
             'email': request.user.email

@@ -1,24 +1,18 @@
 from django.views import generic
 from django.views.generic.edit import CreateView
 from django import forms
-from Tutorship.forms import TutorshipForm
-from Tutorship.forms import ProfileForm
-from Tutorship.forms import ProfilePaymentForm
-from Tutorship.forms import ProfileSessionForm
-from Tutorship.forms import ProfileModalityForm
+from Tutor.forms import ProfileForm
+from Tutor.forms import ProfilePaymentForm
+from Tutor.forms import ProfileSessionForm
+from Tutor.forms import ProfileModalityForm
 from UserAuthentication.models import User
 from django.shortcuts import render, redirect
-from Tutorship import models
 
 
-def create_context(user: User,
-                   form,
+def create_context(form,
                    payment_form,
                    session_form,
                    modality_form):
-    # events = models.TutorshipAvailableSchedule.objects.filter(
-    #     user=user
-    # ).order_by('start_time')
     context = {
         'form': form,
         'payment_form': payment_form,
@@ -29,7 +23,7 @@ def create_context(user: User,
 
 
 class ProfileView(generic.View):
-    template_name = 'Tutorship/tutorProfile.html'
+    template_name = 'Tutor/tutorProfile.html'
     user: User = None
     form_class: ProfileForm = ProfileForm
 
@@ -41,8 +35,7 @@ class ProfileView(generic.View):
         modality_form = ProfileModalityForm(request.GET or None)
 
         if user.is_tutor():
-            return render(request, self.template_name, create_context(user,
-                                                                      form,
+            return render(request, self.template_name, create_context(form,
                                                                       payment_form,
                                                                       session_form,
                                                                       modality_form

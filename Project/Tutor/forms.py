@@ -7,9 +7,9 @@ from django import forms
 from bootstrap_datepicker_plus import DateTimePickerInput
 
 
-class TutorshipForm(forms.ModelForm):
+class TutorScheduleForm(forms.ModelForm):
     class Meta:
-        model = models.TutorshipAvailableSchedule
+        model = models.TutorAvailableSchedule
         fields = ['start_time', 'end_time']
         labels = {
             'start_time': 'Inicio del bloque',
