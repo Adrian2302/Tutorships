@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'Payment',
     'Tutorship',
     'Course',
+    'Student',
     'bootstrap4',
     'bootstrap_datepicker_plus',
 ]
@@ -162,6 +163,8 @@ SITE_ID = 6
 BOOTSTRAP4 = {
     'include_jquery': True,
 }
+
+PAGE_SIZE = 10
 
 LOGIN_REDIRECT_URL = 'login'
 LOGOUT_REDIRECT_URL = '/'

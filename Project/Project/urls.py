@@ -27,4 +27,5 @@ urlpatterns = [
     path('', include("Payment.urls")),
     path('', include("Tutorship.urls")),
     path('', include("Course.urls")),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('', include("Student.urls")),
+]
