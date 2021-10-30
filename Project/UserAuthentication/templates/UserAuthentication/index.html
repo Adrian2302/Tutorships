@@ -1,8 +1,0 @@
-{% extends "base.html" %}
-
-{% block content %}
-  <h1 id="header1">Página principal</h1>
-  {% if user.is_authenticated %}
-  <p id="paragraph_login">Bienvenido(a), {{ user.username }}!</p>
-  {% endif %}
-{% endblock content %}

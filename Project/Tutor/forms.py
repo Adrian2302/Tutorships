@@ -1,9 +1,12 @@
+from django.db.models import fields, query
+from UserAuthentication.models import User
 from . import models
 from UserAuthentication.models import TutorCourse
 from Payment.models import Payment
 from Modality.models import Modality
 from Session.models import Session
 from Tutor.models import Tutor
+from Course.models import Course
 from django import forms
 from bootstrap_datepicker_plus import DateTimePickerInput
 
@@ -119,3 +122,26 @@ class ProfilePaymentForm(forms.Form):
         else:
             super(ProfilePaymentForm, self).__init__(*args, **kwargs)
 
+class AddCourseForm(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+        if kwargs.get('user'):
+            user = kwargs.pop('user')
+            super(AddCourseForm, self).__init__(*args, **kwargs)
+            
+            user_courses = TutorCourse.objects.filter(user_id=user.id).values('course_id')
+
+            if user_courses is not None and user_courses.count() > 0:
+                not_added_courses = Course.objects.exclude(id__in = user_courses)
+                self.fields['choices'].queryset = not_added_courses
+        else:
+            super(AddCourseForm, self).__init__(*args, **kwargs)
+    
+    fields = ['course_name']
+
+    choices = forms.ModelChoiceField(widget=forms.Select(
+       attrs={'class': 'custom-select'}),
+       queryset=Course.objects.all(),
+       empty_label=None)
+       
+    choices.label = ''
