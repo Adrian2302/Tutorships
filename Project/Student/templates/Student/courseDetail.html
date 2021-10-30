@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+    <div class="container">
+    <select class="selectpicker form-control messagelist">
+        {% for tutor in tutors %}
+            <option value="{{tutor.id}}">{{tutor.name}}  {{tutor.lastname}}</option>
+        {% endfor %}
+    </select>
+
+</div>
+
+
+<script>
+  $('select').selectpicker();
+</script>
+
+{% endblock content %}

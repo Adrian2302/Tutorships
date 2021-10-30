@@ -6,12 +6,12 @@ from django.conf import settings
 from Course.models import Course
 from Session.models import Session
 from Modality.models import Modality
+from UserAuthentication.models import TutorCourse, User
 # Create your views here.
 
 def student_index(request):
     return render(request, 'Student/index.html')
 
-    
 def search_course(request): 
     search_query = request.GET.get('buscar')
     page_number = request.GET.get('pagina')
@@ -41,3 +41,16 @@ def search_course(request):
         'modals': modals
     }
     return render(request, "Student/search.html", context)
+
+def course_detail(request, course_name):
+    if request.user.is_authenticated:
+        course = Course.objects.get(course_name=course_name)
+        tutors = TutorCourse.objects.filter(course_id = course).values("user")
+        tutors_display = User.objects.filter(id__in=tutors)
+
+        context={
+            "tutors": tutors_display
+        }
+        return render(request, "Student/courseDetail.html", context)
+    else:
+        return redirect('index')
