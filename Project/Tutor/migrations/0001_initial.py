@@ -9,28 +9,28 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('Course', '0001_initial'),
+        ('UserAuthentication', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Tutorship',
+            name='TutorAvailableSchedule',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('max_people', models.IntegerField()),
-                ('state', models.IntegerField(default=0)),
                 ('start_time', models.DateTimeField()),
                 ('end_time', models.DateTimeField()),
-                ('name', models.CharField(max_length=80)),
-                ('description', models.CharField(max_length=250)),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='UserAuthentication.user')),
             ],
         ),
         migrations.CreateModel(
-            name='TutorshipCourse',
+            name='Tutor',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('course', models.ForeignKey(default=0, on_delete=django.db.models.deletion.CASCADE, to='Course.course')),
-                ('tutorship', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Tutorship.tutorship')),
+                ('amount_per_person', models.IntegerField()),
+                ('increment_per_half_hour', models.IntegerField()),
+                ('type_session', models.IntegerField()),
+                ('type_mode', models.IntegerField()),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='UserAuthentication.user')),
             ],
         ),
     ]

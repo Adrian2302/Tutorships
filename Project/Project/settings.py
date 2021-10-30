@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'Modality',
     'Session',
     'Payment',
+    'Tutor',
     'Tutorship',
     'Course',
     'Student',
