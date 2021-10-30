@@ -7,6 +7,10 @@ from Tutor.forms import ProfileSessionForm
 from Tutor.forms import ProfileModalityForm
 from UserAuthentication.models import User
 from django.shortcuts import render, redirect
+from Tutor.models import Tutor
+from Session.models import Session
+from Modality.models import Modality
+from Payment.models import Payment
 
 
 def create_context(form,
@@ -29,10 +33,10 @@ class ProfileView(generic.View):
 
     def get(self, request):
         user: User = User.objects.get(pk=request.user.id)
-        form = ProfileForm(request.GET or None)
-        payment_form = ProfilePaymentForm(request.GET or None)
-        session_form = ProfileSessionForm(request.GET or None)
-        modality_form = ProfileModalityForm(request.GET or None)
+        form = ProfileForm(request.GET or None, **{'user': user})
+        payment_form = ProfilePaymentForm(request.GET or None, **{'user': user})
+        session_form = ProfileSessionForm(request.GET or None, **{'user': user})
+        modality_form = ProfileModalityForm(request.GET or None, **{'user': user})
 
         if user.is_tutor():
             return render(request, self.template_name, create_context(form,
@@ -44,14 +48,24 @@ class ProfileView(generic.View):
             redirect('index')
 
     def post(self, request):
-        # form = self.form_class(request.POST)
-        # user: User = User.objects.get(pk=request.user.id)
-        # if form.is_valid():
-        #     scheduled_block = models.TutorshipAvailableSchedule(
-        #         user_id=user.id,
-        #         start_time=form.cleaned_data['start_time'],
-        #         end_time=form.cleaned_data['end_time'],
-        #     )
-        #     scheduled_block.save()
-        # return render(request, self.template_name, create_context(user, form))
-        pass
+        form = ProfileForm(request.POST or None)
+        payment_form = ProfilePaymentForm(request.POST or None)
+        session_form = ProfileSessionForm(request.POST or None)
+        modality_form = ProfileModalityForm(request.POST or None)
+
+        if form.is_valid() and payment_form.is_valid() and session_form.is_valid() and modality_form.is_valid():
+            tutor = Tutor.objects.get(user_id=request.user.id)
+            tutor.amount_per_person = form.cleaned_data['tutorship_price']
+            tutor.increment_per_half_hour = form.cleaned_data['increment_half_hour']
+            tutor.payment_type = Payment.objects.get(
+                name=payment_form.cleaned_data['choices_payment'])
+            tutor.session_type = Session.objects.get(
+                name=session_form.cleaned_data['choices_session'])
+            tutor.modality_type = Modality.objects.get(
+                name=modality_form.cleaned_data['choices_modality'])
+            tutor.save()
+
+        return render(request, self.template_name, create_context(form,
+                                                                  payment_form,
+                                                                  session_form,
+                                                                  modality_form))
