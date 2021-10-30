@@ -45,7 +45,7 @@ class ProfileView(generic.View):
                                                                       modality_form
                                                                       ))
         else:
-            redirect('index')
+            return redirect('index')
 
     def post(self, request):
         form = ProfileForm(request.POST or None)

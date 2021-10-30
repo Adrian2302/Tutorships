@@ -12,6 +12,9 @@ class User(models.Model):
     type = models.IntegerField()
     photo_profile = models.CharField(max_length=300)
 
+    def get_full_name(self):
+        return self.name + " " + self.lastname
+
     def is_student(self):
         return self.type == 1
 

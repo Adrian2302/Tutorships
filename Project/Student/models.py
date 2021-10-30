@@ -30,8 +30,8 @@ class Request(models.Model):
         (PLACE, 'Lugar físico'),
     )
 
-    tutorship = models.ForeignKey(Tutorship, on_delete=models.CASCADE)
     user_requester = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_requester')
+    tutor_requested = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tutor_requested')
     num_requesters = models.IntegerField(default=0)
     state = models.CharField(max_length=2, choices=STATUS_CHOICES, default=PENDING)
     meeting_type = models.CharField(max_length=2, choices=MEETING_CHOICES, default=ZOOM)
@@ -41,6 +41,14 @@ class Request(models.Model):
     date_end = models.DateTimeField()                               # Fecha de fin solicitada para la tutoría.
     date_request = models.DateTimeField(auto_now_add=True)          # Fecha de solicitud de tutoría.
     date_resolution = models.DateTimeField()                        # Fecha de resolución de tutoría.
+
+    def display_fullname_requester(self):
+        return self.user_requester.get_full_name()
+
+    def display_meeting_type(self):
+        for choice in self.MEETING_CHOICES:
+            if choice[0] == self.meeting_type:
+                return choice[1]
 
 
 class Requesters(models.Model):
