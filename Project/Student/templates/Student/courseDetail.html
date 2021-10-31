@@ -7,7 +7,11 @@
     </head>
  
     <body>
-        <br>
+    
+        {% include "studentHeader.html" %}
+
+        </br>
+        
         <div class="container mt-2">
             <form method = "POST">
                 {% csrf_token %}
@@ -41,6 +45,8 @@
 
                         <form action="{{course}}/agendar" method="GET" id="form_report">
                             <input type="hidden" name="tutor" value="{{email_selected_tutor}}">
+                            <input type="hidden" name="curso" value="{{email_selected_tutor}}">
+
                             <div class="modal-body">
                                 <div class="container">
                                     <div class="form-group">
@@ -147,7 +153,7 @@
 
             $("#starting_hour").on('change', function(){
                 $("#ending_hour").empty();
-                $("#ending_hour").append("<option selected> Ningun incremento </option>");
+                $("#ending_hour").append("<option selected value=0> Ningun incremento </option>");
                 $("#ending_hour").selectpicker("refresh");
 
                 if (parseInt($("#starting_hour").val()) < ending_hour - 1){
