@@ -18,10 +18,7 @@ def index(request):
             return render(request, "UserAuthentication/tutorLogin.html")
         elif user.is_admin():
             return render(request, "UserAuthentication/adminLogin.html")
-        else:
-            return HttpResponse("Hello")
-    else:
-        return render(request, "Student/index.html")
+    return render(request, "Student/index.html")
     
 
 def login(request):
