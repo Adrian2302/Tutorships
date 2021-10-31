@@ -2,10 +2,6 @@ from django.views import generic
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView
 from django import forms
-from Tutor.forms import ProfileForm
-from Tutor.forms import ProfilePaymentForm
-from Tutor.forms import ProfileSessionForm
-from Tutor.forms import ProfileModalityForm
 from UserAuthentication.models import User
 from django.shortcuts import render, redirect
 from Tutor.models import Tutor
@@ -17,7 +13,7 @@ from Student.models import Requesters
 
 
 def create_context(user):
-    query_set = list(Request.objects.filter(tutor_requested_id=user, state='PN'))
+    query_set = list(Request.objects.filter(tutor_requested_id=user, state='PN').order_by('date_start'))
     context = {'requests': query_set}
     return context
 
@@ -25,7 +21,6 @@ def create_context(user):
 class PendingRequestView(generic.View):
     template_name = 'Tutor/tutorRequest.html'
     user: User = None
-    form_class: ProfileForm = ProfileForm
 
     def get(self, request, request_pk=None):
         user = User.objects.get(pk=request.user.id)

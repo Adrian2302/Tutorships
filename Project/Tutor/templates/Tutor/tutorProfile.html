@@ -1,36 +1,21 @@
 <!DOCTYPE html>
-
+{% load static %}
+{% load crispy_forms_tags %}
 <html>
     <head>
         {% include "baseHead.html" %}
+        <link rel="stylesheet" href="{% static 'css/profile_main.css' %}">
     </head>
     <body>
         {% include "tutorHeader.html" %}
-        <div class = "container-md" style = "margin-top: 1.5vw;">
+        <div class="container-md" id="main_container">
             <form method = "POST">
                 {% csrf_token %}
-                <h2>Configuración</h2>
-                <section class="form-row">
+                <div class="form-row">
                     <div class="col-md-8 offset-md-2 mt-2">
-                        <table class="table">
-                            {{ form.as_table }}
-                            <div class="form-check" id="form_session">
-                                {{ session_form.as_table }}
-                            </div>
-                            <div class="form-check">
-                                {{ modality_form.as_table }}
-                            </div>
-                            <div class="form-check">
-                                {{ payment_form.as_table }}
-                            </div>
-                        </table>
+                        {% crispy form %}
                     </div>
-                </section>
-                <section class="row">
-                    <div class="col-md-8 offset-md-2 mt-2">
-                        <button type="submit" class="btn btn-primary ml-1 float-right">Guardar</button>
-                    </div>
-                </section>
+                </div>
             </form>
         </div>
     </body>

@@ -9,4 +9,6 @@ urlpatterns = [
     path('cursos', views.CourseView.as_view(), name='tutor_courses'),
     path('pendientes', views.PendingRequestView.as_view(), name='tutor_pending_requests'),
     path(r'pendientes/<int:request_pk>', views.PendingRequestView.as_view(), name='tutor_pending_requests'),
+    path('aceptadas', views.AcceptedRequestView.as_view(), name='tutor_accepted_requests'),
+    path(r'aceptadas/<int:request_pk>', views.AcceptedRequestView.as_view(), name='tutor_accepted_requests'),
 ]
