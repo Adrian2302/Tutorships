@@ -1,6 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1> uga buga </h1>
-    <button onclick="window.print();return false;"/>
+    <div class="container">
+        </br>
+        {% if success %}
+            <div class="alert alert-success">
+                Se agendo la tutoria de manera correcta.
+            </div>
+        {% else %}
+            <div class="alert alert-danger">
+                Hubo un problema al agendar la tutoria, intentelo de nuevo más tarde.
+            </div>
+        {% endif %}
+        </br>
+        <a class="btn btn-primary float-right"  href={% url 'index' %} aria-controls="redirect to index">
+        Aceptar
+        </a>
+    </div>
 {% endblock content %}

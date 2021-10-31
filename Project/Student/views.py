@@ -113,7 +113,6 @@ def valid_comment(comment: str):
 
 def request_tutorship(request, course_name):
     if request.user.is_authenticated:
-        print(request.method)
         if request.method == 'GET':
             if check_values_get(request):
                 request_builder = Request()
@@ -143,7 +142,8 @@ def request_tutorship(request, course_name):
 
                 request_builder.save()
 
+                return render(request, "Student/reportRequest.html", {'success': True})
 
-                return render(request, "Student/reportRequest.html")
-
-        return HttpResponse("error")
+        return render(request, "Student/reportRequest.html", {'success': False})
+    else:
+        return redirect('index')
