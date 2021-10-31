@@ -24,14 +24,14 @@ class Request(models.Model):
     PLACE = 'PL'
     MEETING_CHOICES = (
         (ZOOM, 'Zoom'),
-        (DISCORD, 'Discord'),
+        (DISCORD, 'Discord'),   
         (MEETUP, 'Meetup'),
         (MICROSOFT_TEAMS, 'Microsoft Teams'),
         (PLACE, 'Lugar físico'),
     )
 
-    tutorship = models.ForeignKey(Tutorship, on_delete=models.CASCADE)
     user_requester = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_requester')
+    tutor_requested = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tutor_requested')
     num_requesters = models.IntegerField(default=0)
     state = models.CharField(max_length=2, choices=STATUS_CHOICES, default=PENDING)
     meeting_type = models.CharField(max_length=2, choices=MEETING_CHOICES, default=ZOOM)
@@ -41,6 +41,7 @@ class Request(models.Model):
     date_end = models.DateTimeField()                               # Fecha de fin solicitada para la tutoría.
     date_request = models.DateTimeField(auto_now_add=True)          # Fecha de solicitud de tutoría.
     date_resolution = models.DateTimeField()                        # Fecha de resolución de tutoría.
+
 
 
 class Requesters(models.Model):
