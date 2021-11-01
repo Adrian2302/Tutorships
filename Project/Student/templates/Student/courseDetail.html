@@ -65,36 +65,42 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info" viewBox="0 0 16 16">
                                                 <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
                                             </svg>
-                                            Las tutorias como minimo son de una hora y este tutor cobra.
+                                            Las tutorías como mínimo son de una hora.
+                                        </small>
+                                        <small id="hour_help" class="form-text text-muted">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info" viewBox="0 0 16 16">
+                                                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                            </svg>
+                                            {% if value_tutorship > 0 %}
+                                                Esta tutoría tiene un costo de {{value_tutorship}}.
+                                            {% else %}
+                                                Esta tutoría es gratis.
+                                            {% endif %}
                                         </small>
                                     </div>
                                 </div>
 
                                 <div class="container">
                                     <div class="form-group">
-                                        <label for="ending_hour">Hora final</label>
+                                        <label for="ending_hour"> Incremento </label>
                                         <select name="final" class="selectpicker form-control messagelist" id="ending_hour" >
-                                            <option selected disabled> Primero seleccione la hora final </option>
+                                            <option selected disabled> Primero seleccione la hora inicial </option>
                                         </select>
-                                        <small id="hour_help" class="form-text text-muted">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info" viewBox="0 0 16 16">
-                                                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-                                            </svg>
-                                            Por una tutoria regular de una hora este tuto cobra {{value_tutorship}}.
-                                        </small>
-                                        <small id="hour_add" class="form-text text-muted">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info" viewBox="0 0 16 16">
-                                                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-                                            </svg>
-                                            Este tutor cobra {{increment}} por cada media hora agredada.
-                                        </small>
+                                        {% if value_tutorship > 0 %}
+                                            <small id="hour_add" class="form-text text-muted">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info" viewBox="0 0 16 16">
+                                                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                                </svg>
+                                                Por cada media hora incrementada se cobrará una adicional de {{increment}}.
+                                            </small>
+                                        {% endif %}
                                     </div>
                                 </div>
 
                                 <div class="container">
-                                    <label for="select_session">Sesion</label>
+                                    <label for="select_session">Sesión</label>
                                     <select name="sesion" class="selectpicker form-control messagelist" id="select_session">
-                                        <option selected disabled value=""> -- Seleccione la sesion -- </option>
+                                        <option selected disabled value=""> -- Seleccione la sesión -- </option>
                                         {% for session in sessions %}
                                             <option value="{{session.name}}">{{session.name}}</option>
                                         {% endfor %}
@@ -110,7 +116,7 @@
                                         {% endfor %}
                                     </select>
                                 </div>
-
+                                </br>
                                 <div class="container">
                                     <label for="comment_student">Comentario</label>
                                     <textarea name="comentario" class="form-control" id="comment_student" rows="3"></textarea>
@@ -136,7 +142,7 @@
 
             var ending_hour = 0;
             $("#ending_hour").empty();
-            $("#ending_hour").append("<option selected disabled> Primero seleccione la hora final </option>");
+            $("#ending_hour").append("<option selected disabled> Primero seleccione la hora inicial </option>");
 
             $('#select_tutor').selectpicker();
     
@@ -146,7 +152,7 @@
 
             $("#modal_tutorship").on('hide.bs.modal', function (){
                 $("#ending_hour").empty();
-                $("#ending_hour").append("<option selected disabled> Primero seleccione la hora final </option>");
+                $("#ending_hour").append("<option selected disabled> Primero seleccione la hora inicial </option>");
                 $("#ending_hour").selectpicker("refresh");
 
             });
@@ -184,7 +190,7 @@
                     ending_hour = arg.event.end.getHours();
 
                     for(var hour = starting_hour; hour < ending_hour; hour++){
-                        $("#starting_hour").append('<option value="0'+hour+':00">0'+hour+':00</option>');
+                        $("#starting_hour").append('<option value="0'+hour+':00">'+hour+':00</option>');
                         $("#starting_hour").selectpicker("refresh");
                     }
                    
