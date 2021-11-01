@@ -24,7 +24,7 @@
                         <tbody>
                         {% for request in requests %}
                             <tr>
-                                <td class="text-center"><a href="#">{{request.get_full_name}}</a></td>
+                                <td class="text-center"><a href="#">{{request.user_requester.get_full_name}}</a></td>
                                 <td class="text-center">{{request.num_requesters}}</td>
                                 <td class="text-center">{{request.display_meeting_type}}</td>
                                 <td class="text-center">{{request.date_start}}</td>
