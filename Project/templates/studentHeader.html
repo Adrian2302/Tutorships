@@ -1,9 +1,26 @@
 {% load socialaccount %}
 
-<nav class="navbar navbar-dark bg-dark ml-auto">
-      <ul class="navbar-nav ml-auto">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'login' %}">Inicio</a>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav mr-auto">
+             <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarSessions" role="button" data-toggle="dropdown" aria-expanded="false">
+                Mis tutorías
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="{% url 'student_pending_request' %}">Pendientes</a></li>
+                    <li><a class="dropdown-item" href="{% url 'student_accepted_request' %}">Aceptadas</a></li>
+                    <li><a class="dropdown-item" href="{% url 'student_rejected_request' %}">Rechazadas</a></li>
+                    <li><a class="dropdown-item" href="{% url 'student_done_request' %}">Historial</a></li>
+                </ul>
+            </li>
+        </ul>
+        {% endif %}
+        <ul class="navbar-nav ml-auto">
           {% if user.is_authenticated %}
-            
             <a type="button" class="btn btn-primary" href="{% url 'logout' %}">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -11,7 +28,7 @@
               </svg>
             </a>
           {% else %}
-            <a type="button" class="btn btn-primary" href="{% provider_login_url 'google' %}"> 
+            <a type="button" class="btn btn-primary" href="{% provider_login_url 'google' %}">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
@@ -19,5 +36,7 @@
                 ACCEDER
             </a>
           {% endif %}
-      </ul>
-    </nav>
+        </ul>
+    </div>
+    </div>
+</nav>

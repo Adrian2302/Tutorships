@@ -8,18 +8,20 @@ from Session.models import Session
 from Modality.models import Modality
 from UserAuthentication.models import TutorCourse, User
 from Tutor.models import TutorAvailableSchedule, Tutor
+from Tutorship.models import Tutorship, TutorshipScore
 from Student.models import Request
 import datetime
-# Create your views here.
+
 
 def student_index(request):
     return render(request, 'Student/index.html')
 
-def search_course(request): 
+
+def search_course(request):
     search_query = request.GET.get('buscar')
     page_number = request.GET.get('pagina')
 
-    if search_query=="all":
+    if search_query == "all":
         results = Course.objects.all()
     else:
         if cache.get('latest_search') == search_query and cache.get('latest_results') is not None:
@@ -28,16 +30,16 @@ def search_course(request):
             results = Course.objects.filter(course_name__icontains=search_query)
             cache.set('latest_search', search_query)
         cache.set('latest_results', results)
-    
-    if search_query == None or search_query == "":
+
+    if search_query is None or search_query == "":
         redirect('index')
-    
+
     paginator = Paginator(results, settings.PAGE_SIZE)
     page_display = paginator.get_page(page_number)
     sessions = Session.objects.all()
     modals = Modality.objects.all()
-    
-    context={
+
+    context = {
         'latest_search': search_query,
         'results': page_display,
         'sessions': sessions,
@@ -45,16 +47,16 @@ def search_course(request):
     }
     return render(request, "Student/search.html", context)
 
-def get_context_view_calendar(tutor:User, course_name:str):
 
+def get_context_view_calendar(tutor: User, course_name: str):
     course = Course.objects.get(course_name=course_name)
-    tutors = TutorCourse.objects.filter(course_id = course).values("user")
+    tutors = TutorCourse.objects.filter(course_id=course).values("user")
     tutors_display = User.objects.filter(id__in=tutors)
-    
+
     if tutor is None:
-        tutor = tutors_display.first() 
-    
-    tutor_values= Tutor.objects.get(user=tutor)
+        tutor = tutors_display.first()
+
+    tutor_values = Tutor.objects.get(user=tutor)
     cache.set('tutor', tutor)
     events = TutorAvailableSchedule.objects.filter(
         user=tutor
@@ -68,8 +70,8 @@ def get_context_view_calendar(tutor:User, course_name:str):
                 'end': event.end_time.strftime("%Y-%m-%d %H:%M"),
             }
         )
-    sessions = Session.objects.filter(id__in = Tutor.objects.filter(user=tutor).values("session_type"))
-    modals = Modality.objects.filter(id__in = Tutor.objects.filter(user=tutor).values("modality_type"))
+    sessions = Session.objects.filter(id__in=Tutor.objects.filter(user=tutor).values("session_type"))
+    modals = Modality.objects.filter(id__in=Tutor.objects.filter(user=tutor).values("modality_type"))
     context = {
         'tutors': tutors_display,
         'events': event_list,
@@ -77,12 +79,13 @@ def get_context_view_calendar(tutor:User, course_name:str):
         'sessions': sessions,
         'modals': modals,
         'course': course_name,
-        'increment' : tutor_values.increment_per_half_hour,
+        'increment': tutor_values.increment_per_half_hour,
         'value_tutorship': tutor_values.amount_per_person,
         'email_selected_tutor': tutor.email
     }
 
     return context
+
 
 def course_detail(request, course_name):
     if request.user.is_authenticated:
@@ -94,22 +97,28 @@ def course_detail(request, course_name):
     else:
         return redirect('index')
 
+
 def check_values_get(request):
-    if request.GET.get('tutor') != None and request.GET.get('fecha') and request.GET.get('sesion') != None and request.GET.get('modalidad') != None and request.GET.get('inicial') != None and request.GET.get('final') != None:
+    if request.GET.get('tutor') is not None and request.GET.get('fecha') and request.GET.get(
+            'sesion') is not None and request.GET.get('modalidad') is not None and request.GET.get(
+        'inicial') is not None and request.GET.get('final') is not None:
         return True
     return False
+
 
 def get_added_hours(added_hours):
     if added_hours == "1":
-        return (1,30)
+        return 1, 30
     elif added_hours == "2":
-        return (2,0)
-    return (1,0)
+        return 2, 0
+    return 1, 0
+
 
 def valid_comment(comment: str):
-    if comment is not None and comment.replace(" ","") != "":
+    if comment is not None and comment.replace(" ", "") != "":
         return True
     return False
+
 
 def request_tutorship(request, course_name):
     if request.user.is_authenticated:
@@ -118,7 +127,7 @@ def request_tutorship(request, course_name):
                 request_builder = Request()
 
                 request_builder.user_requester = User.objects.get(id=request.user.id)
-                request_builder.tutor_requested = User.objects.get(email=request.GET.get('tutor')) 
+                request_builder.tutor_requested = User.objects.get(email=request.GET.get('tutor'))
                 request_builder.num_requesters = 1
                 request_builder.tutor_comment = None
 
@@ -132,9 +141,10 @@ def request_tutorship(request, course_name):
                 request_builder.course_requested = Course.objects.get(course_name=course_name)
 
                 start_date = datetime.datetime.strptime(request.GET.get('fecha'), "%d/%m/%Y")
-                start_date_end_values = start_date.replace(hour=int(request.GET.get('inicial').split(":")[0]), minute=int(request.GET.get('inicial').split(":")[1]))
+                start_date_end_values = start_date.replace(hour=int(request.GET.get('inicial').split(":")[0]),
+                                                           minute=int(request.GET.get('inicial').split(":")[1]))
                 hour, minutes = get_added_hours(request.GET.get('final'))
-                hours_added = datetime.timedelta(hours=hour , minutes= minutes)
+                hours_added = datetime.timedelta(hours=hour, minutes=minutes)
 
                 request_builder.date_start = start_date_end_values
                 request_builder.date_end = start_date_end_values + hours_added
@@ -145,5 +155,59 @@ def request_tutorship(request, course_name):
                 return render(request, "Student/reportRequest.html", {'success': True})
 
         return render(request, "Student/reportRequest.html", {'success': False})
+    else:
+        return redirect('index')
+
+
+def student_pending_request(request):
+    user = User.objects.get(pk=request.user.id)
+    if user.is_student():
+        query_set = list(Request.objects.filter(user_requester=user, state='PN').order_by('date_start'))
+        context = {'requests': query_set}
+        return render(request, "Student/studentRequest.html", context)
+    else:
+        return redirect('index')
+
+
+def student_accepted_request(request):
+    user = User.objects.get(pk=request.user.id)
+    if user.is_student():
+        query_set = list(Request.objects.filter(user_requester=user, state='AP').order_by('date_start'))
+        context = {'requests': query_set}
+        return render(request, "Student/studentRequest.html", context)
+    else:
+        return redirect('index')
+
+
+def student_rejected_request(request):
+    user = User.objects.get(pk=request.user.id)
+    if user.is_student():
+        query_set = list(Request.objects.filter(user_requester=user, state='DD').order_by('date_start'))
+        context = {'requests': query_set}
+        return render(request, "Student/studentRequest.html", context)
+    else:
+        return redirect('index')
+
+
+def student_done_tutorship(request):
+    user = User.objects.get(pk=request.user.id)
+    if user.is_student():
+        if request.method == 'POST':
+            id_request = request.POST.get('tutorship')
+            score = request.POST.get('score_options')
+            tutorship = Tutorship.objects.get(pk=id_request)
+
+            tutorship_score = TutorshipScore(
+                tutorship=tutorship,
+                score=score,
+            )
+            tutorship_score.save()
+            return redirect('student_done_request')
+
+        query_set = list(Tutorship.objects.filter(state='DN')
+                         .select_related('request')
+                         .filter(request__user_requester=user))
+        context = {'tutorships': query_set}
+        return render(request, "Student/studentHistory.html", context)
     else:
         return redirect('index')

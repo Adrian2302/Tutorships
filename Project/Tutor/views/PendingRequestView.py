@@ -10,6 +10,7 @@ from Modality.models import Modality
 from Payment.models import Payment
 from Student.models import Request
 from Student.models import Requesters
+from Tutorship.models import Tutorship
 
 
 def create_context(user):
@@ -34,6 +35,16 @@ class PendingRequestView(generic.View):
                 request = Request.objects.get(pk=request_pk, tutor_requested_id=user)
                 request.state = 'AP'
                 request.save()
+
+                tutorship = Tutorship(
+                    max_people=1,
+                    name='Tutoría',
+                    description='Descripción de tutoría',
+                    request=request
+                )
+
+                tutorship.save()
+
                 return redirect('tutor_pending_requests')
             return render(request, self.template_name, context=create_context(user))
         else:

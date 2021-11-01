@@ -12,6 +12,7 @@ class User(models.Model):
     type = models.IntegerField()
     photo_profile = models.CharField(max_length=300)
 
+    @property
     def get_full_name(self):
         return self.name + " " + self.lastname
 
