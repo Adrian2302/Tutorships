@@ -20,6 +20,10 @@ class Tutorship(models.Model):
     description = models.CharField(max_length=250)
     request = models.ForeignKey(Request, on_delete=models.CASCADE, blank=True, null=True)
 
+    def set_done(self):
+        self.state = self.DONE
+        self.save()
+
 
 class TutorshipScore(models.Model):
     """Model for the TutorshipScore"""

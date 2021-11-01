@@ -31,6 +31,8 @@ class AcceptedRequestView(generic.View):
             if request.GET.get('accion') == 'terminada':
                 request = Request.objects.get(pk=request_pk, tutor_requested_id=user)
                 request.set_done()
+                tutorship = Tutorship.objects.get(request=request)
+                tutorship.set_done()
                 return redirect('tutor_accepted_requests')
             return render(request, self.template_name, context=create_context(user))
         else:
