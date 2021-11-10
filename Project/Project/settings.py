@@ -34,13 +34,25 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'django.contrib.sites',
-    'UserAuthentication',
+    'django.contrib.staticfiles',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'Project',
+    'UserAuthentication',
+    'Resource',
+    'Modality',
+    'Session',
+    'Payment',
+    'Tutor',
+    'Tutorship',
+    'Course',
+    'Student',
+    'bootstrap4',
+    'bootstrap_datepicker_plus',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -58,7 +70,7 @@ ROOT_URLCONF = 'Project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR + '/' + 'Templates'],
+        'DIRS': [BASE_DIR + '/' + 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,8 +91,10 @@ WSGI_APPLICATION = 'Project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'TUTORSHIP_SYSTEM',
-        'HOST': 'DESKTOP-LRO1VU5',
+        'NAME': 'KAIZEN_TUTORSHIP_SYSTEM',
+        'USER': 'eq1',
+        'PASSWORD': 'kaizen1',
+        'HOST': '172.16.202.128',
         'PORT': '1433',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
@@ -122,7 +136,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/_static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, '_static')
+]
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -143,8 +160,14 @@ SOCIALACCOUNT_PROVIDERS = {
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
-SITE_ID = 3
+SITE_ID = 6
 
-LOGIN_REDIRECT_URL = '/'
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
+
+PAGE_SIZE = 10
+
+LOGIN_REDIRECT_URL = 'login'
 LOGOUT_REDIRECT_URL = '/'
 

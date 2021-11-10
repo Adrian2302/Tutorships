@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        {% include "baseHead.html" %}
+    </head>
+
+    <body>
+        {% include "tutorHeader.html" %}
+        <div class = "container-fluid">
+            <div class="form-check">
+                <form action="cursos" method = "POST" style="margin-top: 2vw;">
+                    {% csrf_token %}
+                    <div class="form-row justify-content-center">
+                        <div class="col-md-5 my-1 text-center">
+                            {{ add_course_form.as_p }}
+                        </div>
+                        <div class="col-auto my-1 text-center">
+                            <input type="submit" class="btn btn-primary" value="Agregar">
+                        </div>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </body>
+</html>

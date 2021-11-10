@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+   <head>
+        {% include "baseHead.html" %}
+        <link rel="stylesheet" href="{% static 'fullcalendar/lib/main.css' %}">
+    </head>
+ 
+    <body>
+    
+        {% include "studentHeader.html" %}
+
+        </br>
+        
+        <div class="container mt-2">
+            <form method = "POST">
+                {% csrf_token %}
+                <div class="container-fluid mt-4">
+                    <div class="container">
+                        <select name="tutor"class="selectpicker form-control messagelist" id="select_tutor">
+                            <option selected disabled> -- Seleccione el tutor -- </option>
+                            {% for tutor in tutors %}
+                                <option value="{{tutor.email}}">{{tutor.name}}  {{tutor.lastname}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <input type="submit" value="Submit" id="submit_tutor" hidden>
+            </form>
+
+            </br>
+
+            <h3> Calendarios de {{calendar_title}}</h3>
+            <div id="calendar"></div>
+            
+            <div class="modal fade" id="modal_tutorship" tabindex="-1" role="dialog" aria-labelledby="modalTutorshipLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="example_modal_label">Agendar tutoria</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <form action="{{course}}/agendar" method="GET" id="form_report">
+                            <input type="hidden" name="tutor" value="{{email_selected_tutor}}">
+                            <input type="hidden" name="curso" value="{{email_selected_tutor}}">
+
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="form-group">
+                                        <label for="date">Fecha</label>
+                                        <input type="text" name="fecha" class="form-control" id="date" value="" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="container">
+                                    <div class="form-group">
+                                        <label for="starting_hour">Hora inicio</label>
+                                        <select name="inicial" class="selectpicker form-control messagelist" id="starting_hour" required>
+                                            <option selected disabled> -- Seleccione la hora inicial -- </option>
+                                        </select>
+                                        <small id="help_tutorship" class="form-text text-muted">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info" viewBox="0 0 16 16">
+                                                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                            </svg>
+                                            Las tutorías como mínimo son de una hora.
+                                        </small>
+                                        <small id="hour_help" class="form-text text-muted">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info" viewBox="0 0 16 16">
+                                                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                            </svg>
+                                            {% if value_tutorship > 0 %}
+                                                Esta tutoría tiene un costo de {{value_tutorship}}.
+                                            {% else %}
+                                                Esta tutoría es gratis.
+                                            {% endif %}
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="container">
+                                    <div class="form-group">
+                                        <label for="ending_hour"> Incremento </label>
+                                        <select name="final" class="selectpicker form-control messagelist" id="ending_hour" >
+                                            <option selected disabled> Primero seleccione la hora inicial </option>
+                                        </select>
+                                        {% if value_tutorship > 0 %}
+                                            <small id="hour_add" class="form-text text-muted">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info" viewBox="0 0 16 16">
+                                                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                                </svg>
+                                                Por cada media hora incrementada se cobrará una adicional de {{increment}}.
+                                            </small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="container">
+                                    <label for="select_session">Sesión</label>
+                                    <select name="sesion" class="selectpicker form-control messagelist" id="select_session">
+                                        <option selected disabled value=""> -- Seleccione la sesión -- </option>
+                                        {% for session in sessions %}
+                                            <option value="{{session.name}}">{{session.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <br>
+                                <div class="container">
+                                    <label for="select_modality">Modalidad</label>
+                                    <select name="modalidad" class="selectpicker form-control messagelist" id="select_modality">
+                                        <option selected disabled> -- Seleccione la modalidad -- </option>
+                                        {% for modal in modals %}
+                                            <option value="{{modal.name}}">{{modal.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                </br>
+                                <div class="container">
+                                    <label for="comment_student">Comentario</label>
+                                    <textarea name="comentario" class="form-control" id="comment_student" rows="3"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Solicitar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script src="{% static 'fullcalendar/lib/main.js' %}"></script>
+    <script src="{% static 'fullcalendar/lib/locales/es.js' %}"></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function(){
+
+            var ending_hour = 0;
+            $("#ending_hour").empty();
+            $("#ending_hour").append("<option selected disabled> Primero seleccione la hora inicial </option>");
+
+            $('#select_tutor').selectpicker();
+    
+            $('#select_tutor').on('change', function(){
+                document.getElementById("submit_tutor").click();
+            });
+
+            $("#modal_tutorship").on('hide.bs.modal', function (){
+                $("#ending_hour").empty();
+                $("#ending_hour").append("<option selected disabled> Primero seleccione la hora inicial </option>");
+                $("#ending_hour").selectpicker("refresh");
+
+            });
+
+            $("#starting_hour").on('change', function(){
+                $("#ending_hour").empty();
+                $("#ending_hour").append("<option selected value=0> Ningun incremento </option>");
+                $("#ending_hour").selectpicker("refresh");
+
+                if (parseInt($("#starting_hour").val()) < ending_hour - 1){
+                    $("#ending_hour").append('<option value=1> 30 minutos </option>');
+                    $("#ending_hour").append('<option value=2> 1 hora </option>');
+                };
+                
+                $("#ending_hour").selectpicker("refresh");
+
+            });
+
+            
+            var calendarUI = document.getElementById('calendar')
+            var calendar = new FullCalendar.Calendar(calendarUI, {
+                locale: 'es',
+                selectable: false,
+                selectMirror: false,
+                eventClick: function(arg) {
+                    var month =  arg.event.start.getMonth() + 1
+                    document.getElementById("date").value = arg.event.start.getDate() + "/" + month + "/" + arg.event.start.getFullYear();
+                    
+                    $("#starting_hour").empty();
+
+                    $("#starting_hour").append("<option selected disabled> -- Seleccione la hora inicial -- </option>");
+                    
+                    
+                    var starting_hour = arg.event.start.getHours();
+                    ending_hour = arg.event.end.getHours();
+
+                    for(var hour = starting_hour; hour < ending_hour; hour++){
+                        $("#starting_hour").append('<option value="0'+hour+':00">'+hour+':00</option>');
+                        $("#starting_hour").selectpicker("refresh");
+                    }
+                   
+                    $("#modal_tutorship").modal('toggle');
+                },
+                editable: true,
+                nextDayThreshold: '00:00',
+                displayEventTime: false,
+                events: [
+                    {% for event in events %}
+                        {
+                            title: '{{event.message}}',
+                            start: '{{event.start}}',
+                            end: '{{event.end}}',
+                        },
+                    {% endfor %}
+                ]
+            });
+            calendar.render();
+        });
+
+    </script>
+</html>

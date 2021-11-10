@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        {% include "baseHead.html" %}
+    </head>
+    <body>
+        {% include "tutorHeader.html" %}
+        <div class = "container-fluid">
+            <div class="form-check">
+                <div class="col-md-8 offset-md-2 mt-2">
+                    <h2>{{message}}</h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="text-center">Solicitante</th>
+                            <th scope="col" class="text-center">Número de solicitantes</th>
+                            <th scope="col" class="text-center">Entorno</th>
+                            <th scope="col" class="text-center">Inicia</th>
+                            <th scope="col" class="text-center">Termina</th>
+                            <th scope="col" class="text-center"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for request in requests %}
+                            <tr>
+                                <td class="text-center"><a href="#">{{request.user_requester.get_full_name}}</a></td>
+                                <td class="text-center">{{request.num_requesters}}</td>
+                                <td class="text-center">{{request.display_meeting_type}}</td>
+                                <td class="text-center">{{request.date_start}}</td>
+                                <td class="text-center">{{request.date_end}}</td>
+                                <td><a href="aceptadas/{{request.id}}?accion=terminada" class="btn btn-primary">
+                                    Marcar como terminada</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
