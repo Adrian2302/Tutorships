@@ -5,6 +5,7 @@ from UserAuthentication.models import User
 from Student.models import Request
 from Tutorship.models import Tutorship
 
+
 def create_context(user):
     query_set = list(Request.objects.filter(tutor_requested_id=user, state='AP').order_by('date_start'))
     amount_accepted = len(query_set)

@@ -4,3 +4,7 @@ venv/
 */__pycache__/*
 **/**/__pycache__/*
 **/**/**/__pycache__/*
+geckodriver.log
+__pycache__/
+*.pyc
+
