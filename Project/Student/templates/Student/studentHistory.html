@@ -35,6 +35,13 @@
                         {% endfor %}
                         </tbody>
                     </table>
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-success text-center" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -74,6 +81,10 @@
                                     <label class="form-check-label" for="inlineRadio5">5</label>
                                 </div>
                                 </div>
+                            </div>
+                            <div class="container">
+                                <label for="comment_student">Comentario</label>
+                                <textarea name="comment_student" class="form-control" id="comment_student" rows="3"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">

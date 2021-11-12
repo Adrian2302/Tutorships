@@ -29,3 +29,4 @@ class TutorshipScore(models.Model):
     """Model for the TutorshipScore"""
     tutorship = models.ForeignKey(Tutorship, on_delete=models.CASCADE)
     score = models.IntegerField()
+    student_comment = models.TextField(null=True)
