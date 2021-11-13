@@ -4,7 +4,7 @@ from .doneTutorships import doneTutorships
 from .mainScreen import mainScreen
 from .pendingRequests import pendingRequests
 from .rejectedRequests import rejectedRequests
-from .requestTutorship import requestTutorship
+from .RequestTutorship import RequestTutorship
 from .searchCourse import searchCourse
 
 __all__ = [
@@ -14,6 +14,6 @@ __all__ = [
     mainScreen,
     pendingRequests,
     rejectedRequests,
-    requestTutorship,
+    RequestTutorship,
     searchCourse
 ]

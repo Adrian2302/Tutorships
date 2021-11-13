@@ -79,6 +79,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'custom_tag': 'templatetags.custom_tags',
+            }
         },
     },
 ]
@@ -170,4 +173,3 @@ PAGE_SIZE = 10
 
 LOGIN_REDIRECT_URL = 'login'
 LOGOUT_REDIRECT_URL = '/'
-

@@ -41,10 +41,10 @@ class Request(models.Model):
     meeting_type = models.CharField(max_length=2, choices=MEETING_CHOICES, default=ZOOM)
     tutor_comment = models.TextField(null=True)
     student_comment = models.TextField(null=True)
-    date_start = models.DateTimeField()  # Fecha de inicio solicitada para la tutoría.
-    date_end = models.DateTimeField()  # Fecha de fin solicitada para la tutoría.
-    date_request = models.DateTimeField(auto_now_add=True)  # Fecha de solicitud de tutoría.
-    date_resolution = models.DateTimeField(null=True)  # Fecha de resolución de tutoría.
+    date_start = models.DateTimeField()                         # Fecha de inicio solicitada para la tutoría.
+    date_end = models.DateTimeField()                           # Fecha de fin solicitada para la tutoría.
+    date_request = models.DateTimeField(auto_now_add=True)      # Fecha de solicitud de tutoría.
+    date_resolution = models.DateTimeField(null=True)           # Fecha de resolución de tutoría.
 
     def display_fullname_requester(self):
         return self.user_requester.get_full_name()

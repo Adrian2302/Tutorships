@@ -4,8 +4,10 @@ from django.shortcuts import redirect, render
 from UserAuthentication.models import User
 from Tutorship.models import Tutorship, TutorshipScore
 
+
 def create_context(query_set):
     return {'requests': query_set}
+
 
 class doneTutorships(generic.View):
 
@@ -14,8 +16,8 @@ class doneTutorships(generic.View):
         if user.is_student():
 
             query_set = list(Tutorship.objects.filter(state='DN')
-                            .select_related('request')
-                            .filter(request__user_requester=user))
+                             .select_related('request')
+                             .filter(request__user_requester=user))
             context = create_context(query_set)
             return render(request, "Student/studentHistory.html", context)
         else:
