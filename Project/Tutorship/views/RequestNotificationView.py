@@ -6,9 +6,8 @@ from django.shortcuts import redirect, render
 
 
 class RequestNotificationView(View):
-    def get(self, request, notification_pk, request_pk, *args, **kwargs):
+    def get(self, request, notification_pk, request_pk):
         notification = RequestNotification.objects.get(pk=notification_pk)
-        request = Request.objects.get(pk=request_pk)
 
         notification.seen = True
         notification.save()
