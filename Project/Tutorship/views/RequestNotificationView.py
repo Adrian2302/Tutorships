@@ -12,5 +12,10 @@ class RequestNotificationView(View):
         notification.seen = True
         notification.save()
 
-        return redirect('tutor_pending_requests', request_pk=request_pk)
+        if notification.is_new_request():
+            return redirect('tutor_pending_requests', request_pk=request_pk)
+        elif notification.is_accepted_request():
+            return redirect('student_accepted_request')
+        elif notification.is_rejected_request():
+            return redirect('student_rejected_request')
 
