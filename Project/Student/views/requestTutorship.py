@@ -61,17 +61,22 @@ def get_added_hours(added_hours):
     return 1, 0
 
 def set_all_guests_request(dict_values, request_tutorship):
+    new_num_requesters = 1
     for guest in dict_values['invitados']:
-        print(guest)
         resquester = Requesters()
         resquester.request = request_tutorship
         resquester.user_requester = User.objects.get(id=guest)
         resquester.save()
+        new_num_requesters += 1
+    return new_num_requesters
 
-def check_guests(dict_values):
-    if dict_values['sesion'] == "Grupal - Privada":
+def check_guests(dict_values, tutor):
+    if dict_values['sesion'] == "Grupal - Privada" :
         if 'invitados' in dict_values:
-            return True
+            if 50 >= len(dict_values['invitados']):
+                return True
+            else:
+                raise Exception("Se tuvieron más personas de que el tutor puede")
         else:
             raise Exception("No se han seleccionado invitados en una Grupal - Privada")
     return False
@@ -83,7 +88,6 @@ def request_maker(dict_values, course_name):
         user_requester = User.objects.get(id=dict_values['user_requester'].id)
         tutor_requested = User.objects.get(id=dict_values['tutor'])
 
-        num_requesters = 1
         
         session_requested = Session.objects.get(name=dict_values['sesion'])
         modality_requested = Modality.objects.get(name=dict_values['modalidad'])
@@ -99,11 +103,10 @@ def request_maker(dict_values, course_name):
 
         end_date = start_date + time_added
         
-        do_requesters = check_guests(dict_values)
+        do_requesters = check_guests(dict_values, tutor_requested)
             
         request_builder = Request.objects.create(user_requester=user_requester,
                                                  tutor_requested=tutor_requested,
-                                                 num_requesters=num_requesters,
                                                  session_requested=session_requested,
                                                  modality_requested=modality_requested,
                                                  course_requested=course_requested,
@@ -114,12 +117,12 @@ def request_maker(dict_values, course_name):
         if 'comentario' in dict_values:
            request_builder.student_comment = dict_values['comentario']
 
+        if do_requesters:
+            num_requesters = set_all_guests_request(dict_values, request_builder)
+            request_builder.num_requesters = num_requesters
+        
         request_builder.save()
 
-        print(request_builder.id)
-        if do_requesters:
-            set_all_guests_request(dict_values, request_builder)
-        
     except Exception as e:
         print(e)
         raise Exception("Unknown exception")
@@ -153,7 +156,8 @@ def create_context(schedule_id, user):
             'value_tutorship_person': tutor.amount_per_person,
             'increment': tutor.increment_per_half_hour,
             'date':str(schedule_selected.start_time.date()),
-            'students':all_students
+            'students':all_students,
+            'max_people': 50,
         })
 
         return context  
