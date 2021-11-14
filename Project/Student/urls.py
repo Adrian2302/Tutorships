@@ -5,7 +5,7 @@ urlpatterns = [
      path("estudiante", views.mainScreen.as_view(), name="index_student"),
      path(r'estudiante/buscar', views.searchCourse.as_view(), name="search"),
      path('estudiante/curso/<str:course_name>', views.displayCourseDetail.as_view(), name="course_detail"),
-     path('estudiante/curso/<str:course_name>/agendar', views.requestTutorship.as_view(), name="request_tutorship"),
+     path('estudiante/curso/<str:course_name>/agendar', views.RequestTutorship.as_view(), name="request_tutorship"),
 
      path('estudiante/tutoria/pendientes', views.pendingRequests.as_view(),name='student_pending_request'),
      path('estudiante/tutoria/aceptadas', views.acceptedRequests.as_view(), name='student_accepted_request'),

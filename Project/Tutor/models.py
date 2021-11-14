@@ -8,6 +8,7 @@ from Modality.models import Modality
 from Payment.models import Payment
 from UserAuthentication.models import User
 
+
 # Create your models here.
 class Tutor(models.Model):
     """Model for the Tutor"""
