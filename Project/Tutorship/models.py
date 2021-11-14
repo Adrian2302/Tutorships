@@ -31,6 +31,7 @@ class TutorshipScore(models.Model):
     """Model for the TutorshipScore"""
     tutorship = models.ForeignKey(Tutorship, on_delete=models.CASCADE)
     score = models.IntegerField()
+    student_comment = models.TextField(null=True)
 
 
 class RequestNotification(models.Model):
@@ -48,4 +49,5 @@ class RequestNotification(models.Model):
     from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='from_user', null=True)
     request = models.ForeignKey(Request, on_delete=models.CASCADE, null=True)
     date = models.DateTimeField(default=timezone.now)
-    seen = models.BooleanField(default=False)
+    seen = models.BooleanField(default=False) 
+
