@@ -19,7 +19,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" href="{% url 'add_course' %}">Agregar curso</a></li>
-            <li><a class="dropdown-item" href="#">Modificar curso</a></li>
+            <li><a class="dropdown-item" href="{% url 'edit_course' %}">Modificar curso</a></li>
             </ul>
         </li>
         <li class="nav-item dropdown">
@@ -28,7 +28,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" href="{% url 'add_resource' %}">Agregar recurso</a></li>
-            <li><a class="dropdown-item" href="#">Modificar recurso</a></li>
+            <li><a class="dropdown-item" href="{% url 'edit_resource' %}">Modificar recurso</a></li>
             </ul>
         </li>
         <li class="nav-item dropdown">
@@ -46,7 +46,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" href="{% url 'add_modality' %}">Agregar modalidad</a></li>
-            <li><a class="dropdown-item" href="#">Modificar modalidades</a></li>
+            <li><a class="dropdown-item" href="{% url 'edit_modality' %}">Modificar modalidades</a></li>
             </ul>
         </li>
         <li class="nav-item dropdown">
@@ -55,7 +55,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" href="{% url 'add_session' %}">Agregar sesión</a></li>
-            <li><a class="dropdown-item" href="#">Modificar modalidades</a></li>
+            <li><a class="dropdown-item" href="{% url 'edit_session' %}">Modificar sesiones</a></li>
             </ul>
         </li>
         <li class="nav-item dropdown">
@@ -64,7 +64,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" href="{% url 'add_payment' %}">Agregar retribución</a></li>
-            <li><a class="dropdown-item" href="#">Actualizar retribuciones</a></li>
+            <li><a class="dropdown-item" href="{% url 'edit_payment' %}">Modificar retribuciones</a></li>
             </ul>
         </li>
     </ul>
