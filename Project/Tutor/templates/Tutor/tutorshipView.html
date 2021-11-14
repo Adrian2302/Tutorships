@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        {% include "baseHead.html" %}
+    </head>
+    <body>
+        {% include "tutorHeader.html" %}
+        <div class = "container-fluid">
+            <div class="col-md-8 offset-md-2 mt-2">
+                <h2>{{tutorship_name}}</h2> <hr>
+                <h3>Descripción: {{tutorship_description}}</h3> <hr>
+                <h3>Cantidad máxima de personas: {{tutorship_max_people}}</h3> <hr>
+                <h3>Recursos de la tutoría:</h3>
+                {% for resource_name in resources %}
+                    <a href="http://{{resource_name.resource.url}}" target="_blank"> {{resource_name.resource.name}} </a>
+                {% endfor %} <br><br>
+
+                <a href="{% url 'tutor_accepted_requests' %}" class="btn btn-primary"> Volver </a>
+            </div>
+        </div>
+    </body>
+</html>
