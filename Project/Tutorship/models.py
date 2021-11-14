@@ -49,5 +49,16 @@ class RequestNotification(models.Model):
     from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='from_user', null=True)
     request = models.ForeignKey(Request, on_delete=models.CASCADE, null=True)
     date = models.DateTimeField(default=timezone.now)
-    seen = models.BooleanField(default=False) 
+    seen = models.BooleanField(default=False)
+
+    def is_new_request(self):
+        return self.notification_type == self.NEW_REQUEST
+
+    def is_accepted_request(self):
+        return self.notification_type == self.ACCEPTED_REQUEST
+
+    def is_rejected_request(self):
+        return self.notification_type == self.REJECTED_REQUEST
+
+
 

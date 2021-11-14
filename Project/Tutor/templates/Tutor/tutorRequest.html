@@ -30,9 +30,9 @@
                                 <td class="text-center">{{request.display_meeting_type}}</td>
                                 <td class="text-center">{{request.date_start}}</td>
                                 <td class="text-center">{{request.date_end}}</td>
-                                <td><a href="pendientes/{{request.id}}?accion=ver" class="btn btn-primary">Ver</a></td>
-                                <td><a href="pendientes/{{request.id}}?accion=aceptar" class="btn btn-success">Aceptar</a></td>
-                                <td><a href="pendientes/{{request.id}}?accion=rechazar" class="btn btn-danger">Rechazar</a></td>
+                                <td><a href="{% url 'tutor_pending_requests' request.id %}?accion=ver" class="btn btn-primary">Ver</a></td>
+                                <td><a href="{% url 'tutor_pending_requests' request.id %}?accion=aceptar" class="btn btn-success">Aceptar</a></td>
+                                <td><a href="{% url 'tutor_pending_requests' request.id %}?accion=rechazar" class="btn btn-danger">Rechazar</a></td>
                             </tr>
                         {% endfor %}
                         </tbody>
