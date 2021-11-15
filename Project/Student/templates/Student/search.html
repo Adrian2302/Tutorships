@@ -17,62 +17,6 @@
             </form>
         </div>
     </div>
-
-    <div id= "filters" class="col-lg-12 my-2 border-bottom border-dark">
-        <button type="button" id= "show_filters" class="btn btn-lg" style="background-color:transparent; box-shadow: none;" data-toggle="modal" data-target="#modalFilters">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter-circle" viewBox="0 0 16 16">
-                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                <path d="M7 11.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5z"/>
-            </svg>
-            Filtros
-        </button>
-
-        <div class="modal fade" id="modalFilters" tabindex="-1" role="dialog" aria-labelledby="modalFiltersLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Filtros</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="nameProfessor">
-                            <label class="custom-control-label" for="nameProfessor">   
-                            <label for="nameProfessor">Profesor</label>
-                            <input type="text" class="form-control" id="nameProfessor" placeholder="Luis Jimenez"></label>
-                        </div>
-                        <br>
-                        <div class="custom-control custom-checkbox">
-                            <h5>Sesiones</h5>
-                            <br>
-                            {% for session in sessions %}
-                                <input type="checkbox" class="custom-control-input" id="customCheck{{session.name}}">
-                                <label class="custom-control-label" for="customCheck{{session.name}}">{{session.name}}</label>
-                                <br>
-                            {% endfor %}
-                        </div>
-                        <br>
-                        <div class="custom-control custom-checkbox">
-                            <h5>Modalidades</h5>
-                            <br>
-                            {% for modal in modals %}
-                                <input type="checkbox" class="custom-control-input" id="customCheck{{modal.name}}">
-                                <label class="custom-control-label" for="customCheck{{modal.name}}">{{modal.name}}</label>
-                                <br>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary" onclick="sendFilters()">Filtrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
     <br>
 
     {% if not results %}
@@ -148,16 +92,6 @@
             </nav>
         {% endif %}
     {% endif %}
-
-    <script>
-        
-       function sendFilters(){
-            var search = document.getElementById("search_value").value;
-            var url = "buscar?buscar=" + search;
-            window.location.href = url;
-        }
-
-    </script>
 
 </div>
 {% endblock content %}
