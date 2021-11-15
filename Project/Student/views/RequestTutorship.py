@@ -1,10 +1,13 @@
-
 from datetime import datetime, timedelta
 from django.views import generic
 from django.shortcuts import redirect, render
 from django.core.cache import cache
 
 from Student.models import Request, Requesters
+from UserAuthentication.models import User
+from Session.models import Session
+from Modality.models import Modality
+from Course.models import Course
 from Tutor.models import TutorAvailableSchedule, Tutor
 from Payment.models import Payment
 from Tutorship.models import RequestNotification
@@ -41,19 +44,25 @@ def save_values_post(request):
 
     return dict_values
 
+
 def check_dict_value(dict_values):
     valid_keys = ('tutor', 'sesion', 'modalidad', 'inicial', 'final', 'fecha')
     return all(key in dict_values for key in valid_keys)
-from Tutorship.models import RequestNotification
 
 
-def check_values_get(request):
-    return request.GET.get('tutor') is not None \
-           and request.GET.get('fecha') \
-           and request.GET.get('sesion') is not None \
-           and request.GET.get('modalidad') is not None \
-           and request.GET.get('inicial') is not None \
-           and request.GET.get('final') is not None
+def valid_comment(comment: str):
+    if comment is not None and comment.replace(" ", "") != "":
+        return True
+    return False
+
+
+def get_added_hours(added_hours):
+    if added_hours == "1":
+        return 1, 30
+    elif added_hours == "2":
+        return 2, 0
+    return 1, 0
+
 
 def set_all_guests_request(dict_values, request_tutorship):
     new_num_requesters = 1
@@ -65,8 +74,9 @@ def set_all_guests_request(dict_values, request_tutorship):
         new_num_requesters += 1
     return new_num_requesters
 
+
 def check_guests(dict_values, tutor):
-    if dict_values['sesion'] == "Grupal - Privada" :
+    if dict_values['sesion'] == "Grupal - Privada":
         if 'invitados' in dict_values:
             if 50 >= len(dict_values['invitados']):
                 return True
@@ -76,13 +86,13 @@ def check_guests(dict_values, tutor):
             raise Exception("No se han seleccionado invitados en una Grupal - Privada")
     return False
 
+
 def request_maker(dict_values, course_name):
     try:
         schedule_selected = cache.get('schedule_selected')
 
         user_requester = User.objects.get(id=dict_values['user_requester'].id)
         tutor_requested = User.objects.get(id=dict_values['tutor'])
-
 
         session_requested = Session.objects.get(name=dict_values['sesion'])
         modality_requested = Modality.objects.get(name=dict_values['modalidad'])
@@ -109,6 +119,15 @@ def request_maker(dict_values, course_name):
                                                  date_end=end_date,
                                                  date_request=start_date)
 
+        if 'comentario' in dict_values:
+            request_builder.student_comment = dict_values['comentario']
+
+        if do_requesters:
+            num_requesters = set_all_guests_request(dict_values, request_builder)
+            request_builder.num_requesters = num_requesters
+
+        request_builder.save()
+
         # add the notification here.
         notification = RequestNotification(
             notification_type='RE',
@@ -118,18 +137,10 @@ def request_maker(dict_values, course_name):
         )
         notification.save()
 
-        if 'comentario' in dict_values:
-           request_builder.student_comment = dict_values['comentario']
-
-        if do_requesters:
-            num_requesters = set_all_guests_request(dict_values, request_builder)
-            request_builder.num_requesters = num_requesters
-
-        request_builder.save()
-
     except Exception as e:
         print(e)
         raise Exception("Unknown exception")
+
 
 def create_context(schedule_id, user):
     try:
@@ -137,10 +148,10 @@ def create_context(schedule_id, user):
         schedule_selected = TutorAvailableSchedule.objects.get(id=schedule_id)
 
         cache.set('schedule_selected', schedule_selected)
-        tutor = Tutor.objects.get(user = schedule_selected.user)
+        tutor = Tutor.objects.get(user=schedule_selected.user)
         all_students = User.objects.filter(type=1).exclude(id=user.id).order_by('name')
 
-        #Para la integración de varias sesiones se debe tener una lista de sesiones id y hacer id__in
+        # Para la integración de varias sesiones se debe tener una lista de sesiones id y hacer id__in
         sessions = Session.objects.filter(id=tutor.session_type.id)
         modals = Modality.objects.filter(id=tutor.modality_type.id)
         payments = Payment.objects.filter(id=tutor.payment_type.id)
@@ -159,8 +170,8 @@ def create_context(schedule_id, user):
             'max_time': max_time,
             'value_tutorship_person': tutor.amount_per_person,
             'increment': tutor.increment_per_half_hour,
-            'date':str(schedule_selected.start_time.date()),
-            'students':all_students,
+            'date': str(schedule_selected.start_time.date()),
+            'students': all_students,
             'max_people': 50,
         })
 
@@ -171,10 +182,11 @@ def create_context(schedule_id, user):
         print(e)
         raise Exception("Unknown exception")
 
+
 class RequestTutorship(generic.View):
 
     def get(self, request, course_name):
-        user= User.objects.get(id=request.user.id)
+        user = User.objects.get(id=request.user.id)
         if request.user.is_authenticated and user.is_student():
             try:
                 schedule_id = request.GET.get('schedule_number')
@@ -185,7 +197,7 @@ class RequestTutorship(generic.View):
         return redirect('index')
 
     def post(self, request, course_name):
-        user= User.objects.get(id=request.user.id)
+        user = User.objects.get(id=request.user.id)
         if request.user.is_authenticated and user.is_student():
             try:
                 dict_values = save_values_post(request)

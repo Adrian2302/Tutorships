@@ -6,7 +6,7 @@
     <form method="POST" class= "container-full-md">
         {% csrf_token %}
         
-        <input type="hidden" name="tutor" value="{{tutor.id}}">
+        <input type="hidden" name="tutor" value="{{tutor.user.id}}">
         <input type="hidden" name="fecha" value="{{date}}">
 
         <div class="form-group col-md-10">
