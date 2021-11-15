@@ -1,9 +1,9 @@
 from django.db import models
+
 from UserAuthentication.models import User
 from Session.models import Session
 from Modality.models import Modality
 from Course.models import Course
-
 
 # Create your models here.
 class Request(models.Model):
@@ -53,6 +53,8 @@ class Request(models.Model):
         for choice in self.MEETING_CHOICES:
             if choice[0] == self.meeting_type:
                 return choice[1]
+
+
 
     @property
     def is_expired(self):

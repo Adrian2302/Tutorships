@@ -28,6 +28,7 @@ def get_context_view_calendar(tutor: User, course_name: str):
                 'message': event.start_time.strftime("%H:%M") + " - " + event.end_time.strftime("%H:%M"),
                 'start': event.start_time.strftime("%Y-%m-%d %H:%M"),
                 'end': event.end_time.strftime("%Y-%m-%d %H:%M"),
+                'id' : event.id,
             }
         )
     sessions = Session.objects.filter(id__in=Tutor.objects.filter(user=tutor).values("session_type"))

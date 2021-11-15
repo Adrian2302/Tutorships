@@ -15,5 +15,6 @@ __all__ = [
     pendingRequests,
     rejectedRequests,
     RequestTutorship,
-    searchCourse
+    searchCourse,
+
 ]
