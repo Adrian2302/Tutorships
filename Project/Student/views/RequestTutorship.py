@@ -11,7 +11,6 @@ from Course.models import Course
 from Tutor.models import TutorAvailableSchedule, Tutor
 from Payment.models import Payment
 
-instance_id = None
 
 def save_values_post(request):
     dict_values = {}
@@ -167,7 +166,7 @@ def create_context(schedule_id, user):
         print(e)
         raise Exception("Unknown exception")
 
-class requestTutorship(generic.View):
+class RequestTutorship(generic.View):
 
     def get(self, request, course_name):
         user= User.objects.get(id=request.user.id)
