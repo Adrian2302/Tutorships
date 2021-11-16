@@ -1,7 +1,7 @@
 from django.db.models import fields, query
 from UserAuthentication.models import User
 from . import models
-from UserAuthentication.models import TutorCourse
+from Tutor.models import TutorCourse
 from Payment.models import Payment
 from Modality.models import Modality
 from Session.models import Session

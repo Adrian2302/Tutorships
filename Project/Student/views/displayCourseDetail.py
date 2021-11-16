@@ -2,11 +2,13 @@ from django.views import generic
 from django.core.cache import cache
 from django.shortcuts import redirect, render
 
-from UserAuthentication.models import User, TutorCourse
+from UserAuthentication.models import User
+from Tutor.models import TutorCourse
 from Course.models import Course
 from Tutor.models import Tutor, TutorAvailableSchedule
 from Session.models import Session
 from Modality.models import Modality
+
 
 def get_context_view_calendar(tutor: User, course_name: str):
     course = Course.objects.get(course_name=course_name)

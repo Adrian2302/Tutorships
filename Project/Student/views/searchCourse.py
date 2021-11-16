@@ -7,7 +7,9 @@ from django.conf import settings
 from Course.models import Course
 from Session.models import Session
 from Modality.models import Modality
-from UserAuthentication.models import TutorCourse, User
+from UserAuthentication.models import User
+from Tutor.models import TutorCourse
+
 
 def create_context(search_query, page_number):	
 
