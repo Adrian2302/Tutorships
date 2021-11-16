@@ -3,7 +3,7 @@ from django.views import generic
 from django.shortcuts import render, redirect
 from UserAuthentication.models import User
 from Tutor.forms import AddCourseForm
-from UserAuthentication.models import TutorCourse
+from Tutor.models import TutorCourse
 from Course.models import Course
 
 

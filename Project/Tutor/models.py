@@ -25,3 +25,9 @@ class TutorAvailableSchedule(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+
+
+class TutorCourse(models.Model):
+    """Models for the tables describing the courses the tutor is tutoring."""
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
