@@ -131,8 +131,10 @@ def do_filters(results, filters):
             filtered_results = filter_modality(filtered_results, filters['modals'])
 
         if 'payments' in filters:
-            print("jbjbjkb")
             filtered_results = filter_payment(filtered_results, filters['payments'])
+
+        if 'score' in filters:
+            filtered_results = filter_score(filtered_results, filters['score'])
         
         return filtered_results
 
@@ -173,6 +175,20 @@ def filter_payment(last_query, payment_names):
         raise ValueError("Error in filtering the payment")
 
 
+def filter_score(last_query, scores):
+    try:
+        
+        all_tutors = Tutor.objects.filter(average_rating__in=scores).values_list('user', flat=True)
+
+        for tutor in all_tutors:
+            print(tutor)
+        filtered_results = last_query.filter(id__in=all_tutors)
+        
+        return filtered_results
+    except:
+        raise ValueError("Error in filtering the payment")
+
+
 def get_filters(request):
     filters = {}
 
@@ -187,6 +203,7 @@ def get_filters(request):
 
     if request.GET.getlist('calificacion'):
         filters['score'] = request.GET.getlist('calificacion')
+        filters['score'].append('0')
 
     if request.GET.get('region'):
         pass
