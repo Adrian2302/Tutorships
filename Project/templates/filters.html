@@ -1,57 +1,71 @@
-
-<div id= "filters" class="col-lg-12 my-2 border-bottom border-dark">
-    <button type="button" id= "show_filters" class="btn btn-lg" style="background-color:transparent; box-shadow: none;" data-toggle="modal" data-target="#modalFilters">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter-circle" viewBox="0 0 16 16">
-            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-            <path d="M7 11.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5z"/>
-        </svg>
-        Filtros
-    </button>
-
-    <div class="modal fade" id="modalFilters" tabindex="-1" role="dialog" aria-labelledby="modalFiltersLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Filtros</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" id= "show_filters" class="btn btn-lg navbar-toggle collapsed" style="background-color:transparent; box-shadow: none;" data-toggle="collapse" data-target="#toggleFilters"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"/>
+                </svg>
+                Filtros
+            </button>     
+        </div>
+        <hr style="width:100%", size="3", color=black>  
+        <div class="collapse navbar-collapse" id="toggleFilters">
+            <ul class="nav navbar-nav" id="nav">
+                <div class="row">
+                    <div class="col">
+                        <strong>Tipo de búsqueda</strong>
+                        <hr style="width:100%", size="3", color=black> 
+                        <br>
+                        {% for type_search in types_searches%}
+                        {% if type_search.selected is 1%}
+                        <strong>{{ type_search.name }}</strong>
+                        {% else %}
+                        <li class="nav-link active"><a href="{% url 'search' type_search=type_search.url %}?buscar={{latest_search}}">{{ type_search.name }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="col">
+                        <strong>Sesiones</strong>
+                        <hr style="width:100%", size="3", color=black> 
+                        <br>
+                        {% for session in sessions%}
+                        <li class="nav-link active"><a href="#">{{session.name}}</a></li>
+                        {% endfor %}
+                    </div>
+                    <div class="col">
+                        <strong>Modalidades</strong>
+                        <hr style="width:100%", size="3", color=black> 
+                        <br>
+                        {% for modal in modals%}
+                        <li class="nav-link active"><a href="#">{{modal.name}}</a></li>
+                        {% endfor %}
+                    </div>
+                    <div class="col">
+                        <strong>Retribuciones</strong>
+                        <hr style="width:100%", size="3", color=black> 
+                        <br>
+                        {% for retribution in retributions%}
+                        <li class="nav-link active"><a href="#">{{retribution.name}}</a></li>
+                        {% endfor %}
+                    </div>
+                    <div class="col">
+                        <strong>Parte de la región</strong>
+                        <hr style="width:100%", size="3", color=black> 
+                        <br>
+                        <li class="nav-link active"><a href="#">Link 1</a></li>
+                    </div>
+                    <div class="col">
+                        <strong>Calificación</strong>
+                        <hr style="width:100%", size="3", color=black> 
+                        <br>
+                        <li class="nav-link active"><a href="#">1 estrella</a></li>
+                        <li class="nav-link active"><a href="#">2 estrellas</a></li>
+                        <li class="nav-link active"><a href="#">3 estrellas</a></li>
+                        <li class="nav-link active"><a href="#">4 estrellas</a></li>
+                        <li class="nav-link active"><a href="#">5 estrellas</a></li>
+                    </div>
                 </div>
-                <div class="modal-body container">
-                    <form id="formFilters" action="#" method="POST" >
-    
-                        <div class="form-group col-md-10">
-                            <label for="filterSession">Tipo de Sesión</label>
-                            <select id="filterSession" name="filtroSesion" class="selectpicker show-tick" data-width="100%" data-size="5" title="Eligir las sesiones que se quieren buscar" multiple data-selected-text-format="count > 3">
-                                {% for session in sessions %}
-                                    <option value ="{{session.name}}"> {{session.name}}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-
-                        <div class="form-group col-md-10">
-                            <label for="filterModality">Tipo de Modalidad</label>
-                            <select id="filterModality" name="filtroModalidad" class="selectpicker show-tick" data-width="100%" data-size="5" title="Eligir las modalidades que se quieren buscar" multiple data-selected-text-format="count > 3">
-                                {% for modal in modals %}
-                                    <option value ="{{modal.name}}"> {{modal.name}}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary" onclick="sendFilters()">Filtrar</button>
-                </div>
-            </div>
+            </ul>
         </div>
     </div>
-</div>
-
-<script>
-    $('.selectpicker').selectpicker();
-
-    function sendFilters(){
-        document.getElementById('formFilters').submit();
-    }
-</script>
+</nav>

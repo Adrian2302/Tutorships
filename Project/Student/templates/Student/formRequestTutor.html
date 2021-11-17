@@ -10,6 +10,7 @@
         <input type="hidden" name="fecha" value="{{date}}">
 
         <div class="form-group col-md-10">
+
             <label for="selectInitial">Hora incial</label>
             <input type="time" id="selectInitial" class="form-control" name="inicial" min="{{min_time}}" max="{{max_time}}" onchange="handler();" required>
             <small id="help_tutorship" class="form-text text-muted">
@@ -55,6 +56,15 @@
         </div>
 
 
+        <div class="form-group col-md-10">
+            <label for="selectCourse">Curso</label>
+            <select id="selectCourse" name="curso" class="selectpicker show-tick" data-width="100%" data-size="5" title="Seleccione un curso" required>
+                {% for course in courses %}
+                    <option value ="{{course.course_name}}"> {{course.course_name}}</option>
+                {% endfor %}    
+            </select>
+        </div>
+        
         <div class="form-group col-md-10">
             <label for="selectSession">Sesión</label>
             <select id="selectSession" name="sesion" class="selectpicker show-tick" data-width="100%" data-size="5" title="Seleccione un tipo de sesión" required>
