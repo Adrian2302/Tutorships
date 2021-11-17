@@ -8,7 +8,7 @@ from Session.models import Session
 from Modality.models import Modality
 from Payment.models import Payment
 from UserAuthentication.models import User
-from Tutor.models import Tutor, TutorCourse
+from Tutor.models import Tutor
 from Student.filtersModels import ListTypeSearch
 
 def create_context(search_query, page_number, type_search, filters):
