@@ -36,7 +36,7 @@ class Request(models.Model):
     session_requested = models.ForeignKey(Session, on_delete=models.CASCADE, related_name='session_requested')
     modality_requested = models.ForeignKey(Modality, on_delete=models.CASCADE, related_name='modality_requested')
     course_requested = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='course_requested')
-    num_requesters = models.IntegerField(default=0)
+    num_requesters = models.IntegerField(default=1)
     state = models.CharField(max_length=2, choices=STATUS_CHOICES, default=PENDING)
     meeting_type = models.CharField(max_length=2, choices=MEETING_CHOICES, default=ZOOM)
     tutor_comment = models.TextField(null=True)
