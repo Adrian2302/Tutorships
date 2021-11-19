@@ -12,4 +12,8 @@ urlpatterns = [
     path(r'aceptadas/<int:request_pk>', views.AcceptedRequestView.as_view(), name='tutor_accepted_requests'),
     path('notificacion/<int:notification_pk>/solicitud/<int:request_pk>',
          RequestNotificationView.as_view(), name='request_notification'),
+    path('aceptadas/<int:request_pk>/tutoria',
+         views.TutorshipView.as_view(), name='tutor_tutorship_view'),
+    path(r'aceptadas/<int:request_pk>/tutoria/<int:tutorship_pk>',
+         views.TutorshipView.as_view(), name='tutor_tutorship_view')
 ]

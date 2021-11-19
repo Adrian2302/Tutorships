@@ -3,11 +3,13 @@ from .ProfileView import ProfileView
 from .CourseView import CourseView
 from .PendingRequestView import PendingRequestView
 from .AcceptedRequestView import AcceptedRequestView
+from .TutorshipView import TutorshipView
 
 __all__ = [
     CalendarView,
     ProfileView,
     CourseView,
     PendingRequestView,
-    AcceptedRequestView
+    AcceptedRequestView,
+    TutorshipView
 ]
