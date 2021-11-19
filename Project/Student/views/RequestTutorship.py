@@ -8,7 +8,7 @@ from UserAuthentication.models import User
 from Session.models import Session
 from Modality.models import Modality
 from Course.models import Course
-from Tutor.models import TutorAvailableSchedule, Tutor
+from Tutor.models import TutorAvailableSchedule, Tutor, TutorCourse
 from Payment.models import Payment
 from Tutorship.models import RequestNotification
 
@@ -39,8 +39,12 @@ def save_values_post(request):
     if request.POST.getlist('invitados'):
         dict_values['invitados'] = request.POST.getlist('invitados')
 
+    if request.POST.get('curso'):
+        dict_values['curso'] = request.POST.get('curso')
+
     if valid_comment(request.POST.get('comentario')):
         dict_values['comentario'] = request.POST.get('comentario')
+
 
     return dict_values
 
@@ -87,7 +91,7 @@ def check_guests(dict_values, tutor):
     return False
 
 
-def request_maker(dict_values, course_name):
+def request_maker(dict_values, course_name=None):
     try:
         schedule_selected = cache.get('schedule_selected')
 
@@ -96,7 +100,10 @@ def request_maker(dict_values, course_name):
 
         session_requested = Session.objects.get(name=dict_values['sesion'])
         modality_requested = Modality.objects.get(name=dict_values['modalidad'])
-        course_requested = Course.objects.get(course_name=course_name)
+        if course_name is not None:
+            course_requested = Course.objects.get(course_name=course_name)
+        else:
+            course_requested = Course.objects.get(course_name=dict_values['curso'])
 
         start_date = datetime.strptime(dict_values['fecha'], "%Y-%m-%d")
         initial_hour, initial_minutes = dict_values['inicial'].split(":")
@@ -142,14 +149,20 @@ def request_maker(dict_values, course_name):
         raise Exception("Unknown exception")
 
 
-def create_context(schedule_id, user):
+def create_context(schedule_id, user, tutor=None, get_courses=False):
     try:
         context = {}
         schedule_selected = TutorAvailableSchedule.objects.get(id=schedule_id)
 
         cache.set('schedule_selected', schedule_selected)
+
         tutor = Tutor.objects.get(user=schedule_selected.user)
         all_students = User.objects.filter(type=1).exclude(id=user.id).order_by('name')
+
+        courses = None
+        if get_courses:
+            courses = TutorCourse.objects.filter(user=tutor.user).values("course")
+            courses = Course.objects.filter(id__in=courses)
 
         # Para la integración de varias sesiones se debe tener una lista de sesiones id y hacer id__in
         sessions = Session.objects.filter(id=tutor.session_type.id)
@@ -173,6 +186,7 @@ def create_context(schedule_id, user):
             'date': str(schedule_selected.start_time.date()),
             'students': all_students,
             'max_people': 50,
+            'courses': courses
         })
 
         return context
@@ -204,6 +218,34 @@ class RequestTutorship(generic.View):
 
                 if check_dict_value(dict_values):
                     request_maker(dict_values, course_name)
+                    return render(request, "Student/reportRequest.html", {'success': True})
+                return render(request, "Student/reportRequest.html", {'success': False})
+            except:
+                return render(request, "Student/reportRequest.html", {'success': False})
+        return redirect('index')
+
+
+class RequestTutorshipTutor(generic.View):
+    
+    def get(self, request, tutor):
+        user = User.objects.get(id=request.user.id)
+        if request.user.is_authenticated and user.is_student():
+            try:
+                schedule_id = request.GET.get('schedule_number')
+                context = create_context(schedule_id, user, tutor, True)
+                return render(request, "Student/formRequestTutor.html", context)
+            except Exception as e:
+                print(e)
+        return redirect('index')
+    
+    def post(self, request, tutor):
+        user = User.objects.get(id=request.user.id)
+        if request.user.is_authenticated and user.is_student():
+            try:
+                dict_values = save_values_post(request)
+
+                if check_dict_value(dict_values):
+                    request_maker(dict_values)
                     return render(request, "Student/reportRequest.html", {'success': True})
                 return render(request, "Student/reportRequest.html", {'success': False})
             except:

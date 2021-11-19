@@ -15,6 +15,7 @@ class Tutor(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     amount_per_person = models.IntegerField(default=0)
     increment_per_half_hour = models.IntegerField(default=0)
+    average_rating = models.IntegerField(default=0)
     payment_type = models.ForeignKey(Payment, on_delete=models.CASCADE, null=True)
     session_type = models.ForeignKey(Session, on_delete=models.CASCADE, null=True)
     modality_type = models.ForeignKey(Modality, on_delete=models.CASCADE, null=True)

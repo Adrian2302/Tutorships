@@ -14,28 +14,12 @@
                
     {% if not error %}
         <div class="container mt-2">
-            {% if tutors|length > 1%}
-            <form method = "POST">
-                {% csrf_token %}
-                <div class="container-fluid mt-4">
-                    <div class="container">
-                        <select name="tutor"class="selectpicker form-control messagelist" id="select_tutor" title="Seleccione el tutor">
-                            {% for tutor in tutors %}
-                                <option value="{{tutor.email}}">{{tutor.name}}  {{tutor.lastname}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                <input type="submit" value="Submit" id="submit_tutor" hidden>
-            </form>
-            {% endif %}
-
             </br>
 
             <h3> Calendario de {{calendar_title}}</h3>
             <div id="calendar"></div>
         
-            <form action="{% url 'request_tutorship' course_name=course %}" method="GET" id="form_report">
+            <form action="{% url 'request_tutorship_tutor' tutor=tutor_email %}" method="GET" id="form_report">
                 <input type="hidden" name="schedule_number" id="schedule">
             </form>
         </div>
@@ -81,7 +65,7 @@
     {% else %}
         <div class="container mt-2">
             <div class="alert alert-danger" role="alert">
-                No se encontraron tutores disponibles para este curso.
+                Hubo un error al encontrar al tutor.
             </div>
         </div>
     </body>

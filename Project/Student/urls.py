@@ -1,11 +1,14 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
      path("estudiante", views.mainScreen.as_view(), name="index_student"),
-     path(r'estudiante/buscar', views.searchCourse.as_view(), name="search"),
+     re_path(r'^estudiante/busqueda/(?P<type_search>[^/]+)', views.searchCourse.as_view(), name="search"),
+
      path('estudiante/curso/<str:course_name>', views.displayCourseDetail.as_view(), name="course_detail"),
      path('estudiante/curso/<str:course_name>/agendar', views.RequestTutorship.as_view(), name="request_tutorship"),
+     path('estudiante/tutor/<str:tutor>', views.DisplayTutorDetail.as_view(), name="tutor_detail"),
+     path('estudiante/tutor/<str:tutor>/agendar', views.RequestTutorshipTutor.as_view(), name="request_tutorship_tutor"),
 
      path('estudiante/tutoria/pendientes', views.pendingRequests.as_view(), name='student_pending_request'),
      path('estudiante/tutoria/aceptadas', views.acceptedRequests.as_view(), name='student_accepted_request'),
