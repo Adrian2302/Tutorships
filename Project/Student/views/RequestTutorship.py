@@ -126,7 +126,7 @@ def request_maker(dict_values, course_name=None):
         if 'comentario' in dict_values:
             request_builder.student_comment = dict_values['comentario']
 
-        num_requesters = set_all_guests_request(dict_values, request_builder)
+        num_requesters = set_all_guests_request(dict_values, tutor_requested, request_builder)
         request_builder.num_requesters = num_requesters
 
         request_builder.save()
