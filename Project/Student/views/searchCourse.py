@@ -9,6 +9,7 @@ from Modality.models import Modality
 from Payment.models import Payment
 from UserAuthentication.models import User
 from Tutor.models import Tutor
+from Resource.models import Resource
 from Student.filtersModels import ListTypeSearch
 
 def create_context(search_query, page_number, type_search, filters):
@@ -94,6 +95,15 @@ def get_results_tutor(search_query, filters):
         raise ValueError("Error in getting the results")
     
 
+def get_results_resources(search_query):
+    if search_query == "all" or search_query == "":
+        results = Resource.objects.filter(is_public=1).order_by('name')
+    else:
+        results = Resource.objects.filter(is_public=1, name=search_query).order_by('name')
+
+    return results
+
+
 def handlers_results(search_query, type_search, filters):
     try:
         if type_search == "universidad":
@@ -103,9 +113,8 @@ def handlers_results(search_query, type_search, filters):
             type_list = get_list_type_search(2)
             results = get_results_tutor(search_query, filters)
         elif type_search == "recursos-publicos":
-            pass
-        elif type_search == "sesiones-abiertas":
-            pass
+            type_list = get_list_type_search(3)
+            results = get_results_resources(search_query)
         else:
             type_list = get_list_type_search(0)
             results = get_results_course(search_query)
@@ -116,7 +125,7 @@ def handlers_results(search_query, type_search, filters):
 
 
 def get_list_type_search(selected_type_search):
-    list_type_search = ListTypeSearch([0,0,0,0,0], ['cursos', 'universidad', 'tutor', 'recursos-publicos', 'sesiones-abiertas'])
+    list_type_search = ListTypeSearch([0,0,0,0], ['cursos', 'universidad', 'tutor', 'recursos-publicos'])
     list_type_search.list[selected_type_search].selected = 1
     return list_type_search.list
 
@@ -229,5 +238,7 @@ class searchCourse(generic.View):
 
         if type_search == "tutor":
             return render(request, 'Student/searchTutor.html', context)
+        elif type_search == "recursos-publicos":
+            return render(request, 'Student/searchResources.html', context)
         else:
             return render(request, "Student/search.html", context)

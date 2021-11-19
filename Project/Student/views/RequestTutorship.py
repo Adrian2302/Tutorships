@@ -68,26 +68,23 @@ def get_added_hours(added_hours):
     return 1, 0
 
 
-def set_all_guests_request(dict_values, request_tutorship):
+def set_all_guests_request(dict_values, tutor, request_tutorship):
     new_num_requesters = 1
-    for guest in dict_values['invitados']:
-        resquester = Requesters()
-        resquester.request = request_tutorship
-        resquester.user_requester = User.objects.get(id=guest)
-        resquester.save()
-        new_num_requesters += 1
+    if check_guests(dict_values, tutor):
+        for guest in dict_values['invitados']:
+            resquester = Requesters()
+            resquester.request = request_tutorship
+            resquester.user_requester = User.objects.get(id=guest)
+            resquester.save()
+            new_num_requesters += 1
     return new_num_requesters
 
 
 def check_guests(dict_values, tutor):
-    if dict_values['sesion'] == "Grupal - Privada":
+    if dict_values['sesion'] == "Grupal - Privada" or dict_values['sesion'] == "Grupal - Pública":
         if 'invitados' in dict_values:
             if 50 >= len(dict_values['invitados']):
                 return True
-            else:
-                raise Exception("Se tuvieron más personas de que el tutor puede")
-        else:
-            raise Exception("No se han seleccionado invitados en una Grupal - Privada")
     return False
 
 
@@ -129,9 +126,8 @@ def request_maker(dict_values, course_name=None):
         if 'comentario' in dict_values:
             request_builder.student_comment = dict_values['comentario']
 
-        if do_requesters:
-            num_requesters = set_all_guests_request(dict_values, request_builder)
-            request_builder.num_requesters = num_requesters
+        num_requesters = set_all_guests_request(dict_values, request_builder)
+        request_builder.num_requesters = num_requesters
 
         request_builder.save()
 

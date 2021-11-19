@@ -7,6 +7,5 @@ class TypeSearch:
 class ListTypeSearch:
     def __init__(self, listSelected, listUrls):
         self.list = [TypeSearch("Curso", listSelected[0], listUrls[0]), TypeSearch("Universidad", listSelected[1], listUrls[1]), 
-            TypeSearch("Tutor", listSelected[2], listUrls[2]), TypeSearch("Recursos públicos", listSelected[3], listUrls[3]),
-            TypeSearch("Sesiones abiertas", listSelected[4], listUrls[4])]
+            TypeSearch("Tutor", listSelected[2], listUrls[2]), TypeSearch("Recursos públicos", listSelected[3], listUrls[3])]
    
