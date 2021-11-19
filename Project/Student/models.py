@@ -5,6 +5,7 @@ from Session.models import Session
 from Modality.models import Modality
 from Course.models import Course
 
+
 # Create your models here.
 class Request(models.Model):
     PENDING = 'PN'

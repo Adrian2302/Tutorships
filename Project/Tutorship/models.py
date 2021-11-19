@@ -17,9 +17,10 @@ class Tutorship(models.Model):
     )
 
     max_people = models.IntegerField()
+    url = models.URLField(blank=True, null=True)
     state = models.CharField(max_length=2, choices=STATUS_CHOICES, default=APPROVED)
-    name = models.CharField(max_length=80)
-    description = models.CharField(max_length=250)
+    name = models.CharField(max_length=80, null=True)
+    description = models.CharField(max_length=250, null=True)
     request = models.ForeignKey(Request, on_delete=models.CASCADE, blank=True, null=True)
 
     def set_done(self):

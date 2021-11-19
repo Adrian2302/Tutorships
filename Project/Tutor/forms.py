@@ -7,6 +7,7 @@ from Modality.models import Modality
 from Session.models import Session
 from Tutor.models import Tutor
 from Course.models import Course
+from Tutorship.models import Tutorship
 from django import forms
 from bootstrap_datepicker_plus import DateTimePickerInput
 from crispy_forms.helper import FormHelper
@@ -125,3 +126,20 @@ class AddCourseForm(forms.Form):
         empty_label=None)
 
     choices.label = ''
+
+
+class EditTutorshipInfo(forms.ModelForm):
+    class Meta:
+        model = Tutorship
+        fields = ['name', 'description', 'url']
+        labels = {
+            'name': 'Nombre',
+            'description': 'Descripción',
+            'url': 'URL'
+        }
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'url': forms.TextInput(attrs={'class': 'form-control'})
+        }
+

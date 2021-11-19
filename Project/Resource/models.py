@@ -8,7 +8,7 @@ class Resource(models.Model):
     name = models.CharField(max_length=50)
     is_public = models.BooleanField(default=False)
     description = models.CharField(max_length=200)
-    url = models.CharField(max_length=300)
+    url = models.URLField()
     author = models.CharField(max_length=50)
 
 
