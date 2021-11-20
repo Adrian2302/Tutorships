@@ -7,6 +7,7 @@ from .rejectedRequests import rejectedRequests
 from .RequestTutorship import RequestTutorship, RequestTutorshipTutor
 from .DisplayTutorDetail import DisplayTutorDetail
 from .searchCourse import searchCourse
+from .JoinRequest import JoinRequest
 
 __all__ = [
     acceptedRequests,
@@ -18,5 +19,6 @@ __all__ = [
     RequestTutorship,
     searchCourse,
     DisplayTutorDetail,
-    RequestTutorshipTutor
+    RequestTutorshipTutor,
+    JoinRequest
 ]

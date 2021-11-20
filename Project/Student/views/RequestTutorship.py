@@ -79,7 +79,7 @@ def set_all_guests_request(dict_values, tutor, request_tutorship):
             new_num_requesters += 1
     return new_num_requesters
 
-
+# Cambiar 50
 def check_guests(dict_values, tutor):
     if dict_values['sesion'] == "Grupal - Privada" or dict_values['sesion'] == "Grupal - Pública":
         if 'invitados' in dict_values:
@@ -144,7 +144,7 @@ def request_maker(dict_values, course_name=None):
         print(e)
         raise Exception("Unknown exception")
 
-
+# Cambiar 50
 def create_context(schedule_id, user, tutor=None, get_courses=False):
     try:
         context = {}

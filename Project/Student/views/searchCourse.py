@@ -2,21 +2,22 @@ from django.views import generic
 from django.shortcuts import redirect, render
 from django.core.paginator import Paginator
 from django.conf import settings
+from django.db.models import Q
 
 from Course.models import Course
 from Session.models import Session
 from Modality.models import Modality
 from Payment.models import Payment
-from Student.models import Request
+from Student.models import Request, Requesters
 from UserAuthentication.models import User
 from Tutor.models import Tutor
 from Resource.models import Resource
 from Student.filtersModels import ListTypeSearch
 
-def create_context(search_query, page_number, type_search, filters):
+def create_context(search_query, page_number, type_search, filters, user):
     try:
 
-        results, type_list = handlers_results(search_query, type_search, filters)
+        results, type_list = handlers_results(search_query, type_search, filters, user)
 
         page_display = get_paginator_results(results, page_number)
 
@@ -104,16 +105,17 @@ def get_results_resources(search_query):
     return results
 
 
-def get_results_open_groups(search_query):
+def get_results_open_groups(search_query, user):
+    my_requests = Requesters.objects.filter(user_requester=user).values_list('request', flat=True)
     if search_query == "all" or search_query == "":
-        results = Request.objects.filter(session_requested__name="Grupal - Pública", state="AP").order_by('course_requested__course_name')
+        results = Request.objects.filter(session_requested__name="Grupal - Pública", state="AP").filter(~Q(id__in=my_requests)).filter(~Q(user_requester=user)).order_by('course_requested__course_name')
     else:
-        results = Resource.objects.filter(session_requested__name="Grupal - Pública", state="AP", course_requested__course_name__icontains=search_query).order_by('course_requested__course_name')
-
+        results = Request.objects.filter(session_requested__name="Grupal - Pública", state="AP", course_requested__course_name__icontains=search_query).filter(~Q(id__in=my_requests)).filter(~Q(user_requester=user)).order_by('course_requested__course_name')
+    
     return results
 
 
-def handlers_results(search_query, type_search, filters):
+def handlers_results(search_query, type_search, filters, user):
     try:
         if type_search == "universidad":
             type_list = get_list_type_search(1)
@@ -126,7 +128,7 @@ def handlers_results(search_query, type_search, filters):
             results = get_results_resources(search_query)
         elif type_search == "sesiones-publicas":
             type_list = get_list_type_search(4)
-            results = get_results_open_groups(search_query)
+            results = get_results_open_groups(search_query, user)
         else:
             type_list = get_list_type_search(0)
             results = get_results_course(search_query)
@@ -235,24 +237,28 @@ def get_filters(request):
 class searchCourse(generic.View):
 
     def get(self, request, type_search):
-        try:
-            search_query = request.GET.get('buscar')
-            page_number = request.GET.get('pagina') 
+        user = User.objects.get(pk=request.user.id)
+        if request.user.is_authenticated and user.is_student():
+            try:
+                search_query = request.GET.get('buscar')
+                page_number = request.GET.get('pagina') 
 
-            if search_query is None:
-                return redirect('index')
+                if search_query is None:
+                    return redirect('index')
 
-            filters = get_filters(request)
+                filters = get_filters(request)
 
-            context = create_context(search_query, page_number, type_search, filters)      
-        except:
-            context = {}
+                context = create_context(search_query, page_number, type_search, filters, user)      
+            except:
+                context = {}
 
-        if type_search == "tutor":
-            return render(request, 'Student/searchTutor.html', context)
-        elif type_search == "recursos-publicos":
-            return render(request, 'Student/searchResources.html', context)
-        elif type_search == "sesiones-publicas":
-            return render(request, 'Student/searchOpenSessions.html', context)
-        else:
-            return render(request, "Student/search.html", context)
+            if type_search == "tutor":
+                return render(request, 'Student/searchTutor.html', context)
+            elif type_search == "recursos-publicos":
+                return render(request, 'Student/searchResources.html', context)
+            elif type_search == "sesiones-publicas":
+                return render(request, 'Student/searchOpenSessions.html', context)
+            else:
+                return render(request, "Student/search.html", context)
+
+        return redirect('index')
