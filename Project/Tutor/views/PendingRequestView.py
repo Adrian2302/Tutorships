@@ -104,7 +104,7 @@ class PendingRequestView(generic.View):
                         new_end_time = schedule_date_end
                         schedule.end_time = tutorship_start_date
                         scheduled_block = TutorAvailableSchedule(
-                            user_id=user,
+                            user_id=user.id,
                             start_time=tutorship_end_date,
                             end_time=new_end_time,
                         )
