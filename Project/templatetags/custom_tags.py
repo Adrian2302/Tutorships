@@ -18,10 +18,8 @@ def show_notifications(context):
 @register.filter
 def toggle_value(request, arg):
     url_parts = list(urllib.parse.urlparse(request.get_full_path()))
-    query = dict(urllib.parse.parse_qsl(url_parts[4]))
-    if "buscar" not in query:
-        query["buscar"] = ''
-
+    print(url_parts[4])
+    query = dict(urllib.parse.parse_qsl(url_parts[4], keep_blank_values=True))
     query["pagina"] = arg
     url_parts[4] = urllib.parse.urlencode(query)
 
