@@ -29,7 +29,13 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{% url 'tutor_pending_requests' %}">Pendientes</a></li>
                             <li><a class="dropdown-item" href="{% url 'tutor_accepted_requests' %}">Aceptadas</a></li>
+                            <li><a class="dropdown-item" href="{% url 'tutor_done_requests' %}">Historial</a></li>
                         </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="{% url 'tutor_profit' %}" role="button" aria-expanded="false">
+                            Ganancias
+                        </a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">

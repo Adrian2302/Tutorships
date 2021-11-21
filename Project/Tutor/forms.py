@@ -1,4 +1,5 @@
 from django.db.models import fields, query
+from django.forms import widgets
 from UserAuthentication.models import User
 from . import models
 from Tutor.models import TutorCourse
@@ -183,3 +184,13 @@ class EditTutorshipInfo(forms.ModelForm):
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '10'}),
             'url': forms.TextInput(attrs={'class': 'form-control'})
         }
+
+class ProfitForm(forms.Form):
+    date=forms.DateTimeField(
+        input_formats=['%m/%Y'],
+        widget=forms.DateInput(attrs={
+            'class': 'form-control datetimepicker-input',
+            'data-target': '#datetimepicker1'
+        })
+    ) 
+

@@ -34,7 +34,6 @@ class CourseView(generic.View):
             choiceForm = AddCourseForm(request.POST or None)
             if choiceForm.is_valid():
                 choice = choiceForm.cleaned_data['choices']
-                print(choice)
                 if choice is not None and choice != '' :
                     course = Course.objects.get(course_name=choice)
                     tutor_course = TutorCourse(user=user, course=course)
