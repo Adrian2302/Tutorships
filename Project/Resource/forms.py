@@ -4,12 +4,6 @@ from . import models
 from django import forms
 
 
-#   name = models.CharField(max_length=50)
-#   is_public = models.BooleanField(default=False)
-#   description = models.CharField(max_length=200)
-#   url = models.CharField(max_length=300)
-#   author = models.CharField(max_length=50)
-
 class ResourceForm(forms.ModelForm):
     class Meta:
         model = models.Resource
@@ -32,7 +26,7 @@ class ResourceForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'is_public': forms.RadioSelect(choices=[(True, 'Yes'), (False, 'No')]),
-            'description': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
             'url': forms.TextInput(attrs={'class': 'form-control'}),
             'author': forms.TextInput(attrs={'class': 'form-control'}),
         }

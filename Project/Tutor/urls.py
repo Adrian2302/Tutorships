@@ -14,6 +14,6 @@ urlpatterns = [
          RequestNotificationView.as_view(), name='request_notification'),
     path('aceptadas/<int:request_pk>/tutoria',
          views.TutorshipView.as_view(), name='tutor_tutorship_view'),
-    path(r'aceptadas/<int:request_pk>/tutoria/<int:tutorship_pk>',
+    path(r'aceptadas/<int:request_pk>/tutoria/<int:resource_pk>',
          views.TutorshipView.as_view(), name='tutor_tutorship_view')
 ]

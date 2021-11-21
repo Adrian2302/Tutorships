@@ -34,6 +34,7 @@ class EditResource(generic.View):
 
     def post(self, request, resource=None):
         form = self.form_class(request.POST)
+        user = User.objects.get(pk=request.user.id)
         if form.is_valid():
             if resource is not None:
                 resource_to_edit = Resource.objects.get(pk=resource)
@@ -45,6 +46,14 @@ class EditResource(generic.View):
                 resource_to_edit.save()
                 messages.success(request, 'Cambios guardados exitosamente')
             else:
-                form.save()
+                resource = Resource(
+                    name=form_resource.cleaned_data['name'],
+                    is_public=form_resource.cleaned_data['is_public'],
+                    description=form_resource.cleaned_data['description'],
+                    url=form_resource.cleaned_data['url'],
+                    author=form_resource.cleaned_data['author'],
+                    uploader=user
+                )
+                resource.save()
                 messages.error(request, 'No se han realizado los cambios')
-        return redirect('edit_resource') 
+        return redirect('edit_resource')

@@ -20,12 +20,15 @@ class Tutorship(models.Model):
     url = models.URLField(blank=True, null=True)
     state = models.CharField(max_length=2, choices=STATUS_CHOICES, default=APPROVED)
     name = models.CharField(max_length=80, null=True)
-    description = models.CharField(max_length=250, null=True)
+    description = models.CharField(max_length=500, null=True)
     request = models.ForeignKey(Request, on_delete=models.CASCADE, blank=True, null=True)
 
     def set_done(self):
         self.state = self.DONE
         self.save()
+
+    def remaining_capacity(self):
+        return self.max_people - self.request.num_requesters
 
 
 class TutorshipScore(models.Model):
