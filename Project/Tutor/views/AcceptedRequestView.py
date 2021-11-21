@@ -37,16 +37,7 @@ class AcceptedRequestView(generic.View):
                 tutorship.set_done()
                 return redirect('tutor_accepted_requests')
             elif request.GET.get('accion') == 'ver':
-                tutorship_request = Request.objects.get(pk=request_pk, tutor_requested_id=user)
-                tutorship = Tutorship.objects.get(request=tutorship_request)
-                urls = list(ResourceTutorship.objects.filter(tutorship=tutorship))
-                context = {
-                'tutorship_name': tutorship.name,
-                'tutorship_description': tutorship.description,
-                'tutorship_max_people': tutorship.max_people,
-                'resources': urls
-                }
-                return render(request, "Tutor/tutorshipView.html", context)
+                return redirect('tutor_tutorship_view', request_pk=request_pk)
             return render(request, self.template_name, context=create_context(user))
         else:
             return redirect('index')

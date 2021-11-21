@@ -48,9 +48,7 @@ class PendingRequestView(generic.View):
                 request_tutorship.save()
 
                 tutorship = Tutorship(
-                    max_people=1,
-                    name='Tutoría',
-                    description='Descripción de tutoría',
+                    max_people=50,
                     request=request_tutorship
                 )
                 tutorship.save()

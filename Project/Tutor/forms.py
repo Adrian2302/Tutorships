@@ -8,6 +8,7 @@ from Modality.models import Modality
 from Session.models import Session
 from Tutor.models import Tutor
 from Course.models import Course
+from Tutorship.models import Tutorship
 from django import forms
 from bootstrap_datepicker_plus import DateTimePickerInput
 from crispy_forms.helper import FormHelper
@@ -15,7 +16,6 @@ from crispy_forms.layout import Layout, Field, Submit, Div
 from crispy_forms.bootstrap import PrependedText
 
 import datetime
-
 
 
 class TutorScheduleForm(forms.ModelForm):
@@ -42,6 +42,43 @@ class TutorScheduleForm(forms.ModelForm):
                 }
             ).end_of('block'),
         }
+
+
+class TutorResourceForm(forms.Form):
+    resource_name = forms.CharField(widget=forms.TextInput,
+                                    initial=None,
+                                    label='Nombre:')
+
+    resource_description = forms.CharField(widget=forms.Textarea,
+                                           initial=None,
+                                           label='Descripción:', )
+
+    is_public = forms.ChoiceField(widget=forms.Select,
+                                  choices=((True, 'Pública'), (False, 'Privada')),
+                                  initial=True,
+                                  label='Visibilidad:')
+
+    resource_url = forms.URLField(widget=forms.TextInput,
+                                  initial=None,
+                                  label='URL:')
+
+    author = forms.CharField(widget=forms.TextInput,
+                             initial=None,
+                             label='Fuente:')
+
+    helper = FormHelper()
+    helper.use_custom_control = True
+    helper.layout = Layout(
+        Field('resource_name', css_class='form-control'),
+        Field('resource_description', css_class='form-control'),
+        Field('is_public', css_class='form-control'),
+        Field('resource_url', css_class='form-control'),
+        Field('author', css_class='form-control')
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(TutorResourceForm, self).__init__(*args, **kwargs)
+        self.fields['resource_description'].widget.attrs = {'rows': 5}
 
 
 class ProfileForm(forms.Form):
@@ -128,6 +165,26 @@ class AddCourseForm(forms.Form):
     choices.label = ''
 
 
+class EditTutorshipInfo(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(EditTutorshipInfo, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+
+    class Meta:
+        model = Tutorship
+        fields = ['name', 'description', 'url']
+        labels = {
+            'name': 'Nombre:',
+            'description': 'Descripción:',
+            'url': 'URL:'
+        }
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '10'}),
+            'url': forms.TextInput(attrs={'class': 'form-control'})
+        }
+
 class ProfitForm(forms.Form):
     date=forms.DateTimeField(
         input_formats=['%m/%Y'],
@@ -136,3 +193,4 @@ class ProfitForm(forms.Form):
             'data-target': '#datetimepicker1'
         })
     ) 
+
