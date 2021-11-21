@@ -63,19 +63,22 @@ class PendingRequestView(generic.View):
                 query_set = list(Request.objects.filter(tutor_requested_id=user,
                  state='PN',
                   date_start__gte=tutorship_start_date))
-                for requests in query_set:
-                    date_requests = requests.date_start
-                    clean_date_requests = date_requests.strftime("%Y-%m-%d %H:%M")
-                    if tutorship_start_date == clean_date_requests or tutorship_end_date > clean_date_requests:
-                        requests.state = 'DD'
-                        requests.save()
+                for tutorship_to_check in query_set:
+                    date_start = tutorship_to_check.date_start
+                    clean_date_start = date_start.strftime("%Y-%m-%d %H:%M")
+                    date_end = tutorship_to_check.date_end
+                    clean_date_end = date_end.strftime("%Y-%m-%d %H:%M")
 
+                    if tutorship_start_date < clean_date_end and clean_date_start < tutorship_end_date:
+                        tutorship_to_check.state = 'DD'
+                        tutorship_to_check.save()
+                        
                         # Create notification
                         notification = RequestNotification(
                             notification_type='RR',
-                            to_user=requests.user_requester,
-                            from_user=requests.tutor_requested,
-                            request=requests
+                            to_user=tutorship_to_check.user_requester,
+                            from_user=tutorship_to_check.tutor_requested,
+                            request=tutorship_to_check
                         )
                         notification.save()
                 
