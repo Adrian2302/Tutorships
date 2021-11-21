@@ -5,9 +5,11 @@ from . import forms
 from .forms import NewAdminForm
 from .models import User
 from Tutor.models import Tutor
+from django.contrib import messages
 
 
 def index(request):
+    list(messages.get_messages(request))
     if models.User.objects.filter(pk=request.user.id).exists():
         user: User = models.User.objects.get(pk=request.user.id)
         if user.is_tutor():
@@ -18,6 +20,7 @@ def index(request):
 
 
 def login(request):
+    list(messages.get_messages(request))
     if models.User.objects.filter(pk=request.user.id).exists():
         return redirect('index')
     else:

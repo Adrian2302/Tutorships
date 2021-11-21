@@ -59,3 +59,38 @@
 .modal-header {
   background: #292b2c;
 }
+
+.asteriskField {
+    display: none;
+}
+
+.requiredField {
+    font-weight: bold;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.control-group {
+    margin-bottom: 0.5vw;
+    margin-top: 0.5vw;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.control-label{
+  font-weight: bold;
+}
+
+.add-on {
+    background-color: #0275d8;
+    display: flex;
+    padding: 0.5vw;
+    border-radius: 0.25em;
+    color: #f7f7f7
+}

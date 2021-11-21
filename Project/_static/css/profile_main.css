@@ -11,10 +11,6 @@
     margin-top: 0.5vw;
 }
 
-input[type="radio"] {
-    margin-right: 0.5vw;
-}
-
 .controls {
     display: flex;
     flex-direction: column;
@@ -23,21 +19,4 @@ input[type="radio"] {
 
 .control-label{
     font-weight: bold;
-}
-
-.input-prepend {
-    margin-right: 0.5vw;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-    white-space: nowrap;
-}
-
-.add-on {
-    background-color: #0275d8;
-    display: flex;
-    padding: 0.5vw;
-    border-radius: 0.25em;
-    color: #f7f7f7
 }
