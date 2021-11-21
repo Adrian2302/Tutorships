@@ -18,8 +18,8 @@ urlpatterns = [
 
      path('estudiante/tutoria/pendientes/<int:pk_request>',
           views.pendingRequests.as_view(), name='student_pending_request'),
-     path('estudiante/tutoria/aceptadas/<int:pk_request>',
-          views.acceptedRequests.as_view(), name='student_accepted_request'),
+     path(r'estudiante/tutoria/aceptadas/<int:request_pk>',
+          views.StudentTutorshipView.as_view(), name='student_tutorship_view'),
      path('estudiante/tutoria/rechazadas/<int:pk_request>',
           views.rejectedRequests.as_view(), name='student_rejected_request'),
      path('estudiante/tutoria/historial/<int:pk_request>',

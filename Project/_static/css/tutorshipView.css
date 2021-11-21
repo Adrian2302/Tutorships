@@ -21,7 +21,6 @@
   background: #292B2C;
   color: #FFFFFF;
   padding: 20px;
-
 }
 
 #main #faq .card .card-header .btn-header-link:after{
@@ -43,7 +42,6 @@
 #main #faq .card .collapsing {
   background: #FFFFFF;
   line-height: 30px;
-
 }
 
 #main #faq .card .collapse {
@@ -51,9 +49,9 @@
 }
 
 #main #faq .card .collapse.show {
-  background: #FFFFFF;
-  line-height: 30px;
-  color: #292b2c;
+    background: #FFFFFF;
+    line-height: 30px;
+    color: #292b2c;
 }
 
 .modal-header {
@@ -84,7 +82,7 @@
 }
 
 .control-label{
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .add-on {
