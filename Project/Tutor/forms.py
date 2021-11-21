@@ -1,4 +1,5 @@
 from django.db.models import fields, query
+from django.forms import widgets
 from UserAuthentication.models import User
 from . import models
 from Tutor.models import TutorCourse
@@ -125,3 +126,13 @@ class AddCourseForm(forms.Form):
         empty_label=None)
 
     choices.label = ''
+
+
+class ProfitForm(forms.Form):
+    date=forms.DateTimeField(
+        input_formats=['%m/%Y'],
+        widget=forms.DateInput(attrs={
+            'class': 'form-control datetimepicker-input',
+            'data-target': '#datetimepicker1'
+        })
+    ) 
