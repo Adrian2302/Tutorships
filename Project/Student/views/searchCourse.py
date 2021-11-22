@@ -237,28 +237,30 @@ def get_filters(request):
 class searchCourse(generic.View):
 
     def get(self, request, type_search):
-        user = User.objects.get(pk=request.user.id)
-        if request.user.is_authenticated and user.is_student():
-            try:
-                search_query = request.GET.get('buscar')
-                page_number = request.GET.get('pagina') 
+        
+        if request.user.is_authenticated:
+            user = User.objects.get(pk=request.user.id)
+            if user.is_student():
+                try:
+                    
+                    search_query = request.GET.get('buscar')
+                    page_number = request.GET.get('pagina') 
 
-                if search_query is None:
-                    return redirect('index')
+                    if search_query is None:
+                        return redirect('index')
 
-                filters = get_filters(request)
+                    filters = get_filters(request)
 
-                context = create_context(search_query, page_number, type_search, filters, user)      
-            except:
-                context = {}
+                    context = create_context(search_query, page_number, type_search, filters, user)      
+                except:
+                    context = {}
 
-            if type_search == "tutor":
-                return render(request, 'Student/searchTutor.html', context)
-            elif type_search == "recursos-publicos":
-                return render(request, 'Student/searchResources.html', context)
-            elif type_search == "sesiones-publicas":
-                return render(request, 'Student/searchOpenSessions.html', context)
-            else:
-                return render(request, "Student/search.html", context)
-
+                if type_search == "tutor":
+                    return render(request, 'Student/searchTutor.html', context)
+                elif type_search == "recursos-publicos":
+                    return render(request, 'Student/searchResources.html', context)
+                elif type_search == "sesiones-publicas":
+                    return render(request, 'Student/searchOpenSessions.html', context)
+                else:
+                    return render(request, "Student/search.html", context)
         return redirect('index')

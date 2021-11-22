@@ -4,6 +4,8 @@ from Tutor.forms import TutorScheduleForm
 from Tutor import models
 from UserAuthentication.models import User
 from django.shortcuts import render, redirect
+from datetime import datetime
+from django.contrib import messages
 
 
 def create_context(user: User, form: TutorScheduleForm):
@@ -48,5 +50,18 @@ class CalendarView(TemplateView):
                 start_time=form.cleaned_data['start_time'],
                 end_time=form.cleaned_data['end_time'],
             )
-            scheduled_block.save()
+
+            current_date = datetime.now()
+            clean_current_date = current_date.strftime("%Y-%m-%d %H:%M")
+            form_start_date = form.cleaned_data['start_time']
+            clean_form_start_date = form_start_date.strftime("%Y-%m-%d %H:%M")
+            form_end_date = form.cleaned_data['end_time']
+            clean_form_end_date = form_end_date.strftime("%Y-%m-%d %H:%M")
+            if clean_form_start_date == clean_form_end_date:
+                messages.error(request, 'No se ha agendado su horario, por favor, elija una hora final diferente a la hora de inicio')
+            elif clean_form_start_date >= clean_current_date:
+                scheduled_block.save()
+                messages.success(request, 'Horario agendado exitosamente')
+            else:
+                messages.error(request, 'No se ha agendado su horario, por favor, elija una hora mayor a la actual')
         return render(request, self.template_name, create_context(user, form))
