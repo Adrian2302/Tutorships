@@ -1,19 +1,81 @@
-{% extends "base.html" %}
 
-{% block content %}
+{% load static %} 
 
-  <div class="container-fluid" style="margin-top: 4vw;">
-    <h1 class="text-center" id="header1">Bienvenido(a)</h1>
-    <form action="{% url 'search' type_search='cursos' %}" method = "GET" style="margin-top: 2vw;">
-      <div class="form-row align-items-center justify-content-center">
-        <div class="col-md-3 my-1 text-center">
-          <input id="course_search" type="text" class="form-control" name="buscar" placeholder="Ejemplo: Informática">
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include "baseHead.html" %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css">
+    <link rel="stylesheet" href="{% static 'css/tutorshipView.css' %}">
+  </head>
+  <body>
+    {% include "studentHeader.html" %}
+
+    <div class="container-fluid">
+      <section>
+        <div class="container">
+          <div class="row pt-4">
+            <div class="col-md-1"></div>
+            <div class="col-md-6">
+              <h1 style="margin-top: 6vw;">Sistema de tutorías</h1>
+              <h3>Creado por estudiantes <br> para estudiantes</h3>
+              <br>
+              <form action="{% url 'search' type_search='cursos' %}" method = "GET" class="mt-2">
+                <div class="form-row align-items-center justify-content-center">
+                  <div class="col-md-8">
+                    <input id="course_search" type="text" class="form-control" name="buscar" placeholder="Empezar a buscar tutorías">
+                  </div>
+                  <div class="col-md-4 my-1">
+                    <button type="submit" class="btn btn-primary" style="background-color: #1A54D4;">
+                      <img src="{% static "img/search-icon.svg" %}"/> Buscar
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="col-md-5">
+              <img class="img-fluid" src="{% static "img/main.jpg" %}" alt="main-image"/>
+            </div>
+          </div>
         </div>
-        <div class="col-auto my-1 text-center">
-          <input type="submit" class="btn btn-primary" value="Buscar">
+      </section>
+
+      <div id="main">
+        <div class="container">
+          <div class="accordion" id="faq">
+            <div class="card">
+              <div class="card-header" id="faqhead1">
+                <a href="#" class="btn btn-header-link" data-toggle="collapse" data-target="#faq1"
+                    aria-expanded="true" aria-controls="faq1" style="background-color: #383c44;">Ayuda</a>
+              </div>
+              <div id="faq1" class="collapse" aria-labelledby="faqhead1" data-parent="#faq">
+                <div class="card-body">
+                  <h3 class="card-title">
+                    Kaizen es un sistema que une a los estudiantes y los profesores. 
+                  </h3>
+                  <h4 class="font-italic">
+                    ¿Pero cómo se usa?
+                  </h4>
+                  <p>
+                    Antes de usar nuestro sistema debe de estar registrado, si no lo esta procesada a registrarse en el botón de acceder.
+                    <br>
+                    Una vez registrado podrá buscar y agendar una tutoría, para esto puede buscar el curso que desea.
+                    <br>
+                    Una vez encontrado el curso, podrá agendar la tutoría con un profesor y con el horario que más le convenga. 
+                    No obstante, cada profesor da las tutorías de una manera diferente, por lo que se recomienda que lea bien las diferentes caracteristicas del profesor.
+                    <br> 
+                    Luego de esto podrá ver el estado de la tutoría, si está pendiente, aceptada o rechazada. Esto lo puede hacer en el apartado de mis tutorías.
+                    <br>
+                    Cuando una tutoría se realiza, se le pide una retroalimentación para el profesor y para los próximos estudiantes.
+                  </p>
+
+                  <h4>Si tiene más consultas que no se abarcaron aquí, no dude en enviar un <a href="mailto: KaizenHaiku@gmail.com">correo</a></h4>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </form>
-  </div>
-
-{% endblock content %}
+    </div>
+  </body>
+</html>
