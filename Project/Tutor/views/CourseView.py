@@ -3,7 +3,7 @@ from django.views import generic
 from django.shortcuts import render, redirect
 from UserAuthentication.models import User
 from Tutor.forms import AddCourseForm
-from UserAuthentication.models import TutorCourse
+from Tutor.models import TutorCourse
 from Course.models import Course
 
 
@@ -34,7 +34,6 @@ class CourseView(generic.View):
             choiceForm = AddCourseForm(request.POST or None)
             if choiceForm.is_valid():
                 choice = choiceForm.cleaned_data['choices']
-                print(choice)
                 if choice is not None and choice != '' :
                     course = Course.objects.get(course_name=choice)
                     tutor_course = TutorCourse(user=user, course=course)
