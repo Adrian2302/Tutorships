@@ -4,8 +4,11 @@ from .doneTutorships import doneTutorships
 from .mainScreen import mainScreen
 from .pendingRequests import pendingRequests
 from .rejectedRequests import rejectedRequests
-from .requestTutorship import requestTutorship
+from .RequestTutorship import RequestTutorship, RequestTutorshipTutor
+from .DisplayTutorDetail import DisplayTutorDetail
 from .searchCourse import searchCourse
+from .JoinRequest import JoinRequest
+from .StudentTutorshipView import StudentTutorshipView
 
 __all__ = [
     acceptedRequests,
@@ -14,6 +17,10 @@ __all__ = [
     mainScreen,
     pendingRequests,
     rejectedRequests,
-    requestTutorship,
-    searchCourse
+    RequestTutorship,
+    searchCourse,
+    DisplayTutorDetail,
+    RequestTutorshipTutor,
+    JoinRequest,
+    StudentTutorshipView
 ]

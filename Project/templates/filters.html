@@ -1,0 +1,86 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" id= "show_filters" class="btn btn-lg navbar-toggle collapsed" style="background-color:transparent; box-shadow: none;" data-toggle="collapse" data-target="#toggleFilters"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"/>
+                </svg>
+                Filtros
+            </button>     
+        </div>
+        <hr style="width:100%", size="3", color=black>  
+        <div class="collapse navbar-collapse" id="toggleFilters">
+            <ul class="nav navbar-nav" id="nav">
+                <div class="row">
+                    <div class="col">
+                        <strong>Tipo de búsqueda</strong>
+                        <hr style="width:100%", size="3", color=black> 
+                        <br>
+                        {% for type_search in types_searches%}
+                        {% if type_search.selected is 1%}
+                        <strong>{{ type_search.name }}</strong>
+                        {% else %}
+                        <li class="nav-link active"><a href="{% url 'search' type_search=type_search.url %}?buscar={{latest_search}}" title= "bvhjvb">{{ type_search.name }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="col">
+                        <strong>Sesiones</strong>
+                        <hr style="width:100%", size="3", color=black> 
+                        <br>
+                        {% for session in sessions%}
+                        {% if diplay_sessions_link is 1 %}
+                            <li class="nav-link active"><a href="{{ request.get_full_path }}&sesion={{session.name}}">{{session.name}}</a></li>
+                        {% else %}
+                            <li class="nav-link disabled">{{session.name}}</li>
+                        {% endif %}
+                        {% endfor %}
+                    </div>  
+                    <div class="col">
+                        <strong>Modalidades</strong>
+                        <hr style="width:100%", size="3", color=black> 
+                        <br>
+                        {% for modal in modals%}
+                        {% if diplay_sessions_link is 1 %}
+                            <li class="nav-link active"><a href="{{ request.get_full_path }}&modalidad={{modal.name}}">{{modal.name}}</a></li>
+                        {% else %}
+                            <li class="nav-link disabled">{{modal.name}}</li>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="col">
+                        <strong>Retribuciones</strong>
+                        <hr style="width:100%", size="3", color=black> 
+                        <br>
+                        {% for retribution in retributions%}
+                        {% if diplay_sessions_link is 1 %}
+                            <li class="nav-link active"><a href="{{ request.get_full_path }}&retribucion={{retribution.name}}">{{retribution.name}}</a></li>
+                        {% else %}
+                            <li class="nav-link disabled">{{retribution.name}}</li>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="col">
+                        <strong>Calificación</strong>
+                        <hr style="width:100%", size="3", color=black> 
+                        <br>
+                        {% if diplay_sessions_link is 1 %}
+                            <li class="nav-link active"><a href="{{ request.get_full_path }}&calificacion=1">1 estrella</a></li>
+                            <li class="nav-link active"><a href="{{ request.get_full_path }}&calificacion=2">2 estrellas</a></li>
+                            <li class="nav-link active"><a href="{{ request.get_full_path }}&calificacion=3">3 estrellas</a></li>
+                            <li class="nav-link active"><a href="{{ request.get_full_path }}&calificacion=4">4 estrellas</a></li>
+                            <li class="nav-link active"><a href="{{ request.get_full_path }}&calificacion=5">5 estrellas</a></li>
+                        {% else %}
+                            <li class="nav-link disabled">1 estrella</li>
+                            <li class="nav-link disabled">2 estrellas</li>
+                            <li class="nav-link disabled">3 estrellas</li>
+                            <li class="nav-link disabled">4 estrellas</li>
+                            <li class="nav-link disabled">5 estrellas</li>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+</nav>

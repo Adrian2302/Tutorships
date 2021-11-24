@@ -10,7 +10,3 @@ class Course(models.Model):
     
     def __str__(self):
         return self.course_name
-
-
-class CourseKeyword(models.Model):
-    id_course = models.ForeignKey(Course, on_delete=models.CASCADE)

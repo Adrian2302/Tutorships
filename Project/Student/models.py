@@ -1,4 +1,6 @@
+import datetime
 from django.db import models
+
 from UserAuthentication.models import User
 from Session.models import Session
 from Modality.models import Modality
@@ -36,15 +38,15 @@ class Request(models.Model):
     session_requested = models.ForeignKey(Session, on_delete=models.CASCADE, related_name='session_requested')
     modality_requested = models.ForeignKey(Modality, on_delete=models.CASCADE, related_name='modality_requested')
     course_requested = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='course_requested')
-    num_requesters = models.IntegerField(default=0)
+    num_requesters = models.IntegerField(default=1)
     state = models.CharField(max_length=2, choices=STATUS_CHOICES, default=PENDING)
     meeting_type = models.CharField(max_length=2, choices=MEETING_CHOICES, default=ZOOM)
     tutor_comment = models.TextField(null=True)
     student_comment = models.TextField(null=True)
-    date_start = models.DateTimeField()  # Fecha de inicio solicitada para la tutoría.
-    date_end = models.DateTimeField()  # Fecha de fin solicitada para la tutoría.
-    date_request = models.DateTimeField(auto_now_add=True)  # Fecha de solicitud de tutoría.
-    date_resolution = models.DateTimeField(null=True)  # Fecha de resolución de tutoría.
+    date_start = models.DateTimeField()                         # Fecha de inicio solicitada para la tutoría.
+    date_end = models.DateTimeField()                           # Fecha de fin solicitada para la tutoría.
+    date_request = models.DateTimeField(auto_now_add=True)      # Fecha de solicitud de tutoría.
+    date_resolution = models.DateTimeField(null=True)           # Fecha de resolución de tutoría.
 
     def display_fullname_requester(self):
         return self.user_requester.get_full_name()
@@ -53,6 +55,8 @@ class Request(models.Model):
         for choice in self.MEETING_CHOICES:
             if choice[0] == self.meeting_type:
                 return choice[1]
+
+
 
     @property
     def is_expired(self):

@@ -33,8 +33,27 @@
                                 <td><a onclick="score('{{tutorship.id}}')" class="btn btn-primary" data-toggle="modal" data-target="#modal-score">Puntuar</a></td>
                             </tr>
                         {% endfor %}
+
+                        {% for tutorship in join_tutorships %}
+                            <tr>
+                                <td class="text-center"><a href="#">{{tutorship.request.tutor_requested.get_full_name}}</a></td>
+                                <td class="text-center">{{tutorship.request.course_requested.course_name}}</td>
+                                <td class="text-center">{{tutorship.request.session_requested.name}}</td>
+                                <td class="text-center">{{tutorship.request.display_meeting_type}}</td>
+                                <td class="text-center">{{tutorship.request.date_start}}</td>
+                                <td class="text-center">{{tutorship.request.date_end}}</td>
+                                <td><a onclick="score('{{tutorship.id}}')" class="btn btn-primary" data-toggle="modal" data-target="#modal-score">Puntuar</a></td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-success text-center" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -75,6 +94,10 @@
                                 </div>
                                 </div>
                             </div>
+                            <div class="container">
+                                <label for="comment_student">Comentario</label>
+                                <textarea name="comment_student" class="form-control" id="comment_student" rows="3"></textarea>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button id="modalClose2" type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
@@ -87,7 +110,6 @@
     </body>
     <script>
         function score(id) {
-            console.log(id);
             document.getElementById("score").value = id;
         }
     </script>

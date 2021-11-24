@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 from UserAuthentication.models import User
 from Student.models import Request
 from Tutorship.models import Tutorship
+from Resource.models import ResourceTutorship
+
 
 def create_context(user):
     query_set = list(Request.objects.filter(tutor_requested_id=user, state='AP').order_by('date_start'))
@@ -34,6 +36,8 @@ class AcceptedRequestView(generic.View):
                 tutorship = Tutorship.objects.get(request=request)
                 tutorship.set_done()
                 return redirect('tutor_accepted_requests')
+            elif request.GET.get('accion') == 'ver':
+                return redirect('tutor_tutorship_view', request_pk=request_pk)
             return render(request, self.template_name, context=create_context(user))
         else:
             return redirect('index')

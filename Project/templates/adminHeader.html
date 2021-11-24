@@ -4,68 +4,40 @@
     <a class="navbar-brand" href="{% url 'login' %}">Inicio</a>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarAdministrators" role="button" data-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'add_administrator' %}" role="button">
             Administradores
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="{% url 'add_administrator' %}">Agregar administrador</a></li>
-            <li><a class="dropdown-item" href="#">Modificar administrador</a></li>
-            </ul>
         </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarCourses" role="button" data-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'edit_course' %}" role="button">
             Cursos
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="{% url 'add_course' %}">Agregar curso</a></li>
-            <li><a class="dropdown-item" href="#">Modificar curso</a></li>
-            </ul>
         </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarResources" role="button" data-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'edit_resource' %}" role="button">
             Recursos
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="{% url 'add_resource' %}">Agregar recurso</a></li>
-            <li><a class="dropdown-item" href="#">Modificar recurso</a></li>
-            </ul>
         </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarStudents" role="button" data-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item">
+            <a class="nav-link" href="#" role="button">
             Tutorandos
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Agregar tutorando</a></li>
-            <li><a class="dropdown-item" href="#">Modificar tutorando</a></li>
-            </ul>
         </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarModalities" role="button" data-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'edit_modality' %}" role="button">
             Modalidades
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="{% url 'add_modality' %}">Agregar modalidad</a></li>
-            <li><a class="dropdown-item" href="#">Modificar modalidades</a></li>
-            </ul>
         </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarSessions" role="button" data-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'edit_session' %}" role="button">
             Sesiones
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="{% url 'add_session' %}">Agregar sesión</a></li>
-            <li><a class="dropdown-item" href="#">Modificar modalidades</a></li>
-            </ul>
         </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarRetributions" role="button" data-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'edit_payment' %}" role="button">
             Retribuciones
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="{% url 'add_payment' %}">Agregar retribución</a></li>
-            <li><a class="dropdown-item" href="#">Actualizar retribuciones</a></li>
-            </ul>
         </li>
     </ul>
     <ul class="navbar-nav ml-auto">
