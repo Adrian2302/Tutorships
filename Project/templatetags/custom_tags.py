@@ -2,6 +2,7 @@ from django import template
 import urllib.parse
 
 from Tutorship.models import RequestNotification
+from Chat.models import MessageNotification
 from UserAuthentication.models import User
 
 register = template.Library()
@@ -14,6 +15,15 @@ def show_notifications(context):
     user = User.objects.get(id=request_user.id)
     notifications = RequestNotification.objects.filter(to_user=user, seen=False).order_by('-date')
     return {'notifications': notifications}
+
+
+@register.inclusion_tag('showMessageNotifications.html', takes_context=True)
+def show_message_notifications(context):
+    request_user = context['request'].user
+    user = User.objects.get(id=request_user.id)
+    notifications = MessageNotification.objects.filter(to_user=user, seen=False).order_by('-date')
+    return {'notifications': notifications}
+
 
 @register.filter
 def toggle_value(request, arg):

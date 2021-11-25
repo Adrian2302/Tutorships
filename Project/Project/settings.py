@@ -50,9 +50,10 @@ INSTALLED_APPS = [
     'Tutorship',
     'Course',
     'Student',
+    'Chat',
     'bootstrap4',
     'bootstrap_datepicker_plus',
-    'crispy_forms'
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -87,6 +88,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Project.wsgi.application'
+ASGI_APPLICATION = 'Project.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
