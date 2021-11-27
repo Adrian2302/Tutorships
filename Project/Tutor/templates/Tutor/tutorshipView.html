@@ -12,13 +12,7 @@
 <div class="container-fluid">
     <div class="col-md-10 offset-md-1 mt-4">
         <h2 class="text-center mb-4"><strong>Resumen de tutoría.</strong></h2>
-        <div>
-            {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-success msg fade show" role="alert">{{ message }}</div>
-            {% endfor %}
-            {% endif %}
-        </div>
+        {% include 'messages.html' %}
         <div id="main">
             <div class="container">
                 <div class="accordion" id="faq">
@@ -330,23 +324,5 @@
         $("#id_resource_url").val(url);
         $("#id_author").val(author);
     }
-
-    function fade_alerts() {
-        const alerts = document.getElementsByClassName("alert msg");
-        let i = alerts.length;
-        let time;
-        for (let elem of alerts) {
-            i--;
-            time = 3250 + (1000 * i);
-            setTimeout(function () {
-                $(elem).fadeOut("slow");
-            }, time);
-        }
-    }
-
-    // call fade out after DOMContentLoaded
-    window.addEventListener('DOMContentLoaded', (event) => {
-        fade_alerts();
-    });
 </script>
 </html>

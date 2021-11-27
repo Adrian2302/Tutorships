@@ -43,6 +43,7 @@ class doneTutorships(generic.View):
             score=score,
             student_comment=comment_student,
         )
-        messages.success(request, 'Puntuación enviada exitosamente')
         tutorship_score.save()
+        messages.add_message(request, messages.SUCCESS, 'Puntuación enviada exitosamente')
+
         return redirect('student_done_request')

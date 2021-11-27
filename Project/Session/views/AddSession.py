@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from Session import models
 from Session.forms import AddSessionForm
 from django.views import generic
+from django.contrib import messages
 # noinspection PyUnresolvedReferences
 from UserAuthentication.models import User
 
@@ -37,6 +38,9 @@ class AddSession(generic.View):
                     description=form.cleaned_data['description'],
                 )
                 session.save()
+                messages.add_message(request, messages.SUCCESS, 'Tipo de sesión agregada exitosamente')
+            else:
+                messages.add_message(request, messages.ERROR, 'Ocurrió un error, por favor, intente más tarde')
             
             context = create_context(form)
 

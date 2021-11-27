@@ -1,6 +1,7 @@
 from django.views import generic
 from django.views.generic.edit import CreateView
 from django import forms
+from django.contrib import messages
 
 from Tutor.forms import ProfileForm
 from UserAuthentication.models import User
@@ -45,5 +46,7 @@ class ProfileView(generic.View):
             tutor.modality_type = Modality.objects.get(
                 name=profile_form.cleaned_data['choices_modality'])
             tutor.save()
-
+            messages.add_message(request, messages.SUCCESS, 'Perfil actualizado exitosamente')
+        else:
+            messages.add_message(request, messages.ERROR, 'El perfil no ha sido actualizado')
         return render(request, self.template_name, {'form': profile_form})

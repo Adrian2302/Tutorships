@@ -4,6 +4,7 @@ from django.views.generic import ListView
 from django import forms
 from UserAuthentication.models import User
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from Tutor.models import Tutor, TutorAvailableSchedule
 from Session.models import Session
 from Modality.models import Modality
@@ -31,6 +32,7 @@ class PendingRequestView(generic.View):
                 request_tutorship = Request.objects.get(pk=request_pk, tutor_requested_id=user)
                 request_tutorship.state = 'DD'
                 request_tutorship.save()
+                messages.add_message(request, messages.SUCCESS, 'La tutoría ha sido rechazada')
 
                 # Create notification
                 notification = RequestNotification(
@@ -46,6 +48,7 @@ class PendingRequestView(generic.View):
                 request_tutorship = Request.objects.get(pk=request_pk, tutor_requested_id=user)
                 request_tutorship.state = 'AP'
                 request_tutorship.save()
+                messages.add_message(request, messages.SUCCESS, 'La tutoría ha sido aceptada')
 
                 tutorship = Tutorship(
                     max_people=50,

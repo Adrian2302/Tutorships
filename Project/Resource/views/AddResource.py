@@ -1,7 +1,5 @@
 from django.shortcuts import render, redirect
-#from . import forms
-#from .forms import ResourceForm
-#from .models import Resource
+from django.contrib import messages
 
 from Resource import models
 from Resource.forms import ResourceForm
@@ -45,6 +43,9 @@ class AddResource(generic.View):
                     author=form.cleaned_data['author']
                 )
                 resource.save()
+                messages.add_message(request, messages.SUCCESS, 'Recurso agregado exitosamente')
+            else:
+                messages.add_message(request, messages.ERROR, 'Ocurrió un error, por favor, intente más tarde')
 
             context = create_context(form)
             
