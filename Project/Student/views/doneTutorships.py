@@ -66,7 +66,7 @@ class doneTutorships(generic.View):
 
         average_rating = total_califications / sum_califications
 
-        tutor = Tutor.objects.get(pk=tutorship_request_id.tutor_requested.id)
+        tutor = Tutor.objects.get(user=tutorship_request_id.tutor_requested.id)
         tutor.average_rating = average_rating
         tutor.save()
 
