@@ -5,6 +5,7 @@ from UserAuthentication.models import User
 from Tutor.forms import AddCourseForm
 from Tutor.models import TutorCourse
 from Course.models import Course
+from django.contrib import messages
 
 
 def create_context(add_course_form):
@@ -38,6 +39,15 @@ class CourseView(generic.View):
                     course = Course.objects.get(course_name=choice)
                     tutor_course = TutorCourse(user=user, course=course)
                     tutor_course.save()
+                    messages.add_message(request, messages.SUCCESS, 'Curso agregado exitosamente')
+                    dic = {'user': user}
+                    add_course_form = AddCourseForm(**dic)
+                    return render(request, self.template_name, create_context(add_course_form))
+                else:
+                    messages.add_message(request, messages.ERROR, 'El curso no ha sido agregado')
+                    dic = {'user': user}
+                    add_course_form = AddCourseForm(**dic)
+                    return render(request, self.template_name, create_context(add_course_form))
 
         return redirect('index')
 

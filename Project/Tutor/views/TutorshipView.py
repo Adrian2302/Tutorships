@@ -29,7 +29,7 @@ class TutorshipView(View):
                 if resource.uploader_id == user.id:
                     resource.delete()
 
-                messages.add_message(request, messages.SUCCESS, 'Recurso eliminado exitosamente.')
+                messages.add_message(request, messages.SUCCESS, 'Recurso eliminado exitosamente')
                 return redirect('tutor_tutorship_view', request_pk=request_pk)
 
             tutorship_request = Request.objects.get(pk=request_pk, tutor_requested_id=user)
@@ -72,7 +72,7 @@ class TutorshipView(View):
             for resource_id in selected_resources:
                 resource = Resource.objects.get(pk=resource_id)
                 ResourceTutorship.objects.create(resource=resource, tutorship=tutorship)
-            messages.add_message(request, messages.SUCCESS, 'Recursos guardados exitosamente.')
+            messages.add_message(request, messages.SUCCESS, 'Recursos guardados exitosamente')
 
         elif form_resource.is_valid():
             tutorship_request = Request.objects.get(pk=request_pk, tutor_requested_id=user)
@@ -97,7 +97,7 @@ class TutorshipView(View):
                     resource=resource
                 )
                 resource_tutorship.save()
-                messages.add_message(request, messages.SUCCESS, 'Recurso guardado exitosamente.')
+                messages.add_message(request, messages.SUCCESS, 'Recurso guardado exitosamente')
 
             else:
                 resource = Resource.objects.get(pk=request.POST.get('resource'))
@@ -107,7 +107,7 @@ class TutorshipView(View):
                 resource.url = form_resource.cleaned_data['resource_url']
                 resource.author = form_resource.cleaned_data['author']
                 resource.save()
-                messages.add_message(request, messages.SUCCESS, 'Recurso editado exitosamente.')
+                messages.add_message(request, messages.SUCCESS, 'Recurso editado exitosamente')
 
         elif form_info.is_valid():
             tutorship_request = Request.objects.get(pk=request_pk, tutor_requested_id=user)
@@ -116,7 +116,7 @@ class TutorshipView(View):
             tutorship.description = form_info.cleaned_data['description']
             tutorship.url = form_info.cleaned_data['url']
             tutorship.save()
-            messages.add_message(request, messages.SUCCESS, 'Información editada exitosamente.')
+            messages.add_message(request, messages.SUCCESS, 'Información editada exitosamente')
 
         return redirect('tutor_tutorship_view', request_pk=request_pk)
 

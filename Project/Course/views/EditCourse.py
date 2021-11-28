@@ -41,8 +41,8 @@ class EditCourse(generic.View):
                 course_to_edit.course_name = form.cleaned_data['course_name']
                 course_to_edit.description = form.cleaned_data['description']
                 course_to_edit.save()
-                messages.success(request, 'Cambios guardados exitosamente')
+                messages.add_message(request, messages.SUCCESS, 'Cambios guardados exitosamente')
             else:
                 form.save()
-                messages.error(request, 'No se han realizado los cambios')
+                messages.add_message(request, messages.ERROR, 'No se han realizado los cambios')
         return redirect('edit_course')

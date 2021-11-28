@@ -8,6 +8,7 @@
     <body>
         {% include "tutorHeader.html" %}
         <div class = "container-fluid">
+            {% include 'messages.html' %}
             <div class="form-check">
                 <form action="cursos" method = "POST" style="margin-top: 2vw;">
                     {% csrf_token %}

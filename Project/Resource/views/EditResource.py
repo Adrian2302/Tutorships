@@ -44,7 +44,7 @@ class EditResource(generic.View):
                 resource_to_edit.url = form.cleaned_data['url']
                 resource_to_edit.author = form.cleaned_data['author']
                 resource_to_edit.save()
-                messages.success(request, 'Cambios guardados exitosamente')
+                messages.add_message(request, messages.SUCCESS, 'Cambios guardados exitosamente')
             else:
                 resource = Resource(
                     name=form_resource.cleaned_data['name'],
@@ -55,5 +55,5 @@ class EditResource(generic.View):
                     uploader=user
                 )
                 resource.save()
-                messages.error(request, 'No se han realizado los cambios')
+                messages.add_message(request, messages.ERROR, 'No se han realizado los cambios')
         return redirect('edit_resource')

@@ -1,6 +1,7 @@
 from django.http.request import HttpHeaders
 from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
+from django.contrib import messages
 
 from Course import models
 # noinspection PyUnresolvedReferences
@@ -42,6 +43,9 @@ class AddCourse(generic.View):
                         course_name=course.course_name).exists():
                     return HttpResponse("El curso \"" + course.course_name + "\" ya estaba registrado")
                 course.save()
+                messages.add_message(request, messages.SUCCESS, 'Curso agregado exitosamente')
+            else:
+                messages.add_message(request, messages.ERROR, 'Ocurrió un error, por favor, intente más tarde')
             context = create_context(form)
             return render(request, "adminCrudForm.html", context)
 

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from Modality import models
 from Modality.forms import AddModalityForm
 from django.views import generic
+from django.contrib import messages
 # noinspection PyUnresolvedReferences
 from UserAuthentication.models import User
 
@@ -37,6 +38,9 @@ class AddModality(generic.View):
                     description=form.cleaned_data['description'],
                 )
                 modality.save()
+                messages.add_message(request, messages.SUCCESS, 'Modalidad agregada exitosamente')
+            else:
+                messages.add_message(request, messages.ERROR, 'Ocurrió un error, por favor, intente más tarde')
             
             context = create_context(form)
 

@@ -50,8 +50,9 @@ def add_administrator(request):
                 user: User = models.User.objects.get(email=form.cleaned_data['email'])
                 user.type = 3
                 user.save()
+                messages.add_message(request, messages.SUCCESS, 'El usuario ' + user.get_full_name + ' ahora es administrador')
             except User.DoesNotExist:
-                pass
+                messages.add_message(request, messages.ERROR, 'El usuario no existe')
         context = {
             'form': form
         }
