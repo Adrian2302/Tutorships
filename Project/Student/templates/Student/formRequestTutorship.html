@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="container mt-4">
-    <form method="POST" class= "container-full-md">
+    <form method="POST" class= "container-full-md" id="main-form">
         {% csrf_token %}
         
         <input type="hidden" name="tutor" value="{{tutor.user.id}}">
@@ -11,21 +11,24 @@
 
         <div class="form-group col-md-10">
             <label for="selectInitial">Hora incial</label>
-            <input type="time" id="selectInitial" class="form-control" name="inicial" min="{{min_time}}" max="{{max_time}}" onchange="handler();" required>
-            <small id="help_tutorship" class="form-text text-muted">
+            <input type="time" id="selectInitial" class="form-control" name="inicial" min="{{min_time}}" max="{{max_time}}" required>
+            <small id="info-hours" class="form-text text-muted">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info" viewBox="0 0 16 16">
+                    <title>info-icon</title>
                     <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
                 </svg>
                 Las tutorías como mínimo son de una hora.
             </small>
             <small id="help_tutorship" class="form-text text-muted">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info" viewBox="0 0 16 16">
+                    <title>info-icon</title>
                     <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
                 </svg>
                 La tutoría tiene que iniciar {{min_time}} y terminar {{max_time}}.
             </small>
             <small id="hour_help" class="form-text text-muted">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info" viewBox="0 0 16 16">
+                    <title>info-icon</title>
                     <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
                 </svg>
                 {% if value_tutorship_person > 0 %}
@@ -47,6 +50,7 @@
             {% if value_tutorship_person > 0 %}
                 <small id="hour_add" class="form-text text-muted">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info" viewBox="0 0 16 16">
+                        <title>info-icon</title>
                         <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
                     </svg>
                     Por cada media hora incrementada se cobrará una adicional de {{increment}}.
@@ -90,8 +94,9 @@
                         <option value ="{{student.id}}"> {{student.name}} {{student.lastname}}</option>
                     {% endfor %}
                 </select>
-                <small id="hour_help" class="form-text text-muted">
+                <small id="info-hour" class="form-text text-muted">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info" viewBox="0 0 16 16">
+                        <title>info-icon</title>
                         <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
                     </svg>
                     Si es una tutoría individual no se preocupe por este apartado. Si no lo es aqui invite a las demás personas que van a asistir a la tutoría.
