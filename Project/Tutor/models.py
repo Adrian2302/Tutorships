@@ -6,6 +6,7 @@ from Course.models import Course
 from Session.models import Session
 from Modality.models import Modality
 from Payment.models import Payment
+from Region.models import Regions
 from UserAuthentication.models import User
 
 
@@ -19,6 +20,7 @@ class Tutor(models.Model):
     payment_type = models.ForeignKey(Payment, on_delete=models.CASCADE, null=True)
     session_type = models.ForeignKey(Session, on_delete=models.CASCADE, null=True)
     modality_type = models.ForeignKey(Modality, on_delete=models.CASCADE, null=True)
+    region = models.ForeignKey(Regions, on_delete=models.CASCADE, default=1)
 
 
 class TutorAvailableSchedule(models.Model):

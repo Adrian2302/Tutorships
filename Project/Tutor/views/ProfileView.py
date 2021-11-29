@@ -10,6 +10,7 @@ from Tutor.models import Tutor
 from Session.models import Session
 from Modality.models import Modality
 from Payment.models import Payment
+from Region.models import Regions
 
 
 def create_context(modality_form):
@@ -37,6 +38,8 @@ class ProfileView(generic.View):
 
         if profile_form.is_valid():
             tutor = Tutor.objects.get(user_id=request.user.id)
+            tutor.region = Regions.objects.get(
+                region_name=profile_form.cleaned_data['choices_region'])
             tutor.amount_per_person = profile_form.cleaned_data['tutorship_price']
             tutor.increment_per_half_hour = profile_form.cleaned_data['increment_half_hour']
             tutor.payment_type = Payment.objects.get(
