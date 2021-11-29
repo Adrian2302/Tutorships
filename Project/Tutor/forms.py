@@ -8,6 +8,7 @@ from Modality.models import Modality
 from Session.models import Session
 from Tutor.models import Tutor
 from Course.models import Course
+from Region.models import Regions
 from Tutorship.models import Tutorship
 from django import forms
 from bootstrap_datepicker_plus import DateTimePickerInput
@@ -82,6 +83,11 @@ class TutorResourceForm(forms.Form):
 
 
 class ProfileForm(forms.Form):
+    choices_region = forms.ModelChoiceField(widget=forms.RadioSelect,
+                                             queryset=Regions.objects.all(),
+                                             initial=None,
+                                             label="Región:")
+
     tutorship_price = forms.CharField(widget=forms.TextInput,
                                       initial=None,
                                       label="Precio de mis tutorías:")
@@ -109,6 +115,7 @@ class ProfileForm(forms.Form):
     helper.use_custom_control = False
     helper.form_class = 'blueForms'
     helper.layout = Layout(
+        Field('choices_region'),
         Div(PrependedText('tutorship_price', '₡', css_class='form-control'),
             css_class='input-group-prepend'),
         Div(PrependedText('increment_half_hour', '₡', css_class='form-control'),
@@ -122,6 +129,7 @@ class ProfileForm(forms.Form):
     def __init__(self, *args, **kwargs):
         if kwargs.get('user'):
             user = kwargs.pop('user')
+            region = Tutor.objects.get(user_id=user.id).region
             tutorship_price = Tutor.objects.get(user_id=user.id).amount_per_person
             increment_half_hour = Tutor.objects.get(user_id=user.id).increment_per_half_hour
             session = Tutor.objects.get(user_id=user.id).session_type_id
@@ -129,7 +137,8 @@ class ProfileForm(forms.Form):
             payment = Tutor.objects.get(user_id=user.id).payment_type_id
 
             super(ProfileForm, self).__init__(*args, **kwargs)
-
+            
+            self.fields['choices_region'].initial = region
             self.fields['tutorship_price'].initial = tutorship_price
             self.fields['increment_half_hour'].initial = increment_half_hour
             self.fields['choices_session'].initial = session

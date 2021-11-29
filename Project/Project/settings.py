@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'Tutorship',
     'Course',
     'Student',
+    'Region',
     'bootstrap4',
     'bootstrap_datepicker_plus',
     'crispy_forms'
