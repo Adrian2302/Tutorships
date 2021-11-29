@@ -6,6 +6,7 @@
     <body>
         {% include "adminHeader.html" %}
         <div class = "container-md" style = "margin-top: 1.5vw;">
+            {% include 'messages.html' %}
             <form method = "POST">
                 {% csrf_token %}
                 {{form.as_p}}
