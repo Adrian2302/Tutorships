@@ -30,6 +30,7 @@
                             <th scope="col" class="text-center">URL</th>
                             <th scope="col" class="text-center">Autor</th>
                             <th scope="col" class="text-center"></th>
+                            <th scope="col" class="text-center"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -42,6 +43,8 @@
                                 <td class="text-center">{{ resource.author }}</td>
                                 <td><a href="{% url 'edit_resource' resource=resource.id %}?accion=editar"
                                     class="btn btn-primary">Editar</a></td>
+                                <td><a href="{% url 'edit_resource' resource=resource.id %}?accion=eliminar"
+                                        class="btn btn-danger">Eliminar</a></td>
                             </tr>
                         {% endfor %}
                         </tbody>

@@ -24,6 +24,13 @@ class EditResource(generic.View):
             resource_to_edit = Resource.objects.get(pk=resource)
             form = self.form_class(instance=resource_to_edit)
             selected_resource = resource_to_edit
+        elif request.GET.get('accion') == 'eliminar':
+            try:
+                resource_to_edit = Resource.objects.get(pk=resource)
+                resource_to_edit.delete()
+                messages.add_message(request, messages.SUCCESS, 'Cambios guardados exitosamente')
+            except:
+                messages.add_message(request, messages.ERROR, 'No se han realizado los cambios')
 
         context = {
             'form': form,
