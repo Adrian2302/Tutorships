@@ -12,6 +12,7 @@ from Student.models import Request, Requesters
 from UserAuthentication.models import User
 from Tutor.models import Tutor
 from Resource.models import Resource
+from Region.models import Regions
 from Student.filtersModels import ListTypeSearch
 
 def create_context(search_query, page_number, type_search, filters, user):
@@ -24,6 +25,7 @@ def create_context(search_query, page_number, type_search, filters, user):
         sessions = Session.objects.all()
         modals = Modality.objects.all()
         retributions = Payment.objects.all()
+        regions = Regions.objects.all()
 
         if type_search == None:
             type_search = "cursos"
@@ -39,6 +41,7 @@ def create_context(search_query, page_number, type_search, filters, user):
                 'sessions': sessions,   
                 'modals': modals,
                 'retributions' : retributions, 
+                'regions' : regions,
                 'last_type': type_search, 
                 'diplay_sessions_link': diplay_sessions_link
             }
@@ -158,6 +161,9 @@ def do_filters(results, filters):
 
         if 'score' in filters:
             filtered_results = filter_score(filtered_results, filters['score'])
+
+        if 'region' in filters:
+            filtered_results = filter_region(filtered_results, filters['region'])
         
         return filtered_results
 
@@ -203,13 +209,23 @@ def filter_score(last_query, scores):
         
         all_tutors = Tutor.objects.filter(average_rating__in=scores).values_list('user', flat=True)
 
-        for tutor in all_tutors:
-            print(tutor)
         filtered_results = last_query.filter(id__in=all_tutors)
         
         return filtered_results
     except:
         raise ValueError("Error in filtering the payment")
+
+
+def filter_region(last_query, region_names):
+    try:
+        regions = Regions.objects.filter(region_name__in=region_names).values_list('id', flat=True)
+        all_tutors = Tutor.objects.filter(region__in=regions).values_list('user', flat=True)
+
+        filtered_results = last_query.filter(id__in=all_tutors)
+
+        return filtered_results
+    except:
+        raise ValueError("Error in filtering the region")
 
 
 def get_filters(request):
@@ -228,8 +244,8 @@ def get_filters(request):
         filters['score'] = request.GET.getlist('calificacion')
         filters['score'].append('0')
 
-    if request.GET.get('region'):
-        pass
+    if request.GET.getlist('region'):
+        filters['region'] = request.GET.getlist('region')
 
     return filters
 
