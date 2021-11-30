@@ -9,6 +9,7 @@ from .DisplayTutorDetail import DisplayTutorDetail
 from .searchCourse import searchCourse
 from .JoinRequest import JoinRequest
 from .StudentTutorshipView import StudentTutorshipView
+from .ProfileView import ProfileView
 
 __all__ = [
     acceptedRequests,
@@ -22,5 +23,6 @@ __all__ = [
     DisplayTutorDetail,
     RequestTutorshipTutor,
     JoinRequest,
-    StudentTutorshipView
+    StudentTutorshipView,
+    ProfileView
 ]

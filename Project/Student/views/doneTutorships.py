@@ -47,28 +47,5 @@ class doneTutorships(generic.View):
         )
         tutorship_score.save()
         messages.add_message(request, messages.SUCCESS, 'Puntuación enviada exitosamente')
-
-
-        tutorship_request_id = Request.objects.get(pk=tutorship.request.id)
-
-        query_set = list(Tutorship.objects.filter(state='DN')
-                             .select_related('request')
-                             .filter(request__tutor_requested=tutorship_request_id.tutor_requested))
-
-        total_califications = 0
-        sum_califications = 0
-
-        for item in query_set:
-            query_set2 = list(TutorshipScore.objects.filter(tutorship=item.id))
-
-            for item2 in query_set2:
-                sum_califications += 1
-                total_califications += item2.score
-
-        average_rating = total_califications / sum_califications
-
-        tutor = Tutor.objects.get(user=tutorship_request_id.tutor_requested.id)
-        tutor.average_rating = average_rating
-        tutor.save()
-
+        
         return redirect('student_done_request')
