@@ -88,28 +88,4 @@ class ProfileView(generic.View):
         else:
             messages.add_message(request, messages.ERROR, 'El perfil no ha sido actualizado')
 
-        selected_user = None
-        user_to_edit = User.objects.get(id=request.user.id)
-        selected_user = user_to_edit
-
-        user: User = User.objects.get(pk=request.user.id)
-        region = Tutor.objects.get(user_id=user.id).region
-        tutorship_price = Tutor.objects.get(user_id=user.id).amount_per_person
-        increment_half_hour = Tutor.objects.get(user_id=user.id).increment_per_half_hour
-        session = Tutor.objects.get(user_id=user.id).session_type
-        modality = Tutor.objects.get(user_id=user.id).modality_type
-        payment = Tutor.objects.get(user_id=user.id).payment_type
-
-        context = {
-            'form': profile_form,
-            'tutor_form': form,
-            'selected_user': selected_user,
-            'region' : region,
-            'tutorship_price' : tutorship_price,
-            'increment_half_hour' : increment_half_hour,
-            'session' : session,
-            'modality' : modality,
-            'payment' : payment,
-            'user' : user
-        }
-        return render(request, self.template_name, context)
+        return redirect('tutor_profile')
