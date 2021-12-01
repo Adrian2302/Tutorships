@@ -203,3 +203,20 @@ class ProfitForm(forms.Form):
         })
     ) 
 
+class TutorProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            'name',
+            'lastname'
+        ]
+
+        labels = {
+            'name': 'Nombre',
+            'lastname': 'Apellido'
+        }
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'lastname': forms.TextInput(attrs={'class': 'form-control'})
+        }

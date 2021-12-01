@@ -23,6 +23,7 @@ urlpatterns = [
      path('estudiante/tutoria/rechazadas/<int:pk_request>',
           views.rejectedRequests.as_view(), name='student_rejected_request'),
      path('estudiante/tutoria/historial/<int:pk_request>',
-          views.doneTutorships.as_view(), name='student_done_request')
+          views.doneTutorships.as_view(), name='student_done_request'),
+     path('estudiante/perfil', views.ProfileView.as_view(), name='student_profile')
 ]
     
