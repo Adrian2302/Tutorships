@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="{% static 'css/tutorshipView.css' %}">
     </head>
     <body>
-        {% include "tutorHeader.html" %}
+        {% include "studentHeader.html" %}
         <div class="container-md" id="main_container">
             {% include 'messages.html' %}
             <div id="main">
@@ -28,11 +28,11 @@
                                                 <tbody>
                                                 <tr>
                                                     <th>Nombre:</th>
-                                                    <td>{{user.name}}</td>
+                                                    <td>{{user_info.name}}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Apellido:</th>
-                                                    <td>{{user.lastname}}</td>
+                                                    <td>{{user_info.lastname}}</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
