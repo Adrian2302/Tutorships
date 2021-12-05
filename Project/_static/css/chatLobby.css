@@ -198,7 +198,7 @@ div, span {
 .conversation {
     padding: 0 !important;
     margin: 0 !important;
-    height: calc(100% - 140px);
+    height: 90vh;
     /*height: 100%;*/
 }
 
@@ -208,7 +208,7 @@ div, span {
     scrollbar-width: thin;
     scrollbar-height: 10px;
     background-size: cover;
-    height: calc(100% - 120px);
+    height: 85vh;
 }
 
 .message-body {
