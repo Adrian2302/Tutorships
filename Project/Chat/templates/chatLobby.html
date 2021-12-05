@@ -62,19 +62,21 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-9 conversation">
-            <div id="messages-container"></div>
-            <form id="post-form">
-                <div class="row reply ml-4">
-                    <div class="col-md-6 reply-main">
-                        <textarea class="form-control" rows="1" id="comment" placeholder="Nuevo mensaje"></textarea>
-                        <input name="room_id" type="hidden" id="room_input" value="">
+        <div class="col-md-9">
+            <div id="messages-container" class="conversation"></div>
+            <div id="form-div">
+                <form id="post-form">
+                    <div class="row reply ml-4">
+                        <div class="col-md-6 reply-main">
+                            <textarea class="form-control" rows="1" id="comment" placeholder="Nuevo mensaje"></textarea>
+                            <input name="room_id" type="hidden" id="room_input" value="">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </div>
                     </div>
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary">Enviar</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -94,9 +96,8 @@
     $(document).ready(function () {
         let objDiv = $('.message');
         objDiv.scrollTop(objDiv.prop('scrollHeight'));
-    });
+        $('#form-div').hide();
 
-    $(document).ready(function () {
         let postURL = "http://127.0.0.1:8000/mensajes/";
         setInterval(function () {
             if (!pauseInterval) {
@@ -110,11 +111,12 @@
                     },
                     success: function (data) {
                         $('#messages-container').html(data);
-                        // $('#room_input').val(room_id);
+                        let objDiv = $('.message');
+                        objDiv.scrollTop(objDiv.prop('scrollHeight'));
                     }
                 });
             }
-        }, 1500);
+        }, 1000);
     });
 
     // let objDiv = document.getElementById("conversation");
@@ -126,7 +128,7 @@
         let message = $('#comment').val();
         $('#comment').val(''),
 
-        e.preventDefault();
+            e.preventDefault();
         $.ajax({
             type: 'POST',
             url: postURL,
@@ -140,7 +142,6 @@
                 $('#messages-container').html(data);
                 $('#room_input').val(room_id);
                 let objDiv = $('.message');
-
                 objDiv.scrollTop(objDiv.prop('scrollHeight'));
             }
         });
@@ -164,6 +165,7 @@
                 // console.log(data);
                 // $('#current-conversation-receiver').text(data['receiver'])
                 $('#messages-container').html(data);
+                $('#form-div').show();
                 // $('#room_input').val(room_id);
             }
         });
