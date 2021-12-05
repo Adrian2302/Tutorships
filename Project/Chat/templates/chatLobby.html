@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+{% load custom_tag %}
+{% load static %}
+<html>
+<head>
+    {% include "baseHead.html" %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/chatLobby.css' %}">
+</head>
+<body>
+{% if current_user.is_tutor %}
+{% include "tutorHeader.html" %}
+{% elif current_user.is_student %}
+{% include "studentHeader.html" %}
+{% endif %}
+<div class="app">
+    <div class="row app-one">
+        <div class="col-md-3 side">
+            <div class="side-one">
+                <div class="row heading">
+                    <div class="col-md-3 heading-avatar">
+                        <div class="heading-avatar-icon">
+                            <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row searchBox">
+                    <div class="searchBox-inner">
+                        <div class="form-group has-feedback">
+                            <input id="searchText" type="text" class="form-control search-box" name="searchText"
+                                   placeholder="Buscar">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sideBar">
+                    <!--                    {% for room in rooms %}-->
+                    <!--                    <div class="card">-->
+                    <!--                        <div class="card-body">-->
+                    <!--                            {% get_context_reciever current_user room as other_user %}-->
+                    <!--                            <h5 class="card-title">{{ other_user.get_full_name }}</h5>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    {% endfor %}-->
+                    <ul class="room-list">
+                        <li>
+                            <div class="row sideBar-body">
+                                <div class="col-md-3 sideBar-avatar">
+                                    <div class="avatar-icon">
+                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
+                                    </div>
+                                </div>
+                                <div class="col-md-9 sideBar-main">
+                                    <div class="row">
+                                        <div class="col-md-8 sideBar-name">
+                                            <span class="name-meta">Nombre Usuario</span>
+                                        </div>
+                                        <div class="col-md-4 pull-right sideBar-time">
+                                            <span class="time-meta pull-right">18:18</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row sideBar-body">
+                                <div class="col-md-3 sideBar-avatar">
+                                    <div class="avatar-icon">
+                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
+                                    </div>
+                                </div>
+                                <div class="col-md-9 sideBar-main">
+                                    <div class="row">
+                                        <div class="col-md-8 sideBar-name">
+                                            <span class="name-meta">Nombre Usuario</span>
+                                        </div>
+                                        <div class="col-md-4 pull-right sideBar-time">
+                                            <span class="time-meta pull-right">18:18</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row sideBar-body">
+                                <div class="col-md-3 sideBar-avatar">
+                                    <div class="avatar-icon">
+                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
+                                    </div>
+                                </div>
+                                <div class="col-md-9 sideBar-main">
+                                    <div class="row">
+                                        <div class="col-md-8 sideBar-name">
+                                            <span class="name-meta">Nombre Usuario</span>
+                                        </div>
+                                        <div class="col-md-4 pull-right sideBar-time">
+                                            <span class="time-meta pull-right">18:18</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row sideBar-body">
+                                <div class="col-md-3 sideBar-avatar">
+                                    <div class="avatar-icon">
+                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
+                                    </div>
+                                </div>
+                                <div class="col-md-9 sideBar-main">
+                                    <div class="row">
+                                        <div class="col-md-8 sideBar-name">
+                                            <span class="name-meta">Nombre Usuario</span>
+                                        </div>
+                                        <div class="col-md-4 pull-right sideBar-time">
+                                            <span class="time-meta pull-right">18:18</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row sideBar-body">
+                                <div class="col-md-3 sideBar-avatar">
+                                    <div class="avatar-icon">
+                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
+                                    </div>
+                                </div>
+                                <div class="col-md-9 sideBar-main">
+                                    <div class="row">
+                                        <div class="col-md-8 sideBar-name">
+                                            <span class="name-meta">Nombre Usuario</span>
+                                        </div>
+                                        <div class="col-md-4 pull-right sideBar-time">
+                                            <span class="time-meta pull-right">18:18</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row sideBar-body">
+                                <div class="col-md-3 sideBar-avatar">
+                                    <div class="avatar-icon">
+                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
+                                    </div>
+                                </div>
+                                <div class="col-md-9 sideBar-main">
+                                    <div class="row">
+                                        <div class="col-md-8 sideBar-name">
+                                            <span class="name-meta">Nombre Usuario</span>
+                                        </div>
+                                        <div class="col-md-4 pull-right sideBar-time">
+                                            <span class="time-meta pull-right">18:18</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row sideBar-body">
+                                <div class="col-md-3 sideBar-avatar">
+                                    <div class="avatar-icon">
+                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
+                                    </div>
+                                </div>
+                                <div class="col-md-9 sideBar-main">
+                                    <div class="row">
+                                        <div class="col-md-8 sideBar-name">
+                                            <span class="name-meta">Nombre Usuario</span>
+                                        </div>
+                                        <div class="col-md-4 pull-right sideBar-time">
+                                            <span class="time-meta pull-right">18:18</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row sideBar-body">
+                                <div class="col-md-3 sideBar-avatar">
+                                    <div class="avatar-icon">
+                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
+                                    </div>
+                                </div>
+                                <div class="col-md-9 sideBar-main">
+                                    <div class="row">
+                                        <div class="col-md-8 sideBar-name">
+                                            <span class="name-meta">Nombre Usuario</span>
+                                        </div>
+                                        <div class="col-md-4 pull-right sideBar-time">
+                                            <span class="time-meta pull-right">18:18</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row sideBar-body">
+                                <div class="col-md-3 sideBar-avatar">
+                                    <div class="avatar-icon">
+                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
+                                    </div>
+                                </div>
+                                <div class="col-md-9 sideBar-main">
+                                    <div class="row">
+                                        <div class="col-md-8 sideBar-name">
+                                            <span class="name-meta">Nombre Usuario</span>
+                                        </div>
+                                        <div class="col-md-4 pull-right sideBar-time">
+                                            <span class="time-meta pull-right">18:18</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row sideBar-body">
+                                <div class="col-md-3 sideBar-avatar">
+                                    <div class="avatar-icon">
+                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
+                                    </div>
+                                </div>
+                                <div class="col-md-9 sideBar-main">
+                                    <div class="row">
+                                        <div class="col-md-8 sideBar-name">
+                                            <span class="name-meta">Nombre Usuario</span>
+                                        </div>
+                                        <div class="col-md-4 pull-right sideBar-time">
+                                            <span class="time-meta pull-right">18:18</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row sideBar-body">
+                                <div class="col-md-3 sideBar-avatar">
+                                    <div class="avatar-icon">
+                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
+                                    </div>
+                                </div>
+                                <div class="col-md-9 sideBar-main">
+                                    <div class="row">
+                                        <div class="col-md-8 sideBar-name">
+                                            <span class="name-meta">Nombre Usuario</span>
+                                        </div>
+                                        <div class="col-md-4 pull-right sideBar-time">
+                                            <span class="time-meta pull-right">18:18</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row sideBar-body">
+                                <div class="col-md-3 sideBar-avatar">
+                                    <div class="avatar-icon">
+                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
+                                    </div>
+                                </div>
+                                <div class="col-md-9 sideBar-main">
+                                    <div class="row">
+                                        <div class="col-md-8 sideBar-name">
+                                            <span class="name-meta">Nombre Usuario</span>
+                                        </div>
+                                        <div class="col-md-4 pull-right sideBar-time">
+                                            <span class="time-meta pull-right">18:18</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row sideBar-body">
+                                <div class="col-md-3 sideBar-avatar">
+                                    <div class="avatar-icon">
+                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
+                                    </div>
+                                </div>
+                                <div class="col-md-9 sideBar-main">
+                                    <div class="row">
+                                        <div class="col-md-8 sideBar-name">
+                                            <span class="name-meta">Nombre Usuario</span>
+                                        </div>
+                                        <div class="col-md-4 pull-right sideBar-time">
+                                            <span class="time-meta pull-right">18:18</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row sideBar-body">
+                                <div class="col-md-3 sideBar-avatar">
+                                    <div class="avatar-icon">
+                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
+                                    </div>
+                                </div>
+                                <div class="col-md-9 sideBar-main">
+                                    <div class="row">
+                                        <div class="col-md-8 sideBar-name">
+                                            <span class="name-meta">Nombre Usuario</span>
+                                        </div>
+                                        <div class="col-md-4 pull-right sideBar-time">
+                                            <span class="time-meta pull-right">18:18</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9 conversation">
+            <div class="row heading">
+                <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
+                    <div class="heading-avatar-icon">
+                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
+                    </div>
+                </div>
+                <div class="col-sm-8 col-xs-7 heading-name">
+                    <p class="heading-name-meta">Nombre Usuario</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 offset-1 message" id="conversation">
+                <div class="row">
+                    <div class="col-md-12 message-main-receiver">
+                        <div class="receiver">
+                            <div class="message-text">
+                                Hola, como estas?
+                            </div>
+                            <span class="message-time pull-right"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 message-main-sender">
+                        <div class="sender">
+                            <div class="message-text">
+                                Estoy bien.
+                            </div>
+                            <span class="message-time pull-right">21/02/2021 17:01</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 message-main-sender">
+                        <div class="sender">
+                            <div class="message-text">
+                                Y tu?
+                            </div>
+                            <span class="message-time pull-right"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 message-main-receiver">
+                        <div class="receiver">
+                            <div class="message-text">
+                                Tambien estoy bien.
+                            </div>
+                            <span class="message-time pull-right"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 message-main-receiver">
+                        <div class="receiver">
+                            <div class="message-text">
+                                Tambien estoy bien.
+                            </div>
+                            <span class="message-time pull-right"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 message-main-receiver">
+                        <div class="receiver">
+                            <div class="message-text">
+                                Tambien estoy bien.
+                            </div>
+                            <span class="message-time pull-right"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 message-main-receiver">
+                        <div class="receiver">
+                            <div class="message-text">
+                                Tambien estoy bien.
+                            </div>
+                            <span class="message-time pull-right"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 message-main-receiver">
+                        <div class="receiver">
+                            <div class="message-text">
+                                Tambien estoy bien.
+                            </div>
+                            <span class="message-time pull-right"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 message-main-receiver">
+                        <div class="receiver">
+                            <div class="message-text">
+                                Tambien estoy bien.
+                            </div>
+                            <span class="message-time pull-right"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 message-main-receiver">
+                        <div class="receiver">
+                            <div class="message-text">
+                                Tambien estoy bien.
+                            </div>
+                            <span class="message-time pull-right"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 message-main-receiver">
+                        <div class="receiver">
+                            <div class="message-text">
+                                Tambien estoy bien.
+                            </div>
+                            <span class="message-time pull-right"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 message-main-receiver">
+                        <div class="receiver">
+                            <div class="message-text">
+                                Tambien estoy bien.
+                            </div>
+                            <span class="message-time pull-right"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 message-main-receiver">
+                        <div class="receiver">
+                            <div class="message-text">
+                                Tambien estoy bien.
+                            </div>
+                            <span class="message-time pull-right"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 message-main-receiver">
+                        <div class="receiver">
+                            <div class="message-text">
+                                Tambien estoy bien.
+                            </div>
+                            <span class="message-time pull-right"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 message-main-receiver">
+                        <div class="receiver">
+                            <div class="message-text">
+                                Tambien estoy bien.
+                            </div>
+                            <span class="message-time pull-right"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 message-main-receiver">
+                        <div class="receiver">
+                            <div class="message-text">
+                                Tambien estoy bien.
+                            </div>
+                            <span class="message-time pull-right"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 message-main-receiver">
+                        <div class="receiver">
+                            <div class="message-text">
+                                Tambien estoy bien.
+                            </div>
+                            <span class="message-time pull-right"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 message-main-receiver">
+                        <div class="receiver">
+                            <div class="message-text">
+                                Tambien estoy bien.
+                            </div>
+                            <span class="message-time pull-right"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 message-main-receiver">
+                        <div class="receiver">
+                            <div class="message-text">
+                                Tambien estoy bien.
+                            </div>
+                            <span class="message-time pull-right"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 message-main-receiver">
+                        <div class="receiver">
+                            <div class="message-text">
+                                Tambien estoy bien.
+                            </div>
+                            <span class="message-time pull-right"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row reply ml-4">
+                <div class="col-md-6 reply-main">
+                    <textarea class="form-control" rows="1" id="comment" placeholder="Nuevo mensaje"></textarea>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+</script>
+</html>
+
