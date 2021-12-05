@@ -34,15 +34,8 @@
                 </div>
 
                 <div class="sideBar">
-                    <!--                    {% for room in rooms %}-->
-                    <!--                    <div class="card">-->
-                    <!--                        <div class="card-body">-->
-                    <!--                            {% get_context_reciever current_user room as other_user %}-->
-                    <!--                            <h5 class="card-title">{{ other_user.get_full_name }}</h5>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
-                    <!--                    {% endfor %}-->
                     <ul class="room-list">
+                        {% for room in rooms %}
                         <li>
                             <div class="row sideBar-body">
                                 <div class="col-md-3 sideBar-avatar">
@@ -53,499 +46,89 @@
                                 <div class="col-md-9 sideBar-main">
                                     <div class="row">
                                         <div class="col-md-8 sideBar-name">
-                                            <span class="name-meta">Nombre Usuario</span>
+                                            {% get_context_reciever current_user room as other_user %}
+                                            <span class="name-meta">{{ other_user.get_full_name }}</span>
                                         </div>
                                         <div class="col-md-4 pull-right sideBar-time">
                                             <span class="time-meta pull-right">18:18</span>
                                         </div>
                                     </div>
+                                    <p hidden class="room-meta">{{ room.id }}</p>
                                 </div>
                             </div>
                         </li>
-                        <li>
-                            <div class="row sideBar-body">
-                                <div class="col-md-3 sideBar-avatar">
-                                    <div class="avatar-icon">
-                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
-                                    </div>
-                                </div>
-                                <div class="col-md-9 sideBar-main">
-                                    <div class="row">
-                                        <div class="col-md-8 sideBar-name">
-                                            <span class="name-meta">Nombre Usuario</span>
-                                        </div>
-                                        <div class="col-md-4 pull-right sideBar-time">
-                                            <span class="time-meta pull-right">18:18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row sideBar-body">
-                                <div class="col-md-3 sideBar-avatar">
-                                    <div class="avatar-icon">
-                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
-                                    </div>
-                                </div>
-                                <div class="col-md-9 sideBar-main">
-                                    <div class="row">
-                                        <div class="col-md-8 sideBar-name">
-                                            <span class="name-meta">Nombre Usuario</span>
-                                        </div>
-                                        <div class="col-md-4 pull-right sideBar-time">
-                                            <span class="time-meta pull-right">18:18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row sideBar-body">
-                                <div class="col-md-3 sideBar-avatar">
-                                    <div class="avatar-icon">
-                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
-                                    </div>
-                                </div>
-                                <div class="col-md-9 sideBar-main">
-                                    <div class="row">
-                                        <div class="col-md-8 sideBar-name">
-                                            <span class="name-meta">Nombre Usuario</span>
-                                        </div>
-                                        <div class="col-md-4 pull-right sideBar-time">
-                                            <span class="time-meta pull-right">18:18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row sideBar-body">
-                                <div class="col-md-3 sideBar-avatar">
-                                    <div class="avatar-icon">
-                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
-                                    </div>
-                                </div>
-                                <div class="col-md-9 sideBar-main">
-                                    <div class="row">
-                                        <div class="col-md-8 sideBar-name">
-                                            <span class="name-meta">Nombre Usuario</span>
-                                        </div>
-                                        <div class="col-md-4 pull-right sideBar-time">
-                                            <span class="time-meta pull-right">18:18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row sideBar-body">
-                                <div class="col-md-3 sideBar-avatar">
-                                    <div class="avatar-icon">
-                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
-                                    </div>
-                                </div>
-                                <div class="col-md-9 sideBar-main">
-                                    <div class="row">
-                                        <div class="col-md-8 sideBar-name">
-                                            <span class="name-meta">Nombre Usuario</span>
-                                        </div>
-                                        <div class="col-md-4 pull-right sideBar-time">
-                                            <span class="time-meta pull-right">18:18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row sideBar-body">
-                                <div class="col-md-3 sideBar-avatar">
-                                    <div class="avatar-icon">
-                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
-                                    </div>
-                                </div>
-                                <div class="col-md-9 sideBar-main">
-                                    <div class="row">
-                                        <div class="col-md-8 sideBar-name">
-                                            <span class="name-meta">Nombre Usuario</span>
-                                        </div>
-                                        <div class="col-md-4 pull-right sideBar-time">
-                                            <span class="time-meta pull-right">18:18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row sideBar-body">
-                                <div class="col-md-3 sideBar-avatar">
-                                    <div class="avatar-icon">
-                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
-                                    </div>
-                                </div>
-                                <div class="col-md-9 sideBar-main">
-                                    <div class="row">
-                                        <div class="col-md-8 sideBar-name">
-                                            <span class="name-meta">Nombre Usuario</span>
-                                        </div>
-                                        <div class="col-md-4 pull-right sideBar-time">
-                                            <span class="time-meta pull-right">18:18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row sideBar-body">
-                                <div class="col-md-3 sideBar-avatar">
-                                    <div class="avatar-icon">
-                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
-                                    </div>
-                                </div>
-                                <div class="col-md-9 sideBar-main">
-                                    <div class="row">
-                                        <div class="col-md-8 sideBar-name">
-                                            <span class="name-meta">Nombre Usuario</span>
-                                        </div>
-                                        <div class="col-md-4 pull-right sideBar-time">
-                                            <span class="time-meta pull-right">18:18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row sideBar-body">
-                                <div class="col-md-3 sideBar-avatar">
-                                    <div class="avatar-icon">
-                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
-                                    </div>
-                                </div>
-                                <div class="col-md-9 sideBar-main">
-                                    <div class="row">
-                                        <div class="col-md-8 sideBar-name">
-                                            <span class="name-meta">Nombre Usuario</span>
-                                        </div>
-                                        <div class="col-md-4 pull-right sideBar-time">
-                                            <span class="time-meta pull-right">18:18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row sideBar-body">
-                                <div class="col-md-3 sideBar-avatar">
-                                    <div class="avatar-icon">
-                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
-                                    </div>
-                                </div>
-                                <div class="col-md-9 sideBar-main">
-                                    <div class="row">
-                                        <div class="col-md-8 sideBar-name">
-                                            <span class="name-meta">Nombre Usuario</span>
-                                        </div>
-                                        <div class="col-md-4 pull-right sideBar-time">
-                                            <span class="time-meta pull-right">18:18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row sideBar-body">
-                                <div class="col-md-3 sideBar-avatar">
-                                    <div class="avatar-icon">
-                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
-                                    </div>
-                                </div>
-                                <div class="col-md-9 sideBar-main">
-                                    <div class="row">
-                                        <div class="col-md-8 sideBar-name">
-                                            <span class="name-meta">Nombre Usuario</span>
-                                        </div>
-                                        <div class="col-md-4 pull-right sideBar-time">
-                                            <span class="time-meta pull-right">18:18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row sideBar-body">
-                                <div class="col-md-3 sideBar-avatar">
-                                    <div class="avatar-icon">
-                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
-                                    </div>
-                                </div>
-                                <div class="col-md-9 sideBar-main">
-                                    <div class="row">
-                                        <div class="col-md-8 sideBar-name">
-                                            <span class="name-meta">Nombre Usuario</span>
-                                        </div>
-                                        <div class="col-md-4 pull-right sideBar-time">
-                                            <span class="time-meta pull-right">18:18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row sideBar-body">
-                                <div class="col-md-3 sideBar-avatar">
-                                    <div class="avatar-icon">
-                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
-                                    </div>
-                                </div>
-                                <div class="col-md-9 sideBar-main">
-                                    <div class="row">
-                                        <div class="col-md-8 sideBar-name">
-                                            <span class="name-meta">Nombre Usuario</span>
-                                        </div>
-                                        <div class="col-md-4 pull-right sideBar-time">
-                                            <span class="time-meta pull-right">18:18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
+                        {% endfor %}
                     </ul>
-
-
                 </div>
             </div>
         </div>
-
-        <div class="col-md-9 conversation">
-            <div class="row heading">
-                <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
-                    <div class="heading-avatar-icon">
-                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
-                    </div>
-                </div>
-                <div class="col-sm-8 col-xs-7 heading-name">
-                    <p class="heading-name-meta">Nombre Usuario</p>
-                </div>
-            </div>
-
-            <div class="col-md-6 offset-1 message" id="conversation">
-                <div class="row">
-                    <div class="col-md-12 message-main-receiver">
-                        <div class="receiver">
-                            <div class="message-text">
-                                Hola, como estas?
-                            </div>
-                            <span class="message-time pull-right"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 message-main-sender">
-                        <div class="sender">
-                            <div class="message-text">
-                                Estoy bien.
-                            </div>
-                            <span class="message-time pull-right">21/02/2021 17:01</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 message-main-sender">
-                        <div class="sender">
-                            <div class="message-text">
-                                Y tu?
-                            </div>
-                            <span class="message-time pull-right"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 message-main-receiver">
-                        <div class="receiver">
-                            <div class="message-text">
-                                Tambien estoy bien.
-                            </div>
-                            <span class="message-time pull-right"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 message-main-receiver">
-                        <div class="receiver">
-                            <div class="message-text">
-                                Tambien estoy bien.
-                            </div>
-                            <span class="message-time pull-right"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 message-main-receiver">
-                        <div class="receiver">
-                            <div class="message-text">
-                                Tambien estoy bien.
-                            </div>
-                            <span class="message-time pull-right"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 message-main-receiver">
-                        <div class="receiver">
-                            <div class="message-text">
-                                Tambien estoy bien.
-                            </div>
-                            <span class="message-time pull-right"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 message-main-receiver">
-                        <div class="receiver">
-                            <div class="message-text">
-                                Tambien estoy bien.
-                            </div>
-                            <span class="message-time pull-right"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 message-main-receiver">
-                        <div class="receiver">
-                            <div class="message-text">
-                                Tambien estoy bien.
-                            </div>
-                            <span class="message-time pull-right"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 message-main-receiver">
-                        <div class="receiver">
-                            <div class="message-text">
-                                Tambien estoy bien.
-                            </div>
-                            <span class="message-time pull-right"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 message-main-receiver">
-                        <div class="receiver">
-                            <div class="message-text">
-                                Tambien estoy bien.
-                            </div>
-                            <span class="message-time pull-right"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 message-main-receiver">
-                        <div class="receiver">
-                            <div class="message-text">
-                                Tambien estoy bien.
-                            </div>
-                            <span class="message-time pull-right"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 message-main-receiver">
-                        <div class="receiver">
-                            <div class="message-text">
-                                Tambien estoy bien.
-                            </div>
-                            <span class="message-time pull-right"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 message-main-receiver">
-                        <div class="receiver">
-                            <div class="message-text">
-                                Tambien estoy bien.
-                            </div>
-                            <span class="message-time pull-right"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 message-main-receiver">
-                        <div class="receiver">
-                            <div class="message-text">
-                                Tambien estoy bien.
-                            </div>
-                            <span class="message-time pull-right"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 message-main-receiver">
-                        <div class="receiver">
-                            <div class="message-text">
-                                Tambien estoy bien.
-                            </div>
-                            <span class="message-time pull-right"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 message-main-receiver">
-                        <div class="receiver">
-                            <div class="message-text">
-                                Tambien estoy bien.
-                            </div>
-                            <span class="message-time pull-right"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 message-main-receiver">
-                        <div class="receiver">
-                            <div class="message-text">
-                                Tambien estoy bien.
-                            </div>
-                            <span class="message-time pull-right"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 message-main-receiver">
-                        <div class="receiver">
-                            <div class="message-text">
-                                Tambien estoy bien.
-                            </div>
-                            <span class="message-time pull-right"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 message-main-receiver">
-                        <div class="receiver">
-                            <div class="message-text">
-                                Tambien estoy bien.
-                            </div>
-                            <span class="message-time pull-right"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row reply ml-4">
-                <div class="col-md-6 reply-main">
-                    <textarea class="form-control" rows="1" id="comment" placeholder="Nuevo mensaje"></textarea>
-                </div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-primary">Enviar</button>
-                </div>
-            </div>
-        </div>
+        <div id="messages-container" class="col-md-9 conversation"></div>
     </div>
 </div>
 </body>
 <script>
+    // $(document).ready(function () {
+    //     $('.message-main-sender').hide();
+    //     $('.message-main-receiver').hide();
+    //     $('.reply').hide();
+    //     $('.message-main-sender').fadeIn(1000);
+    //     $('.message-main-receiver').fadeIn(1000);
+    //     $('.reply').fadeIn(1000);
+    // });
+
+    $(document).ready(function () {
+        let objDiv = $('.message');
+        objDiv.scrollTop(objDiv.prop('scrollHeight'));
+    });
+
+    // let objDiv = document.getElementById("conversation");
+    // objDiv.scrollTop = objDiv.scrollHeight;
+
+    $(document).on('submit', '#post-form', function (e) {
+        let postURL = "http://127.0.0.1:8000/mensajes/enviar";
+        let room_id = $('#room_input').val();
+
+        console.log(room_id);
+
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: postURL,
+            data: {
+                'room': room_id,
+                'message': $('#comment').val(),
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+            },
+            success: function (data) {
+                console.log(data);
+                $('#messages-container').html(data);
+                $('#room_input').val(room_id);
+                let objDiv = $('.message');
+                objDiv.scrollTop(objDiv.prop('scrollHeight'));
+            }
+        });
+    });
+
+    let postURL = "http://127.0.0.1:8000/mensajes/";
+    $('.sideBar-main').click(function () {
+        let room_id = $(this).children('.room-meta').text();
+        $.ajax({
+            url: postURL,
+            type: 'POST',
+            data: {
+                room_id: room_id,
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+            },
+            success: function (data) {
+                // console.log(data);
+                // $('#current-conversation-receiver').text(data['receiver'])
+                $('#messages-container').html(data);
+                $('#room_input').val(room_id);
+            }
+        });
+    });
 
 </script>
-</html>
+</html>·
 
