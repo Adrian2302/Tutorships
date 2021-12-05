@@ -28,10 +28,13 @@ class ChatLobby(View):
             user = User.objects.get(pk=request.user.id)
             # print(request.POST['room_id'])
 
-            room = Room.objects.get(pk=request.POST['room_id'])
-            messages = list(Message.objects.filter(room=room))
+            if request.POST.get('room_id'):
+                room = Room.objects.get(pk=request.POST['room_id'])
+                messages = list(Message.objects.filter(room=room))
 
-            reciever = room.context_reciever(user)
-            context = {'messages': messages,
-                       'receiver': reciever}
-            return HttpResponse(render(request, 'messages.html', context))
+                reciever = room.context_reciever(user)
+                context = {'messages': messages,
+                           'receiver': reciever}
+                return HttpResponse(render(request, 'messages.html', context))
+
+            return HttpResponse(render(request, 'messages.html'))
