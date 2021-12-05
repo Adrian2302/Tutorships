@@ -31,6 +31,9 @@ def toggle_value(request, arg):
     query = dict(urllib.parse.parse_qsl(url_parts[4], keep_blank_values=True))
     query["pagina"] = arg
     url_parts[4] = urllib.parse.urlencode(query)
-
     return urllib.parse.urlunparse(url_parts)
-  
+
+
+@register.simple_tag
+def get_context_reciever(user, room):
+    return room.context_reciever(user)
