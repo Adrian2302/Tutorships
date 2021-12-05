@@ -8,7 +8,7 @@ div, span {
     box-sizing: border-box;
 }
 
-.app {
+.chatlobby {
     position: relative;
     overflow: hidden;
     height: calc(100% - 56px);
@@ -16,7 +16,7 @@ div, span {
     padding: 0;
 }
 
-.app-one {
+.chatlobby-container {
     background-color: #0F0F0F;
     height: 100%;
     overflow: hidden;
@@ -110,7 +110,6 @@ div, span {
     width: 100%;
     padding: 10px !important;
     background-color: #212121;
-
 }
 
 .searchBox-inner input {
