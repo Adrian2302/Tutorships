@@ -1,3 +1,4 @@
+from django.db.models.query_utils import PathInfo
 from django.views import generic
 from django.shortcuts import redirect, render
 from django.core.paginator import Paginator
@@ -13,18 +14,17 @@ from UserAuthentication.models import User
 from Tutor.models import Tutor
 from Resource.models import Resource
 from Region.models import Regions
-from Student.filtersModels import ListTypeSearch
+from Student.filtersModels import ListTypeSearch, ListFilter, ListScore
+
 
 def create_context(search_query, page_number, type_search, filters, user):
     try:
 
-        results, type_list = handlers_results(search_query, type_search, filters, user)
-
+        results, list_search = handlers_results(search_query, type_search, filters, user)
         page_display = get_paginator_results(results, page_number)
 
-        sessions = Session.objects.all()
-        modals = Modality.objects.all()
-        retributions = Payment.objects.all()
+        list_filter = get_list_filters(filters)
+
         regions = Regions.objects.all()
 
         if type_search == None:
@@ -37,11 +37,12 @@ def create_context(search_query, page_number, type_search, filters, user):
         context = {
                 'latest_search': search_query,
                 'results': page_display,
-                'types_searches': type_list,
-                'sessions': sessions,   
-                'modals': modals,
-                'retributions' : retributions, 
-                'regions' : regions,
+                'types_searches': list_search,
+                'sessions': list_filter[0].list,   
+                'modals': list_filter[1].list,
+                'retributions' : list_filter[2].list, 
+                'scores' : list_filter[3].list,
+                'regions' : list_filter[4].list,
                 'last_type': type_search, 
                 'diplay_sessions_link': diplay_sessions_link
             }
@@ -147,9 +148,49 @@ def get_list_type_search(selected_type_search):
     return list_type_search.list
 
 
+def get_list_filters(filters):
+    
+    try:
+        list_filters = []
+
+        if 'sessions' in filters:     
+            list_filters.append(ListFilter(Session.objects.all(), filters['sessions']))
+        else:
+            list_filters.append(ListFilter(Session.objects.all()))
+        
+        if 'modals' in filters:   
+            list_filters.append(ListFilter(Modality.objects.all(), filters['modals']))
+        else:
+            list_filters.append(ListFilter(Modality.objects.all()))
+
+        if 'payments' in filters:  
+            list_filters.append(ListFilter(Payment.objects.all(), filters['payments']))
+        else:
+            list_filters.append(ListFilter(Payment.objects.all()))
+
+        if 'score' in filters:
+            list_filters.append(ListScore(filters['score']))
+        else:
+            list_filters.append(ListScore())
+
+        if 'region' in filters:
+            list_filters.append(ListFilter(Regions.objects.all(), filters['region']))
+        else:
+            list_filters.append(ListFilter(Regions.objects.all()))
+        
+        return list_filters
+
+    except Exception as e:
+        print(e)
+        raise ValueError("Error in list filters")
+
+    
+
+
 def do_filters(results, filters):
     try:
         filtered_results = results
+
         if 'sessions' in filters:        
             filtered_results = filter_session(filtered_results, filters['sessions'])
 

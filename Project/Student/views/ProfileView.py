@@ -22,7 +22,7 @@ class ProfileView(generic.View):
 
         context = {
             'form': form,
-            'user': user_to_edit
+            'user_info': user_to_edit
         }
         return render(request, self.template_name, context)
 
