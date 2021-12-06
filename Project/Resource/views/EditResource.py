@@ -35,7 +35,8 @@ class EditResource(generic.View):
         context = {
             'form': form,
             'resources': Resource.objects.all(),
-            'selected_resource': selected_resource
+            'selected_resource': selected_resource,
+            'title_page' : "Recursos"
         }
         return render(request, self.template_name, context)
 

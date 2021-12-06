@@ -5,7 +5,7 @@ from UserAuthentication.models import User
 from Student.models import Request, Requesters
 
 def create_context(query_set):
-    return {'requests': query_set}
+    return {'requests': query_set, 'title_page' : "Rechazadas"}
 
 class rejectedRequests(generic.View):
 

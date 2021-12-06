@@ -20,7 +20,7 @@ def get_paginator_results(results, page_number):
 
 
 def create_context(query_set, average, quantity):
-    return {'results': query_set, 'average': average, 'quantity': quantity}
+    return {'results': query_set, 'average': average, 'quantity': quantity, 'title_page' : "Calificaciones"}
 
 
 class CalificationsTutorships(generic.View):

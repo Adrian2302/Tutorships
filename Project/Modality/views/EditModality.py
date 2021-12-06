@@ -23,7 +23,8 @@ class EditModality(generic.View):
         context = {
             'form': form,
             'modalities': Modality.objects.all(),
-            'selected_modality': selected_modality
+            'selected_modality': selected_modality,
+            'title_page' : "Modalidades"
         }
         return render(request, self.template_name, context)
 

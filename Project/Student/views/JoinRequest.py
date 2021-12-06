@@ -12,6 +12,7 @@ def create_context(request, user):
         'session' : request.session_requested.name,
         'modal' : request.modality_requested.name, 
         'tutor' : request.tutor_requested.name,
+        'title_page' : "Agendar"
     }
 
     return context
@@ -59,7 +60,7 @@ class JoinRequest(generic.View):
                 
                 succeeded = join_request(request_to_join, user)
 
-                return render(request, "Student/reportRequest.html", {'success': succeeded})
+                return render(request, "Student/reportRequest.html", {'success': succeeded, 'title_page' : "Solicitud"})
             except:
-                return render(request, "Student/reportRequest.html", {'success': False})
+                return render(request, "Student/reportRequest.html", {'success': False, 'title_page' : "Solicitud"})
         return redirect('index')

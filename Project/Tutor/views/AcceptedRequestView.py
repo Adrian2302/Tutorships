@@ -20,7 +20,9 @@ def create_context(user):
 
     context = {
         'requests': query_set,
-        'message': message}
+        'message': message,
+        'title_page' : "Tutorías agendadas"
+    }
     return context
 
 

@@ -53,7 +53,8 @@ class ProfileView(generic.View):
             'session' : session,
             'modality' : modality,
             'payment' : payment,
-            'user' : user
+            'user' : user,
+            'title_page' : "Perfil"
         }
 
         if user.is_tutor():
