@@ -28,7 +28,8 @@ def get_context_view_calendar(tutor_email):
         context = {
             'events': event_list,
             'calendar_title': tutor.name + " " + tutor.lastname,
-            'tutor_email' : tutor_email
+            'tutor_email' : tutor_email,
+            'title_page' : "Calendario"
         }
 
         return context

@@ -28,7 +28,8 @@ class EditCourse(generic.View):
         context = {
             'form': form,
             'courses': Course.objects.all(),
-            'selected_course': selected_course
+            'selected_course': selected_course,
+            'title_page' : "Cursos"
         }
         return render(request, self.template_name, context)
 

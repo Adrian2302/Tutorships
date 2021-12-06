@@ -35,6 +35,7 @@ def get_context_view_calendar(tutor: User, course_name: str):
             'events': event_list,
             'calendar_title': tutor.name + " " + tutor.lastname,
             'course': course_name,
+            'title_page' : "Calendario"
         }
 
         return context

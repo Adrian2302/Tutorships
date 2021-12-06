@@ -23,7 +23,8 @@ class EditPayment(generic.View):
         context = {
             'form': form,
             'payments': Payment.objects.all(),
-            'selected_payment': selected_payment
+            'selected_payment': selected_payment,
+            'title_page' : "Retribuciones"
         }
         return render(request, self.template_name, context)
 

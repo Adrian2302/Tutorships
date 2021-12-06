@@ -35,11 +35,11 @@
                 </li>
                 <li class="nav-item">
                     {% if user.is_authenticated %}
-                    <a type="button" class="btn btn-primary" href="{% url 'logout' %}"  style="background-color: #1A54D4; border-color: #1A54D4;">
+                    <a type="button" class="btn btn-primary button-blue" href="{% url 'logout' %}" >
                         <img src="{% static "img/leave-icon.svg" %}" alt="leave-icon"/>
                     </a>
                     {% else %}
-                    <a type="button" class="btn btn-primary" href="{% provider_login_url 'google' %}"  style="background-color: #1A54D4; border-color: #1A54D4;">
+                    <a type="button" class="btn btn-primary button-blue" href="{% provider_login_url 'google' %}">
                         <img src="{% static "img/user-icon.svg"%}" alt="user-icon"/>
                         ACCEDER
                     </a>

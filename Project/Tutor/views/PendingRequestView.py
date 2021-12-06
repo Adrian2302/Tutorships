@@ -17,7 +17,7 @@ from Tutorship.models import RequestNotification
 
 def create_context(user):
     query_set = list(Request.objects.filter(tutor_requested_id=user, state='PN').order_by('date_start'))
-    context = {'requests': query_set}
+    context = {'requests': query_set, 'title_page' : "Solicitudes Pendientes"}
     return context
 
 

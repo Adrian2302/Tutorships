@@ -18,7 +18,7 @@ class ProfitView(generic.View):
         profit_form = ProfitForm(request.GET or None)
         
         if user.is_tutor():
-            return render(request, self.template_name, {'form': profit_form})
+            return render(request, self.template_name, {'form': profit_form, "title_page" : "Ganancias"})
         else:
             return redirect('index')
 
@@ -55,7 +55,8 @@ class ProfitView(generic.View):
                 context = {
                     'form': profit_form,
                     'profit': profit,
-                    'time': time
+                    'time': time,
+                    'title_page' : "Ganancias"
                 }
 
             return render(request, self.template_name, context)
