@@ -62,7 +62,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 conversation">
             <div id="messages-container" class="conversation"></div>
             <div id="form-div" style="margin-top: 2px;">
                 <form id="post-form">
@@ -91,32 +91,39 @@
     //     $('.reply').fadeIn(1000);
     // });
 
-    let pauseInterval = false;
+    $("textarea").keyup(function (e) {
+        if ((e.keyCode || e.which) == 13) { //Enter keycode
+            $("#post-form").submit();
+        }
+    });
+
+
+    function fetchdata() {
+        let postURL = "http://127.0.0.1:8000/mensajes/";
+        let room_id = $('#room_input').val();
+        $.ajax({
+            url: postURL,
+            type: 'POST',
+            data: {
+                room_id: room_id,
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+            },
+            success: function (data) {
+                $('#messages-container').html(data);
+                let objDiv = $('.message');
+                objDiv.scrollTop(objDiv.prop('scrollHeight'));
+            },
+            complete: function () {
+                setTimeout(fetchdata, 1000);
+            }
+        });
+    }
 
     $(document).ready(function () {
         let objDiv = $('.message');
         objDiv.scrollTop(objDiv.prop('scrollHeight'));
         $('#form-div').hide();
-
-        let postURL = "http://127.0.0.1:8000/mensajes/";
-        setInterval(function () {
-            if (!pauseInterval) {
-                let room_id = $('#room_input').val();
-                $.ajax({
-                    url: postURL,
-                    type: 'POST',
-                    data: {
-                        room_id: room_id,
-                        csrfmiddlewaretoken: '{{ csrf_token }}',
-                    },
-                    success: function (data) {
-                        $('#messages-container').html(data);
-                        let objDiv = $('.message');
-                        objDiv.scrollTop(objDiv.prop('scrollHeight'));
-                    }
-                });
-            }
-        }, 1000);
+        setTimeout(fetchdata, 1000);
     });
 
     // let objDiv = document.getElementById("conversation");
@@ -126,9 +133,8 @@
         let postURL = "http://127.0.0.1:8000/mensajes/enviar";
         let room_id = $('#room_input').val();
         let message = $('#comment').val();
-        $('#comment').val(''),
-
-            e.preventDefault();
+        $('#comment').val('');
+        e.preventDefault();
         $.ajax({
             type: 'POST',
             url: postURL,
@@ -138,7 +144,6 @@
                 csrfmiddlewaretoken: '{{ csrf_token }}',
             },
             success: function (data) {
-                console.log(data);
                 $('#messages-container').html(data);
                 $('#room_input').val(room_id);
                 let objDiv = $('.message');
@@ -149,9 +154,6 @@
 
     let postURL = "http://127.0.0.1:8000/mensajes/";
     $('.sideBar-main').click(function () {
-
-        pauseInterval = true;
-
         let room_id = $(this).children('.room-meta').text();
         $('#room_input').val(room_id);
         $.ajax({
@@ -162,15 +164,10 @@
                 csrfmiddlewaretoken: '{{ csrf_token }}',
             },
             success: function (data) {
-                // console.log(data);
-                // $('#current-conversation-receiver').text(data['receiver'])
-                $('#messages-container').html(data);
                 $('#form-div').show();
-                // $('#room_input').val(room_id);
+                $('#messages-container').html(data);
             }
         });
-
-        pauseInterval = false;
     });
 
 </script>
