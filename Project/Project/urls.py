@@ -29,4 +29,5 @@ urlpatterns = [
     path('', include("Course.urls")),
     path('', include("Student.urls")),
     path('', include("Region.urls")),
+    path('', include("Chat.urls")),
 ]
