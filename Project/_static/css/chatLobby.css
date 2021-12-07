@@ -9,6 +9,11 @@ div, span {
     box-sizing: border-box;
 }
 
+a, a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+}
+
 .chatlobby {
     position: relative;
     overflow: hidden;

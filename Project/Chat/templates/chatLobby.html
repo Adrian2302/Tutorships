@@ -37,25 +37,27 @@
                     <ul class="room-list">
                         {% for room in rooms %}
                         <li>
-                            <div class="row sideBar-body">
-                                <div class="col-md-3 sideBar-avatar">
-                                    <div class="avatar-icon">
-                                        <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
-                                    </div>
-                                </div>
-                                <div class="col-md-9 sideBar-main">
-                                    <div class="row">
-                                        <div class="col-md-8 sideBar-name">
-                                            {% get_context_reciever current_user room as other_user %}
-                                            <span class="name-meta">{{ other_user.get_full_name }}</span>
-                                        </div>
-                                        <div class="col-md-4 pull-right sideBar-time">
-                                            <span class="time-meta pull-right">18:18</span>
+                            <a href="{% url 'chatlobby' room.id %}">
+                                <div class="row sideBar-body">
+                                    <div class="col-md-3 sideBar-avatar">
+                                        <div class="avatar-icon">
+                                            <img src="https://www.clipartmax.com/png/middle/214-2143742_individuals-whatsapp-profile-picture-icon.png">
                                         </div>
                                     </div>
-                                    <p hidden class="room-meta">{{ room.id }}</p>
+                                    <div class="col-md-9 sideBar-main">
+                                        <div class="row">
+                                            <div class="col-md-8 sideBar-name">
+                                                {% get_context_reciever current_user room as other_user %}
+                                                <span class="name-meta">{{ other_user.get_full_name }}</span>
+                                            </div>
+                                            <div class="col-md-4 pull-right sideBar-time">
+                                                <span class="time-meta pull-right">18:18</span>
+                                            </div>
+                                        </div>
+                                        <p hidden class="room-meta">{{ room.id }}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </li>
                         {% endfor %}
                     </ul>
@@ -69,7 +71,7 @@
                     <div class="row reply ml-4">
                         <div class="col-md-6 reply-main">
                             <textarea class="form-control" rows="1" id="comment" placeholder="Nuevo mensaje"></textarea>
-                            <input name="room_id" type="hidden" id="room_input" value="">
+                            <input name="room_id" type="hidden" id="room_input" value="{{ current_room.id }}">
                         </div>
                         <div class="col-md-2">
                             <button type="submit" class="btn btn-primary">Enviar</button>
@@ -91,10 +93,30 @@
     //     $('.reply').fadeIn(1000);
     // });
 
-    $("textarea").keyup(function (e) {
-        if ((e.keyCode || e.which) == 13) { //Enter keycode
-            $("#post-form").submit();
-        }
+    let timer = null
+
+    $(document).ready(function () {
+        let objDiv = $('.message');
+        objDiv.scrollTop(objDiv.prop('scrollHeight'));
+        $('#form-div').hide();
+
+        $("textarea").keyup(function (e) {
+            if ((e.keyCode || e.which) == 13) { //Enter keycode
+                $("#post-form").submit();
+            }
+        });
+
+        window.addEventListener('scroll', function () {
+            if (timer) {
+                clearTimeout(timer);
+            } else {
+                setTimeout(function () {
+                    timer = setTimeout(fetchdata, 1000);
+                }, 50);
+            }
+        });
+
+        timer = setTimeout(fetchdata, 1000);
     });
 
 
@@ -109,25 +131,16 @@
                 csrfmiddlewaretoken: '{{ csrf_token }}',
             },
             success: function (data) {
+                $('#form-div').show();
                 $('#messages-container').html(data);
                 let objDiv = $('.message');
                 objDiv.scrollTop(objDiv.prop('scrollHeight'));
             },
             complete: function () {
-                setTimeout(fetchdata, 1000);
+                timer = setTimeout(fetchdata, 1000);
             }
         });
     }
-
-    $(document).ready(function () {
-        let objDiv = $('.message');
-        objDiv.scrollTop(objDiv.prop('scrollHeight'));
-        $('#form-div').hide();
-        setTimeout(fetchdata, 1000);
-    });
-
-    // let objDiv = document.getElementById("conversation");
-    // objDiv.scrollTop = objDiv.scrollHeight;
 
     $(document).on('submit', '#post-form', function (e) {
         let postURL = "http://127.0.0.1:8000/mensajes/enviar";
@@ -152,24 +165,6 @@
         });
     });
 
-    let postURL = "http://127.0.0.1:8000/mensajes/";
-    $('.sideBar-main').click(function () {
-        let room_id = $(this).children('.room-meta').text();
-        $('#room_input').val(room_id);
-        $.ajax({
-            url: postURL,
-            type: 'POST',
-            data: {
-                room_id: room_id,
-                csrfmiddlewaretoken: '{{ csrf_token }}',
-            },
-            success: function (data) {
-                $('#form-div').show();
-                $('#messages-container').html(data);
-            }
-        });
-    });
-
 </script>
-</html>·
+</html>
 
