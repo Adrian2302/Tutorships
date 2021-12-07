@@ -54,6 +54,7 @@ def delete_value(request, arg):
 def get_context_reciever(user, room):
     return room.context_reciever(user)
 
+
 @register.filter
 def get_name(context):
     request_user = context.user
