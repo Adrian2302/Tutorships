@@ -32,8 +32,14 @@ def delete_value(request, arg):
             query.remove(value)
             break
 
-
     url_parts[4] = urllib.parse.urlencode(query)
 
     return urllib.parse.urlunparse(url_parts)
-  
+
+
+@register.filter
+def get_name(context):
+    request_user = context.user
+    user = User.objects.get(id=request_user.id)
+
+    return user.name
