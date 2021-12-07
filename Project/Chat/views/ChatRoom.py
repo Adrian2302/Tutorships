@@ -6,10 +6,10 @@ from Chat.models import Room, Message
 
 
 class ChatRoom(View):
-    template_name = 'home.html'
+    template_name = 'chatLobby.html'
     user: User = None
 
-    def get(self, request, user_receiver_pk=None, room_pk=None):
+    def get(self, request, user_receiver_pk=None):
         user = User.objects.get(pk=request.user.id)
         user_to = User.objects.get(pk=user_receiver_pk)
 
@@ -21,9 +21,4 @@ class ChatRoom(View):
         room = list(Room.objects.filter(original_user_sender=user, original_user_receiver=user_to) |
                     Room.objects.filter(original_user_sender=user_to, original_user_receiver=user))[0]
 
-        context = {
-            # 'rooms': rooms,
-            'selected_room': room,
-            # 'messages': messages,
-        }
-        return render(request, self.template_name, context)
+        return redirect('chatlobby', room_pk=room.id)
