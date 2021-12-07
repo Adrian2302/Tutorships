@@ -21,8 +21,6 @@ class ChatRoom(View):
         room = list(Room.objects.filter(original_user_sender=user, original_user_receiver=user_to) |
                     Room.objects.filter(original_user_sender=user_to, original_user_receiver=user))[0]
 
-        print(room)
-
         context = {
             # 'rooms': rooms,
             'selected_room': room,

@@ -8,6 +8,16 @@ class Room(models.Model):
     original_user_sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='original_user_sender')
     original_user_receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='original_user_receiver')
 
+    def context_reciever(self, user: User) -> User:
+        if self.original_user_sender == user:
+            return self.original_user_receiver
+        else:
+            return self.original_user_sender
+
+
+    def get_last_message(self):
+        return Message.objects.filter(room=self).order_by('-created_at').first()
+
 
 class Message(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
