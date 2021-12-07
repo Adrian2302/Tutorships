@@ -33,6 +33,7 @@ def toggle_value(request, arg):
     url_parts[4] = urllib.parse.urlencode(query)
     return urllib.parse.urlunparse(url_parts)
 
+
 @register.filter
 def delete_value(request, arg):
     url_parts = list(urllib.parse.urlparse(request.get_full_path()))
