@@ -20,7 +20,7 @@
         {% csrf_token %}
         <div class="form-group col-md-10 mt-5">
             <button type="submit" class="btn btn-primary float-right button-blue">Unirse a la tutoría</button>
-            <button type="button" class="btn btn-secondary float-right mr-2">Cancelar</button>
+            <a href="{{last_page}}"><button type="button" class="btn btn-danger float-right mr-2">Cancelar</button></a>
         </div>
     </form>
 </div>
