@@ -52,6 +52,13 @@ class ListScore:
                 self.list.append(TypeScore(score[stars], 0, stars+1))
 
 
+class RequestNode:
+    def __init__(self, name, scored):
+        self.name = name
+        self.scored = scored
 
-  
-   
+
+class ListRequestNode:
+    def __init__(self, query):
+        for requests in query:
+            print(requests)
