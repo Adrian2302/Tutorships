@@ -161,9 +161,9 @@ def create_context(schedule_id, user, tutor=None, get_courses=False):
             courses = Course.objects.filter(id__in=courses)
 
         # Para la integración de varias sesiones se debe tener una lista de sesiones id y hacer id__in
-        sessions = Session.objects.filter(id=tutor.session_type.id)
-        modals = Modality.objects.filter(id=tutor.modality_type.id)
-        payments = Payment.objects.filter(id=tutor.payment_type.id)
+        sessions = tutor.session_type.all()
+        modals = tutor.modality_type.all()
+        payments = tutor.payment_type.all()
 
         min_time = schedule_selected.start_time.strftime('%H:%M')
         max_time = schedule_selected.end_time - timedelta(hours=1, minutes=0)

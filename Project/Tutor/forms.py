@@ -96,17 +96,17 @@ class ProfileForm(forms.Form):
                                           initial=None,
                                           label="Precio por el incremento de media hora:")
 
-    choices_session = forms.ModelChoiceField(widget=forms.RadioSelect,
+    choices_session = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,
                                              queryset=Session.objects.all(),
                                              initial=None,
                                              label="Tipo de sesión a impartir:")
 
-    choices_modality = forms.ModelChoiceField(widget=forms.RadioSelect,
+    choices_modality = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,
                                               queryset=Modality.objects.all(),
                                               initial=None,
                                               label="Tipo de modalidad a impartir:")
 
-    choices_payment = forms.ModelChoiceField(widget=forms.RadioSelect,
+    choices_payment = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,
                                              queryset=Payment.objects.all(),
                                              initial=None,
                                              label="Método de pago preferido:")
@@ -132,9 +132,10 @@ class ProfileForm(forms.Form):
             region = Tutor.objects.get(user_id=user.id).region
             tutorship_price = Tutor.objects.get(user_id=user.id).amount_per_person
             increment_half_hour = Tutor.objects.get(user_id=user.id).increment_per_half_hour
-            session = Tutor.objects.get(user_id=user.id).session_type_id
-            modality = Tutor.objects.get(user_id=user.id).modality_type_id
-            payment = Tutor.objects.get(user_id=user.id).payment_type_id
+
+            session = Tutor.objects.get(user_id=user.id).session_type.all()
+            modality = Tutor.objects.get(user_id=user.id).modality_type.all()
+            payment = Tutor.objects.get(user_id=user.id).payment_type.all()
 
             super(ProfileForm, self).__init__(*args, **kwargs)
             
