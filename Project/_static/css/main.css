@@ -24,7 +24,8 @@
   border-color: #919191;
 }
 
-.white{
-  background-color: #fff;
-  border-color: #fff;
+.white-text-navbar{
+  color:white;
+  margin-right: 1em;
+  margin-top: .4em;
 }
