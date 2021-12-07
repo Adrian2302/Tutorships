@@ -9,7 +9,6 @@
     </div>
 </div>
 <div class="col-md-6 offset-1 message" id="conversation">
-    <p>TEST</p>
     {% for chat_message in chat_messages %}
     <div class="row">
         {% if chat_message.user_sender.id == receiver.id %}
