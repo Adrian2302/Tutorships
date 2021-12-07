@@ -10,7 +10,7 @@ from Tutor.models import Tutor
 
 
 def create_context(query_set, query_set2):
-    return {'tutorships': query_set, 'join_tutorships' : query_set2, 'title_page' : "Historial"}
+    return {'tutorships': query_set, 'join_tutorships' : query_set2, 'title_page' : "Historial", 'my_tutorships' : 1}
 
 
 class doneTutorships(generic.View):

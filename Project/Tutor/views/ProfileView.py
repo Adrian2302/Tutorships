@@ -12,14 +12,6 @@ from Modality.models import Modality
 from Payment.models import Payment
 from Region.models import Regions
 
-
-def create_context(modality_form):
-    context = {
-        'modality_form': modality_form
-    }
-    return context
-
-
 class ProfileView(generic.View):
     template_name = 'Tutor/tutorProfile.html'
     user: User = None
@@ -54,7 +46,8 @@ class ProfileView(generic.View):
             'modality' : modality,
             'payment' : payment,
             'user' : user,
-            'title_page' : "Perfil"
+            'title_page' : "Perfil",
+            'select_navbar_profile' : 1
         }
 
         if user.is_tutor():

@@ -24,7 +24,8 @@ class EditPayment(generic.View):
             'form': form,
             'payments': Payment.objects.all(),
             'selected_payment': selected_payment,
-            'title_page' : "Retribuciones"
+            'title_page' : "Retribuciones",
+            'select_navbar_payments' : 1
         }
         return render(request, self.template_name, context)
 
