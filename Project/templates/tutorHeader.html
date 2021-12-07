@@ -101,6 +101,9 @@
                     {% endif %}
                 </ul>
                 <ul class="navbar-nav ml-auto">
+                    {% if user.is_authenticated %}
+                    <p class="white-text-navbar">Hola, {{ request|get_name }}</p>
+                    {% endif %}
                     <li class="nav-item dropdown mr-2">
                         {% show_message_notifications %}
                     </li>
