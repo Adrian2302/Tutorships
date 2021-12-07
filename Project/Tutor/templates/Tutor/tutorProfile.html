@@ -76,15 +76,39 @@
                                                 </tr>
                                                 <tr>
                                                     <th>Sesión:</th>
-                                                    <td>{{session.name}}</td>
+                                                    <td>
+                                                        {% for session in sessions %}
+                                                        {% if forloop.last %}
+                                                        {{session.name}}
+                                                        {% else %}
+                                                        {{session.name}},
+                                                        {% endif %}
+                                                        {% endfor %}
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <th>Modalidad:</th>
-                                                    <td>{{modality.name}}</td>
+                                                    <td>
+                                                        {% for modality in modalities %}
+                                                        {% if forloop.last %}
+                                                        {{modality.name}}
+                                                        {% else %}
+                                                        {{modality.name}},
+                                                        {% endif %}
+                                                        {% endfor %}
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <th>Tipo de pago:</th>
-                                                    <td>{{payment.name}}</td>
+                                                    <td>
+                                                        {% for payment in payments %}
+                                                        {% if forloop.last %}
+                                                        {{payment.name}}
+                                                        {% else %}
+                                                        {{payment.name}},
+                                                        {% endif %}
+                                                        {% endfor %}
+                                                    </td>
                                                 </tr>
                                                 </tbody>
                                             </table>
