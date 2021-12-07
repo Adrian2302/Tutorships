@@ -28,6 +28,14 @@ class doneTutorships(generic.View):
                              .select_related('request')
                              .filter(request__id__in=requesters))
 
+            query_all = query_set + query_set2
+
+            for obj in query_all:
+                print(obj)
+
+            
+
+
             
             context = create_context(query_set, query_set2)
             return render(request, "Student/studentHistory.html", context)
