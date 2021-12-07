@@ -53,12 +53,16 @@ class ListScore:
 
 
 class RequestNode:
-    def __init__(self, name, scored):
-        self.name = name
+    def __init__(self, request, scored):
+        self.request = request
         self.scored = scored
 
 
 class ListRequestNode:
-    def __init__(self, query):
-        for requests in query:
-            print(requests)
+    def __init__(self, query, scored):
+        self.list = []
+        for request in query:
+            if request.id in scored:
+                self.list.append(RequestNode(request, 1))
+            else:
+                self.list.append(RequestNode(request, 0))
