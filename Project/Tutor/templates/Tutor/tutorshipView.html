@@ -122,13 +122,13 @@
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <td><a href="#">{{tutorship_request.user_requester.get_full_name}}</a>
+                                                <td><a href="{% url 'chatroom' user_receiver_pk=tutorship_request.user_requester.id %}">{{tutorship_request.user_requester.get_full_name}}</a>
                                                 </td>
                                                 <td>{{tutorship_request.user_requester.email}}</td>
                                             </tr>
                                             {% for requester in requesters %}
                                             <tr>
-                                                <td><a href="#">{{requester.user_requester.get_full_name}}</a></td>
+                                                <td><a href="{% url 'chatroom' user_receiver_pk=requester.user_requester.id %}">{{requester.user_requester.get_full_name}}</a></td>
                                                 <td>{{requester.user_requester.email}}</td>
                                             </tr>
                                             {% endfor %}

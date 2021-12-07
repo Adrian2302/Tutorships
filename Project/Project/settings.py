@@ -51,9 +51,10 @@ INSTALLED_APPS = [
     'Course',
     'Student',
     'Region',
+    'Chat',
     'bootstrap4',
     'bootstrap_datepicker_plus',
-    'crispy_forms'
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [

@@ -28,6 +28,11 @@
             </ul>
             {% endif %}
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown mr-2">
+                    {% if user.is_authenticated %}
+                    {% show_message_notifications %}
+                    {% endif %}
+                </li>
                 <li class="nav-item dropdown mr-4">
                     {% if user.is_authenticated %}
                     {% show_notifications %}
