@@ -8,7 +8,7 @@ from UserAuthentication.models import User
 
 
 def create_context(form):
-    return {'form': form, 'title_page' : "Retribuciones"}
+    return {'form': form, 'title_page' : "Retribuciones", 'select_navbar_payments' : 1}
 
 class AddPayment(generic.View):
     """This is the view for the add payment admin page."""

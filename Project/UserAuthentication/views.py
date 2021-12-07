@@ -10,13 +10,19 @@ from django.contrib import messages
 
 def index(request):
     list(messages.get_messages(request))
+
+    context = {
+            "title_page": "Inicio",
+            'select_navbar_start': 1
+    }
+
     if models.User.objects.filter(pk=request.user.id).exists():
         user: User = models.User.objects.get(pk=request.user.id)
         if user.is_tutor():
-            return render(request, "UserAuthentication/tutorLogin.html", {"title_page": "Inicio"})
+            return render(request, "UserAuthentication/tutorLogin.html", context)
         elif user.is_admin():
-            return render(request, "UserAuthentication/adminLogin.html", {"title_page": "Inicio"})
-    return render(request, "Student/index.html", {"title_page": "Inicio"})
+            return render(request, "UserAuthentication/adminLogin.html", context)
+    return render(request, "Student/index.html", context)
 
 
 def login(request):
@@ -55,7 +61,8 @@ def add_administrator(request):
                 messages.add_message(request, messages.ERROR, 'El usuario no existe')
         context = {
             'form': form,
-            'title_page': "Agregar administrador"
+            'title_page': "Agregar administrador",
+            'select_navbar_admin' : 1
         }
         return render(request, 'adminCrudForm.html', context)
     else:

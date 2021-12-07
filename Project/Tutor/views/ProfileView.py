@@ -29,9 +29,6 @@ class ProfileView(generic.View):
         user: User = User.objects.get(pk=request.user.id)
         profile_form = ProfileForm(request.GET or None, **{'user': user})
 
-        form = self.form_class()
-        selected_user = None
-
         user_to_edit = User.objects.get(id=request.user.id)
         form = self.form_class(instance=user_to_edit)
         selected_user = user_to_edit

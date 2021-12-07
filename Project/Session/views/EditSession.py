@@ -24,7 +24,8 @@ class EditSession(generic.View):
             'form': form,
             'sessions': Session.objects.all(),
             'selected_session': selected_session,
-            'title_page' : "Sesiones"
+            'title_page' : "Sesiones",
+            'select_navbar_sessions' : 1
         }
         return render(request, self.template_name, context)
 

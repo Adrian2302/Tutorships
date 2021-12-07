@@ -36,7 +36,8 @@ class EditResource(generic.View):
             'form': form,
             'resources': Resource.objects.all(),
             'selected_resource': selected_resource,
-            'title_page' : "Recursos"
+            'title_page' : "Recursos",
+            'select_navbar_resources' : 1
         }
         return render(request, self.template_name, context)
 
