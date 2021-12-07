@@ -52,10 +52,17 @@ class ProfitView(generic.View):
                         profit += tutorship.num_requesters * tutor.amount_per_person
                         time += without_increment
 
+
+                #new_date = time.replace(minute=0) + datetime.timedelta(hours=1)
+                
+                #print(datetime.strptime(str(time),'%H:%M:%S').time().replace(seconds=0))
+
+                new_time = str(time)[:-3]
+                print(new_time)
                 context = {
                     'form': profit_form,
                     'profit': profit,
-                    'time': time,
+                    'time': new_time,
                     'title_page' : "Ganancias",
                     'select_navbar_profit' : 1
                 }
