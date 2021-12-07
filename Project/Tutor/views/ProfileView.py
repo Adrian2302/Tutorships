@@ -47,13 +47,14 @@ class ProfileView(generic.View):
             'form': profile_form,
             'tutor_form': form,
             'selected_user': selected_user,
-            'region' : region,
-            'tutorship_price' : tutorship_price,
-            'increment_half_hour' : increment_half_hour,
-            'sessions' : session,
-            'modalities' : modality,
-            'payments' : payment,
-            'user' : user
+            'region': region,
+            'tutorship_price': tutorship_price,
+            'increment_half_hour': increment_half_hour,
+            'session': session,
+            'modality': modality,
+            'payment': payment,
+            'user': user,
+            'title_page': "Perfil"
         }
 
         if user.is_tutor():

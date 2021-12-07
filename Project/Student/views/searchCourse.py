@@ -44,7 +44,8 @@ def create_context(search_query, page_number, type_search, filters, user):
                 'scores' : list_filter[3].list,
                 'regions' : list_filter[4].list,
                 'last_type': type_search, 
-                'diplay_sessions_link': diplay_sessions_link
+                'diplay_sessions_link': diplay_sessions_link,
+                'title_page' : "Búsqueda"
             }
     except Exception as e:
         print(e)

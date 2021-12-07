@@ -9,7 +9,7 @@ from Tutor.tutorshipHistoryModels import ListTutorshipHistory
 
 
 def create_context(query_set):
-    return {'results': query_set.list}
+    return {'results': query_set.list, "title_page" : "Historial"}
 
 
 class DoneTutorships(generic.View):

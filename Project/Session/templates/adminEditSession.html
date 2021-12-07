@@ -15,7 +15,7 @@
                             {% csrf_token %}
                             {{ form.as_p }}
                             <input name="session" type="hidden" value="{{ selected_session.id }}">
-                            <input class="btn btn-primary mt-3" type="submit" value="Guardar">
+                            <input class="btn btn-primary mt-3 button-blue" type="submit" value="Guardar">
                         </form>
                         <br>
                     </div>
@@ -35,7 +35,7 @@
                                 <td class="text-center">{{ session.name }}</td>
                                 <td class="text-center">{{ session.description }}</td>
                                 <td><a href="{% url 'edit_session' session=session.id %}?accion=editar"
-                                    class="btn btn-primary">Editar</a></td>
+                                    class="btn btn-primary button-blue">Editar</a></td>
                             </tr>
                         {% endfor %}
                         </tbody>

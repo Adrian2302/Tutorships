@@ -13,10 +13,10 @@ def index(request):
     if models.User.objects.filter(pk=request.user.id).exists():
         user: User = models.User.objects.get(pk=request.user.id)
         if user.is_tutor():
-            return render(request, "UserAuthentication/tutorLogin.html")
+            return render(request, "UserAuthentication/tutorLogin.html", {"title_page": "Inicio"})
         elif user.is_admin():
-            return render(request, "UserAuthentication/adminLogin.html")
-    return render(request, "Student/index.html")
+            return render(request, "UserAuthentication/adminLogin.html", {"title_page": "Inicio"})
+    return render(request, "Student/index.html", {"title_page": "Inicio"})
 
 
 def login(request):
@@ -54,7 +54,8 @@ def add_administrator(request):
             except User.DoesNotExist:
                 messages.add_message(request, messages.ERROR, 'El usuario no existe')
         context = {
-            'form': form
+            'form': form,
+            'title_page': "Agregar administrador"
         }
         return render(request, 'adminCrudForm.html', context)
     else:

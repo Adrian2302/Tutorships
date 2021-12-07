@@ -8,7 +8,7 @@ from UserAuthentication.models import User
 
 
 def create_context(form):
-    return {'form': form}
+    return {'form': form, 'title_page' : "Regiones"}
 
 class AddRegion(generic.View):
     """This is the view for the admin manager."""

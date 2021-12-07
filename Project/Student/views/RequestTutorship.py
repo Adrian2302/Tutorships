@@ -182,7 +182,8 @@ def create_context(schedule_id, user, tutor=None, get_courses=False):
             'date': str(schedule_selected.start_time.date()),
             'students': all_students,
             'max_people': 50,
-            'courses': courses
+            'courses': courses,
+            'title_page' : "Agendar"
         })
 
         return context
@@ -214,10 +215,10 @@ class RequestTutorship(generic.View):
 
                 if check_dict_value(dict_values):
                     request_maker(dict_values, course_name)
-                    return render(request, "Student/reportRequest.html", {'success': True})
-                return render(request, "Student/reportRequest.html", {'success': False})
+                    return render(request, "Student/reportRequest.html", {'success': True, 'title_page' : "Solicitud"})
+                return render(request, "Student/reportRequest.html", {'success': False, 'title_page' : "Solicitud"})
             except:
-                return render(request, "Student/reportRequest.html", {'success': False})
+                return render(request, "Student/reportRequest.html", {'success': False, 'title_page' : "Solicitud"})
         return redirect('index')
 
 
@@ -242,8 +243,8 @@ class RequestTutorshipTutor(generic.View):
 
                 if check_dict_value(dict_values):
                     request_maker(dict_values)
-                    return render(request, "Student/reportRequest.html", {'success': True})
-                return render(request, "Student/reportRequest.html", {'success': False})
+                    return render(request, "Student/reportRequest.html", {'success': True, 'title_page' : "Solicitud"})
+                return render(request, "Student/reportRequest.html", {'success': False, 'title_page' : "Solicitud"})
             except:
-                return render(request, "Student/reportRequest.html", {'success': False})
+                return render(request, "Student/reportRequest.html", {'success': False, 'title_page' : "Solicitud"})
         return redirect('index')
