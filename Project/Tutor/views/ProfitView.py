@@ -54,17 +54,14 @@ class ProfitView(generic.View):
 
 
                 #new_date = time.replace(minute=0) + datetime.timedelta(hours=1)
-                
-                #print(datetime.strptime(str(time),'%H:%M:%S').time().replace(seconds=0))
 
-                new_time = str(time)[:-3]
-                print(new_time)
+                #print(datetime.strptime(str(time),'%H:%M:%S').time().replace(seconds=0))
                 context = {
                     'form': profit_form,
                     'profit': profit,
                     'time': new_time,
-                    'title_page' : "Ganancias",
-                    'select_navbar_profit' : 1
+                    'title_page': "Ganancias",
+                    'select_navbar_profit': 1
                 }
 
             return render(request, self.template_name, context)

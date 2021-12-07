@@ -8,7 +8,8 @@ from UserAuthentication.models import User
 
 
 def create_context(form):
-    return {'form': form, 'title_page' : "Modalidades", 'select_navbar_modalities' : 1}
+    return {'form': form, 'title_page': "Modalidades", 'select_navbar_modalities' : 1}
+
 
 class AddModality(generic.View):
     """This is the view for the add modality admin page."""
