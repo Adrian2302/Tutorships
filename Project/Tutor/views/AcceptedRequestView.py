@@ -21,7 +21,8 @@ def create_context(user):
     context = {
         'requests': query_set,
         'message': message,
-        'title_page' : "Tutorías agendadas"
+        'title_page' : "Tutorías agendadas",
+        'select_navbar_tutorships' : 1
     }
     return context
 

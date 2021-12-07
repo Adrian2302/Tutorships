@@ -12,7 +12,8 @@ def create_context(add_course_form):
 
     context = {
         'add_course_form': add_course_form,
-        'title_page' : "Agregar Curso"
+        'title_page' : "Agregar Curso",
+        'select_navbar_courses' : 1
     }
     return context
 

@@ -4,20 +4,39 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'login' %}">Inicio</a>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             {% if user.is_authenticated %}
             <ul class="navbar-nav mr-auto">
+                {% if select_navbar_start %}
+                <span class="nav-link active">Inicio</span>
+                {% else %}
+                <a class="nav-link" href="{% url 'index' %}">Inicio</a>
+                {% endif %}
+                {% if select_navbar_profile %}
+                <li class="nav-item dropdown">
+                    <span class="nav-link active" role="button" aria-expanded="false">
+                        Perfil
+                    </span>
+                </li>
+                {% else %}
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="{% url 'student_profile' %}" role="button" aria-expanded="false">
                         Perfil
                     </a>
                 </li>
+                {% endif %}
                 <li class="nav-item dropdown">
+                    {% if select_navbar_tutorships%}
+                    <a class="nav-link dropdown-toggle active" href="#" id="navbarSessions" role="button"
+                       data-toggle="dropdown" aria-expanded="false">
+                        Mis tutorías
+                    </a>
+                    {% else %}
                     <a class="nav-link dropdown-toggle" href="#" id="navbarSessions" role="button"
                        data-toggle="dropdown" aria-expanded="false">
                         Mis tutorías
                     </a>
+                    {% endif %}
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="{% url 'student_pending_request' %}">Pendientes</a></li>
                         <li><a class="dropdown-item" href="{% url 'student_accepted_request' %}">Aceptadas</a></li>
@@ -26,8 +45,12 @@
                     </ul>
                 </li>
             </ul>
+            {% else %}
+            <ul class="navbar-nav mr-auto">
+                <span class="nav-link active">Inicio</span>
+            </ul>
             {% endif %}
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto ">
                 <li class="nav-item dropdown mr-4">
                     {% if user.is_authenticated %}
                     {% show_notifications %}

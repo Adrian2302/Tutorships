@@ -12,7 +12,7 @@ from django.views import generic
 
 
 def create_context(form):
-    return {'form': form, 'title_page' : "Cursos"}
+    return {'form': form, 'title_page' : "Cursos", 'select_navbar_courses' : 1}
 
 
 class AddCourse(generic.View):
