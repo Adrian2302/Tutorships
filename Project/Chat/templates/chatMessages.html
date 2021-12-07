@@ -9,24 +9,25 @@
     </div>
 </div>
 <div class="col-md-6 offset-1 message" id="conversation">
-    {% for message in messages %}
+    <p>TEST</p>
+    {% for chat_message in chat_messages %}
     <div class="row">
-        {% if message.user_sender.id == receiver.id %}
+        {% if chat_message.user_sender.id == receiver.id %}
         <div class="col-md-12 message-main-receiver">
             <div class="receiver">
                 <div class="message-text">
-                    {{ message.content }}
+                    {{ chat_message.content }}
                 </div>
-                <span class="message-time pull-right">{{ message.date_sent }}</span>
+                <span class="message-time pull-right">{{ chat_message.date_sent }}</span>
             </div>
         </div>
         {% else %}
         <div class="col-md-12 message-main-sender">
             <div class="sender">
                 <div class="message-text">
-                    {{ message.content }}
+                    {{ chat_message.content }}
                 </div>
-                <span class="message-time pull-right">{{ message.date_sent }}</span>
+                <span class="message-time pull-right">{{ chat_message.date_sent }}</span>
             </div>
         </div>
         {% endif %}

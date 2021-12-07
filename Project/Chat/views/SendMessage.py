@@ -34,8 +34,6 @@ class SendMessage(View):
             messages = list(Message.objects.filter(room=room))
 
             reciever = room.context_reciever(user)
-            context = {'messages': messages,
+            context = {'chat_messages': messages,
                        'receiver': reciever}
-            return HttpResponse(render(request, 'messages.html', context))
-
-            # return HttpResponse({"Message": "Message sent"})
+            return HttpResponse(render(request, 'chatMessages.html', context))

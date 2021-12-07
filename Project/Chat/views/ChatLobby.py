@@ -22,11 +22,12 @@ class ChatLobby(View):
         if room_pk:
             current_room = Room.objects.get(pk=room_pk)
             messages = list(Message.objects.filter(room=current_room))
+
         context = {
             'current_user': user,
             'rooms': rooms,
             'current_room': current_room,
-            'messages': messages
+            'chat_messages': messages
         }
         return render(request, self.template_name, context)
 
@@ -39,8 +40,8 @@ class ChatLobby(View):
                 messages = list(Message.objects.filter(room=room))
 
                 reciever = room.context_reciever(user)
-                context = {'messages': messages,
+                context = {'chat_messages': messages,
                            'receiver': reciever}
-                return HttpResponse(render(request, 'messages.html', context))
+                return HttpResponse(render(request, 'chatMessages.html', context))
 
-            return HttpResponse(render(request, 'messages.html'))
+            return HttpResponse(render(request, 'chatMessages.html'))
