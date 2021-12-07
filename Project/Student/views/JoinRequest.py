@@ -5,13 +5,17 @@ from Student.models import Request
 from UserAuthentication.models import User
 from Student.models import Request, Requesters
 
-def create_context(request, user):
-    
+def create_context(request, use, last_page):
+
+    if last_page is None:
+            last_page = 'http://127.0.0.1:8000/'
     
     context = {
         'session' : request.session_requested.name,
         'modal' : request.modality_requested.name, 
         'tutor' : request.tutor_requested.name,
+        'title_page' : "Agendar",
+        'last_page' : last_page
     }
 
     return context
@@ -45,7 +49,7 @@ class JoinRequest(generic.View):
             try:
                 request_to_join = Request.objects.get(id=request_id)
                 
-                context = create_context(request_to_join, user)
+                context = create_context(request_to_join, user, request.META.get('HTTP_REFERER'))
                 return render(request, 'Student/formJoinRequest.html', context)
             except:
                 return render(request, "Student/reportRequest.html", {'success': False})
@@ -59,7 +63,7 @@ class JoinRequest(generic.View):
                 
                 succeeded = join_request(request_to_join, user)
 
-                return render(request, "Student/reportRequest.html", {'success': succeeded})
+                return render(request, "Student/reportRequest.html", {'success': succeeded, 'title_page' : "Solicitud"})
             except:
-                return render(request, "Student/reportRequest.html", {'success': False})
+                return render(request, "Student/reportRequest.html", {'success': False, 'title_page' : "Solicitud"})
         return redirect('index')

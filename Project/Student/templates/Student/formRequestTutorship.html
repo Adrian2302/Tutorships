@@ -24,7 +24,7 @@
                     <title>info-icon</title>
                     <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
                 </svg>
-                La tutoría tiene que iniciar {{min_time}} y terminar {{max_time}}.
+                La tutoría tiene que iniciar entre {{min_time}} y {{max_time}}.
             </small>
             <small id="hour_help" class="form-text text-muted">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info" viewBox="0 0 16 16">
@@ -104,9 +104,9 @@
             </div>
         {% endif %}
 
-        <div class="form-group col-md-10 mt-5">
-            <button type="submit" class="btn btn-primary float-right">Agendar</button>
-            <button type="button" class="btn btn-secondary float-right mr-2">Cancelar</button>
+        <div class="form-group col-md-10 mb-2">
+            <button type="submit" class="btn btn-primary float-right button-blue">Agendar</button>
+            <a href="{{last_page}}"><button type="button" class="btn btn-danger float-right mr-2">Cancelar</button></a>
         </div>
 
     </form>

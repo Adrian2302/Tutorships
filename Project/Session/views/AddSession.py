@@ -8,7 +8,7 @@ from UserAuthentication.models import User
 
 
 def create_context(form):
-    return {'form': form}
+    return {'form': form, 'title_page' : "Sesiones", 'select_navbar_sessions' : 1}
 
 class AddSession(generic.View):
     """This is the view for the add session admin page."""

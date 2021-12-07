@@ -22,7 +22,9 @@ class ProfileView(generic.View):
 
         context = {
             'form': form,
-            'user_info': user_to_edit
+            'user_info': user_to_edit,
+            'title_page' : "Perfil",
+            'select_navbar_profile': 1
         }
         return render(request, self.template_name, context)
 

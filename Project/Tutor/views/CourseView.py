@@ -8,10 +8,15 @@ from Course.models import Course
 from django.contrib import messages
 
 
-def create_context(add_course_form):
+def create_context(add_course_form, user):
+    user_courses = TutorCourse.objects.filter(user_id=user.id).values('course_id')
+    courses = Course.objects.filter(id__in=user_courses)
 
     context = {
         'add_course_form': add_course_form,
+        'added_courses' : courses,
+        'title_page' : "Agregar Curso",
+        'select_navbar_courses' : 1
     }
     return context
 
@@ -26,7 +31,7 @@ class CourseView(generic.View):
         if user.is_tutor():
             dic = {'user': user}
             add_course_form = AddCourseForm(**dic)
-            return render(request, self.template_name, create_context(add_course_form))
+            return render(request, self.template_name, create_context(add_course_form, request.user))
         return redirect('index')
 
     def post(self, request):
@@ -42,12 +47,12 @@ class CourseView(generic.View):
                     messages.add_message(request, messages.SUCCESS, 'Curso agregado exitosamente')
                     dic = {'user': user}
                     add_course_form = AddCourseForm(**dic)
-                    return render(request, self.template_name, create_context(add_course_form))
+                    return render(request, self.template_name, create_context(add_course_form, request.user))
                 else:
                     messages.add_message(request, messages.ERROR, 'El curso no ha sido agregado')
                     dic = {'user': user}
                     add_course_form = AddCourseForm(**dic)
-                    return render(request, self.template_name, create_context(add_course_form))
+                    return render(request, self.template_name, create_context(add_course_form, request.user))
 
         return redirect('index')
 

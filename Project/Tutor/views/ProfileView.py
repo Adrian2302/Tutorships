@@ -29,9 +29,6 @@ class ProfileView(generic.View):
         user: User = User.objects.get(pk=request.user.id)
         profile_form = ProfileForm(request.GET or None, **{'user': user})
 
-        form = self.form_class()
-        selected_user = None
-
         user_to_edit = User.objects.get(id=request.user.id)
         form = self.form_class(instance=user_to_edit)
         selected_user = user_to_edit
@@ -47,13 +44,15 @@ class ProfileView(generic.View):
             'form': profile_form,
             'tutor_form': form,
             'selected_user': selected_user,
-            'region' : region,
-            'tutorship_price' : tutorship_price,
-            'increment_half_hour' : increment_half_hour,
-            'sessions' : session,
-            'modalities' : modality,
-            'payments' : payment,
-            'user' : user
+            'region': region,
+            'tutorship_price': tutorship_price,
+            'increment_half_hour': increment_half_hour,
+            'session': session,
+            'modality': modality,
+            'payment': payment,
+            'user': user,
+            'title_page': "Perfil",
+            'select_navbar_profile': 1
         }
 
         if user.is_tutor():

@@ -17,10 +17,27 @@
                             {{ add_course_form.as_p }}
                         </div>
                         <div class="col-auto my-1 text-center">
-                            <input type="submit" class="btn btn-primary" value="Agregar">
+                            <input type="submit" class="btn btn-primary button-blue" value="Agregar">
                         </div>
                     </div>
                 </form>
+
+                <div class="col-md-8 offset-md-2 mt-2">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="text-center">Cursos agregados</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for course in added_courses %}
+                            <tr>
+                                <td class="text-center">{{course.course_name}}</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
                 
             </div>
         </div>

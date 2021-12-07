@@ -8,7 +8,6 @@ from UserAuthentication.models import User
 register = template.Library()
 
 
-
 @register.inclusion_tag('showNotifications.html', takes_context=True)
 def show_notifications(context):
     request_user = context['request'].user
@@ -44,7 +43,6 @@ def delete_value(request, arg):
             query.remove(value)
             break
 
-
     url_parts[4] = urllib.parse.urlencode(query)
 
     return urllib.parse.urlunparse(url_parts)
@@ -54,3 +52,11 @@ def delete_value(request, arg):
 @register.simple_tag
 def get_context_reciever(user, room):
     return room.context_reciever(user)
+
+
+@register.filter
+def get_name(context):
+    request_user = context.user
+    user = User.objects.get(id=request_user.id)
+
+    return user.name

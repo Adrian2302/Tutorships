@@ -53,6 +53,7 @@ class TutorshipView(View):
                 'resources': tutorship_resources,
                 'requesters': requesters,
                 'public_resources': public_resources,
+                'title_page' : "Tutoría"
             }
             return render(request, self.template_name, context)
         else:

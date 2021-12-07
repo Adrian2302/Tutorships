@@ -15,7 +15,7 @@
                             {% csrf_token %}
                             {{ form.as_p }}
                             <input name="course" type="hidden" value="{{ selected_course.id }}">
-                            <input class="btn btn-primary mt-3" type="submit" value="Guardar">
+                            <input class="btn btn-primary mt-3 button-blue" type="submit" value="Guardar">
                         </form>
                         <br>
                     </div>
@@ -37,7 +37,7 @@
                                 <td class="text-center">{{ course.course_name }}</td>
                                 <td class="text-center">{{ course.description }}</td>
                                 <td><a href="{% url 'edit_course' course=course.id %}?accion=editar"
-                                    class="btn btn-primary">Editar</a></td>
+                                    class="btn btn-primary button-blue">Editar</a></td>
                             </tr>
                         {% endfor %}
                         </tbody>

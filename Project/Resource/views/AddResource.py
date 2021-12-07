@@ -10,7 +10,7 @@ from UserAuthentication.models import User
 
 
 def create_context(form):
-    return {'form': form}
+    return {'form': form, 'title_page' : "Recursos", 'select_navbar_resources' : 1}
 
 
 class AddResource(generic.View):

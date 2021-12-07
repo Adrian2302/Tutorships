@@ -5,12 +5,13 @@ from django.contrib import messages
 from UserAuthentication.models import User
 from Tutorship.models import Tutorship, TutorshipScore
 from Student.models import Requesters
+from Student.filtersModels import ListRequestNode
 from Student.models import Request
 from Tutor.models import Tutor
 
 
-def create_context(query_set, query_set2):
-    return {'tutorships': query_set, 'join_tutorships' : query_set2}
+def create_context(query_set, ):
+    return {'tutorships': query_set, 'title_page' : "Historial", 'my_tutorships' : 1}
 
 
 class doneTutorships(generic.View):
@@ -28,8 +29,16 @@ class doneTutorships(generic.View):
                              .select_related('request')
                              .filter(request__id__in=requesters))
 
-            
-            context = create_context(query_set, query_set2)
+            query_all = query_set + query_set2
+            tutorships_scored = list(TutorshipScore.objects.filter(tutorship__in=query_all).distinct().values_list('tutorship', flat=True))
+
+            listRequestScore = ListRequestNode(query_all, tutorships_scored)
+
+            for node in listRequestScore.list:
+                print(node.request.request.course_requested.course_name)
+
+
+            context = create_context(listRequestScore.list)
             return render(request, "Student/studentHistory.html", context)
         else:
             return redirect('index')

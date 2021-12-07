@@ -15,7 +15,7 @@
                             {% csrf_token %}
                             {{ form.as_p }}
                             <input name="payment" type="hidden" value="{{ selected_payment.id }}">
-                            <input class="btn btn-primary mt-3" type="submit" value="Guardar">
+                            <input class="btn btn-primary mt-3 button-blue" type="submit" value="Guardar">
                         </form>
                         <br>
                     </div>
@@ -35,7 +35,7 @@
                                 <td class="text-center">{{ payment.name }}</td>
                                 <td class="text-center">{{ payment.description }}</td>
                                 <td><a href="{% url 'edit_payment' payment=payment.id %}?accion=editar"
-                                    class="btn btn-primary">Editar</a></td>
+                                    class="btn btn-primary button-blue">Editar</a></td>
                             </tr>
                         {% endfor %}
                         </tbody>

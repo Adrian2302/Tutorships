@@ -23,7 +23,9 @@ def create_context(user: User, form: TutorScheduleForm):
         )
     context = {
         'form': form,
-        'events': event_list
+        'events': event_list,
+        'title_page': "Calendario",
+        'select_navbar_calendar' : 1
     }
     return context
 

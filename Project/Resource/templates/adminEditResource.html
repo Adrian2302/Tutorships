@@ -15,7 +15,7 @@
                             {% csrf_token %}
                             {{ form.as_p }}
                             <input name="resource" type="hidden" value="{{ selected_resource.id }}">
-                            <input class="btn btn-primary mt-3" type="submit" value="Guardar">
+                            <input class="btn btn-primary mt-3 button-blue" type="submit" value="Guardar">
                         </form>
                         <br>
                     </div>
@@ -42,7 +42,7 @@
                                 <td class="text-center">{{ resource.url }}</td>
                                 <td class="text-center">{{ resource.author }}</td>
                                 <td><a href="{% url 'edit_resource' resource=resource.id %}?accion=editar"
-                                    class="btn btn-primary">Editar</a></td>
+                                    class="btn btn-primary button-blue">Editar</a></td>
                                 <td><a href="{% url 'edit_resource' resource=resource.id %}?accion=eliminar"
                                         class="btn btn-danger">Eliminar</a></td>
                             </tr>
