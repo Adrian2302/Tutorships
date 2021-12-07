@@ -8,7 +8,6 @@ from UserAuthentication.models import User
 register = template.Library()
 
 
-
 @register.inclusion_tag('showNotifications.html', takes_context=True)
 def show_notifications(context):
     request_user = context['request'].user
@@ -38,11 +37,12 @@ def toggle_value(request, arg):
 def delete_value(request, arg):
     url_parts = list(urllib.parse.urlparse(request.get_full_path()))
     query = list(urllib.parse.parse_qsl(url_parts[4], keep_blank_values=True))
-
+    
     for value in query:
         if value[1] == str(arg):
             query.remove(value)
             break
+
 
     url_parts[4] = urllib.parse.urlencode(query)
 
