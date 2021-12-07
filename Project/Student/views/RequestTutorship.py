@@ -145,7 +145,7 @@ def request_maker(dict_values, course_name=None):
         raise Exception("Unknown exception")
 
 # Cambiar 50
-def create_context(schedule_id, user, tutor=None, get_courses=False):
+def create_context(schedule_id, user, tutor=None, get_courses=False, last_page = None):
     try:
         context = {}
         schedule_selected = TutorAvailableSchedule.objects.get(id=schedule_id)
@@ -169,6 +169,11 @@ def create_context(schedule_id, user, tutor=None, get_courses=False):
         max_time = schedule_selected.end_time - timedelta(hours=1, minutes=0)
         max_time = max_time.strftime('%H:%M')
 
+        
+
+        if last_page is None:
+            last_page = 'http://127.0.0.1:8000/'
+
         context.update({
             'tutor': tutor,
             'students': all_students,
@@ -183,7 +188,8 @@ def create_context(schedule_id, user, tutor=None, get_courses=False):
             'students': all_students,
             'max_people': 50,
             'courses': courses,
-            'title_page' : "Agendar"
+            'title_page' : "Agendar",
+            'last_page': last_page
         })
 
         return context
@@ -201,7 +207,8 @@ class RequestTutorship(generic.View):
         if request.user.is_authenticated and user.is_student():
             try:
                 schedule_id = request.GET.get('schedule_number')
-                context = create_context(schedule_id, user)
+                context = create_context(schedule_id, user, last_page=request.META.get('HTTP_REFERER'))
+                print()
                 return render(request, "Student/formRequestTutorship.html", context)
             except Exception as e:
                 print(e)
@@ -229,7 +236,7 @@ class RequestTutorshipTutor(generic.View):
         if request.user.is_authenticated and user.is_student():
             try:
                 schedule_id = request.GET.get('schedule_number')
-                context = create_context(schedule_id, user, tutor, True)
+                context = create_context(schedule_id, user, tutor, True, request.META.get('HTTP_REFERER'))
                 return render(request, "Student/formRequestTutor.html", context)
             except Exception as e:
                 print(e)
