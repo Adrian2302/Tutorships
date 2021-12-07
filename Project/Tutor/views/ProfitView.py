@@ -53,9 +53,6 @@ class ProfitView(generic.View):
                         time += without_increment
 
 
-                #new_date = time.replace(minute=0) + datetime.timedelta(hours=1)
-
-                #print(datetime.strptime(str(time),'%H:%M:%S').time().replace(seconds=0))
                 context = {
                     'form': profit_form,
                     'profit': profit,

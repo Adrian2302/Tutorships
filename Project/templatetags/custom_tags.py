@@ -37,12 +37,11 @@ def toggle_value(request, arg):
 def delete_value(request, arg):
     url_parts = list(urllib.parse.urlparse(request.get_full_path()))
     query = list(urllib.parse.parse_qsl(url_parts[4], keep_blank_values=True))
-    
+
     for value in query:
         if value[1] == str(arg):
             query.remove(value)
             break
-
 
     url_parts[4] = urllib.parse.urlencode(query)
 
@@ -53,6 +52,7 @@ def delete_value(request, arg):
 @register.simple_tag
 def get_context_reciever(user, room):
     return room.context_reciever(user)
+
 
 @register.filter
 def get_name(context):

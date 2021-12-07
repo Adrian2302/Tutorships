@@ -51,7 +51,8 @@ class ProfileView(generic.View):
             'modality': modality,
             'payment': payment,
             'user': user,
-            'title_page': "Perfil"
+            'title_page': "Perfil",
+            'select_navbar_profile': 1
         }
 
         if user.is_tutor():
