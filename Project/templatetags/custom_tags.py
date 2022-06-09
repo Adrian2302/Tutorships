@@ -11,16 +11,22 @@ register = template.Library()
 @register.inclusion_tag('showNotifications.html', takes_context=True)
 def show_notifications(context):
     request_user = context['request'].user
-    user = User.objects.get(id=request_user.id)
-    notifications = RequestNotification.objects.filter(to_user=user, seen=False).order_by('-date')
+    try:
+        user = User.objects.get(id=request_user.id)
+        notifications = RequestNotification.objects.filter(to_user=user, seen=False).order_by('-date')
+    except User.DoesNotExist:
+        return  {'notifications': []}
     return {'notifications': notifications}
 
 
 @register.inclusion_tag('showMessageNotifications.html', takes_context=True)
 def show_message_notifications(context):
     request_user = context['request'].user
-    user = User.objects.get(id=request_user.id)
-    notifications = MessageNotification.objects.filter(to_user=user, seen=False).order_by('-date')
+    try:
+        user = User.objects.get(id=request_user.id)
+        notifications = MessageNotification.objects.filter(to_user=user, seen=False).order_by('-date')
+    except User.DoesNotExist:
+        return {'notifications': []}
     return {'notifications': notifications}
 
 
@@ -57,6 +63,8 @@ def get_context_reciever(user, room):
 @register.filter
 def get_name(context):
     request_user = context.user
-    user = User.objects.get(id=request_user.id)
-
+    try:
+        user = User.objects.get(id=request_user.id)
+    except User.DoesNotExist:
+        return "No hay usuario"
     return user.name

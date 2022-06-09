@@ -11,7 +11,7 @@ from Course.models import Course
 from Region.models import Regions
 from Tutorship.models import Tutorship
 from django import forms
-from bootstrap_datepicker_plus import DateTimePickerInput
+from bootstrap_datepicker_plus.widgets import DateTimePickerInput
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Submit, Div
 from crispy_forms.bootstrap import PrependedText

@@ -62,7 +62,7 @@ def add_administrator(request):
         context = {
             'form': form,
             'title_page': "Agregar administrador",
-            'select_navbar_admin' : 1
+            'select_navbar_admin': 1
         }
         return render(request, 'adminCrudForm.html', context)
     else:
