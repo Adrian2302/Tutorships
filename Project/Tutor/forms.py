@@ -84,9 +84,9 @@ class TutorResourceForm(forms.Form):
 
 class ProfileForm(forms.Form):
     choices_region = forms.ModelChoiceField(widget=forms.RadioSelect,
-                                             queryset=Regions.objects.all(),
-                                             initial=None,
-                                             label="Región:")
+                                            queryset=Regions.objects.all(),
+                                            initial=None,
+                                            label="Región:")
 
     tutorship_price = forms.CharField(widget=forms.TextInput,
                                       initial=None,
@@ -97,19 +97,19 @@ class ProfileForm(forms.Form):
                                           label="Precio por el incremento de media hora:")
 
     choices_session = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,
-                                             queryset=Session.objects.all(),
-                                             initial=None,
-                                             label="Tipo de sesión a impartir:")
+                                                     queryset=Session.objects.all(),
+                                                     initial=None,
+                                                     label="Tipo de sesión a impartir:")
 
     choices_modality = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,
-                                              queryset=Modality.objects.all(),
-                                              initial=None,
-                                              label="Tipo de modalidad a impartir:")
+                                                      queryset=Modality.objects.all(),
+                                                      initial=None,
+                                                      label="Tipo de modalidad a impartir:")
 
     choices_payment = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,
-                                             queryset=Payment.objects.all(),
-                                             initial=None,
-                                             label="Método de pago preferido:")
+                                                     queryset=Payment.objects.all(),
+                                                     initial=None,
+                                                     label="Método de pago preferido:")
 
     helper = FormHelper()
     helper.use_custom_control = False
@@ -138,7 +138,7 @@ class ProfileForm(forms.Form):
             payment = Tutor.objects.get(user_id=user.id).payment_type.all()
 
             super(ProfileForm, self).__init__(*args, **kwargs)
-            
+
             self.fields['choices_region'].initial = region
             self.fields['tutorship_price'].initial = tutorship_price
             self.fields['increment_half_hour'].initial = increment_half_hour
@@ -165,7 +165,7 @@ class AddCourseForm(forms.Form):
         else:
             super(AddCourseForm, self).__init__(*args, **kwargs)
 
-    fields = ['course_name']
+    fields = ['name']
 
     choices = forms.ModelChoiceField(widget=forms.Select(
         attrs={'class': 'custom-select'}),
@@ -195,14 +195,16 @@ class EditTutorshipInfo(forms.ModelForm):
             'url': forms.TextInput(attrs={'class': 'form-control'})
         }
 
+
 class ProfitForm(forms.Form):
-    date=forms.DateTimeField(
+    date = forms.DateTimeField(
         input_formats=['%m/%Y'],
         widget=forms.DateInput(attrs={
             'class': 'form-control datetimepicker-input',
             'data-target': '#datetimepicker1'
         })
-    ) 
+    )
+
 
 class TutorProfileForm(forms.ModelForm):
     class Meta:

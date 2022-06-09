@@ -14,7 +14,7 @@ def create_context(query_set, ):
     return {'tutorships': query_set, 'title_page' : "Historial", 'my_tutorships' : 1}
 
 
-class doneTutorships(generic.View):
+class DoneTutorships(generic.View):
 
     def get(self, request):
         user = User.objects.get(pk=request.user.id)
@@ -35,7 +35,7 @@ class doneTutorships(generic.View):
             listRequestScore = ListRequestNode(query_all, tutorships_scored)
 
             for node in listRequestScore.list:
-                print(node.request.request.course_requested.course_name)
+                print(node.request.request.course_requested.name)
 
 
             context = create_context(listRequestScore.list)

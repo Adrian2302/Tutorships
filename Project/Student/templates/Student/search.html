@@ -1,12 +1,12 @@
 {% extends "baseSearch.html" %}
 {% block content %}
 {% for result in results %}
-<a href="{% url 'course_detail' course_name=result.course_name %}"  style="text-decoration:none; color:inherit;">
+<a href="{% url 'course_detail' course_name=result.name %}"  style="text-decoration:none; color:inherit;">
     <div class="card mb-3">
         <div class="row no-gutters">
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">{{result.course_name}}</h5> 
+                    <h5 class="card-title">{{result.name}}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{result.university}}</h6>
                     <p class="card-text">{{result.description}}</p>   
                 </div>

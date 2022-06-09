@@ -14,9 +14,7 @@ from Tutorship.models import RequestNotification
 
 
 def save_values_post(request):
-    dict_values = {}
-
-    dict_values['user_requester'] = request.user
+    dict_values = {'user_requester': request.user}
 
     if request.POST.get('fecha'):
         dict_values['fecha'] = request.POST.get('fecha')
@@ -44,7 +42,6 @@ def save_values_post(request):
 
     if valid_comment(request.POST.get('comentario')):
         dict_values['comentario'] = request.POST.get('comentario')
-
 
     return dict_values
 
@@ -79,7 +76,7 @@ def set_all_guests_request(dict_values, tutor, request_tutorship):
             new_num_requesters += 1
     return new_num_requesters
 
-# Cambiar 50
+
 def check_guests(dict_values, tutor):
     if dict_values['sesion'] == "Grupal - Privada" or dict_values['sesion'] == "Grupal - Pública":
         if 'invitados' in dict_values:
@@ -131,7 +128,6 @@ def request_maker(dict_values, course_name=None):
 
         request_builder.save()
 
-        # add the notification here.
         notification = RequestNotification(
             notification_type='RE',
             to_user=request_builder.tutor_requested,
@@ -144,8 +140,8 @@ def request_maker(dict_values, course_name=None):
         print(e)
         raise Exception("Unknown exception")
 
-# Cambiar 50
-def create_context(schedule_id, user, tutor=None, get_courses=False, last_page = None):
+
+def create_context(schedule_id, user, tutor=None, get_courses=False, last_page=None):
     try:
         context = {}
         schedule_selected = TutorAvailableSchedule.objects.get(id=schedule_id)
@@ -169,8 +165,6 @@ def create_context(schedule_id, user, tutor=None, get_courses=False, last_page =
         max_time = schedule_selected.end_time - timedelta(hours=1, minutes=0)
         max_time = max_time.strftime('%H:%M')
 
-        
-
         if last_page is None:
             last_page = 'http://127.0.0.1:8000/'
 
@@ -185,10 +179,9 @@ def create_context(schedule_id, user, tutor=None, get_courses=False, last_page =
             'value_tutorship_person': tutor.amount_per_person,
             'increment': tutor.increment_per_half_hour,
             'date': str(schedule_selected.start_time.date()),
-            'students': all_students,
             'max_people': 50,
             'courses': courses,
-            'title_page' : "Agendar",
+            'title_page': "Agendar",
             'last_page': last_page
         })
 
@@ -222,15 +215,15 @@ class RequestTutorship(generic.View):
 
                 if check_dict_value(dict_values):
                     request_maker(dict_values, course_name)
-                    return render(request, "Student/reportRequest.html", {'success': True, 'title_page' : "Solicitud"})
-                return render(request, "Student/reportRequest.html", {'success': False, 'title_page' : "Solicitud"})
+                    return render(request, "Student/reportRequest.html", {'success': True, 'title_page': "Solicitud"})
+                return render(request, "Student/reportRequest.html", {'success': False, 'title_page': "Solicitud"})
             except:
-                return render(request, "Student/reportRequest.html", {'success': False, 'title_page' : "Solicitud"})
+                return render(request, "Student/reportRequest.html", {'success': False, 'title_page': "Solicitud"})
         return redirect('index')
 
 
 class RequestTutorshipTutor(generic.View):
-    
+
     def get(self, request, tutor):
         user = User.objects.get(id=request.user.id)
         if request.user.is_authenticated and user.is_student():
@@ -241,7 +234,7 @@ class RequestTutorshipTutor(generic.View):
             except Exception as e:
                 print(e)
         return redirect('index')
-    
+
     def post(self, request, tutor):
         user = User.objects.get(id=request.user.id)
         if request.user.is_authenticated and user.is_student():
@@ -250,8 +243,8 @@ class RequestTutorshipTutor(generic.View):
 
                 if check_dict_value(dict_values):
                     request_maker(dict_values)
-                    return render(request, "Student/reportRequest.html", {'success': True, 'title_page' : "Solicitud"})
-                return render(request, "Student/reportRequest.html", {'success': False, 'title_page' : "Solicitud"})
+                    return render(request, "Student/reportRequest.html", {'success': True, 'title_page': "Solicitud"})
+                return render(request, "Student/reportRequest.html", {'success': False, 'title_page': "Solicitud"})
             except:
-                return render(request, "Student/reportRequest.html", {'success': False, 'title_page' : "Solicitud"})
+                return render(request, "Student/reportRequest.html", {'success': False, 'title_page': "Solicitud"})
         return redirect('index')

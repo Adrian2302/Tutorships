@@ -27,7 +27,7 @@ class StudentTutorshipView(View):
                 'tutorship': tutorship,
                 'resources': tutorship_resources,
                 'requesters': requesters,
-                'select_navbar_tutorships' : 1,
+                'select_navbar_tutorships': 1,
                 'title_page': 'Información de Tutoría'
             }
             return render(request, self.template_name, context)

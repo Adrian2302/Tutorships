@@ -35,7 +35,7 @@ def get_context_view_calendar(tutor: User, course_name: str):
             'tutors': tutors_display,
             'events': event_list,
             'calendar_title': tutor.name + " " + tutor.lastname,
-            'course': course_name,
+            'course': course,
             'title_page': "Calendario"
         }
 
@@ -45,7 +45,7 @@ def get_context_view_calendar(tutor: User, course_name: str):
         raise Exception("Error in get_context_view_calendar")
 
 
-class displayCourseDetail(generic.View):
+class DisplayCourseDetail(generic.View):
 
     def get(self, request, course_name):
 

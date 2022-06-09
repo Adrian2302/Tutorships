@@ -26,7 +26,7 @@
                         {% for tutorship in tutorships %}
                             <tr>
                                 <td class="text-center"><a href="#">{{tutorship.request.request.tutor_requested.get_full_name}}</a></td>
-                                <td class="text-center">{{tutorship.request.request.course_requested.course_name}}</td>
+                                <td class="text-center">{{tutorship.request.request.course_requested.name}}</td>
                                 <td class="text-center">{{tutorship.request.request.session_requested.name}}</td>
                                 <td class="text-center">{{tutorship.request.request.display_meeting_type}}</td>
                                 <td class="text-center">{{tutorship.request.request.date_start}}</td>

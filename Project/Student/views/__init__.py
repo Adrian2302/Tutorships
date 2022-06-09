@@ -1,25 +1,25 @@
-from .acceptedRequests import acceptedRequests
-from .displayCourseDetail import displayCourseDetail
-from .doneTutorships import doneTutorships
-from .mainScreen import mainScreen
-from .pendingRequests import pendingRequests
-from .rejectedRequests import rejectedRequests
+from .AcceptedRequests import AcceptedRequests
+from .DisplayCourseDetail import DisplayCourseDetail
+from .DoneTutorships import DoneTutorships
+from .MainScreen import MainScreen
+from .PendingRequests import PendingRequests
+from .RejectedRequests import RejectedRequests
 from .RequestTutorship import RequestTutorship, RequestTutorshipTutor
 from .DisplayTutorDetail import DisplayTutorDetail
-from .searchCourse import searchCourse
+from .SearchCourse import SearchCourse
 from .JoinRequest import JoinRequest
 from .StudentTutorshipView import StudentTutorshipView
 from .ProfileView import ProfileView
 
 __all__ = [
-    acceptedRequests,
-    displayCourseDetail,
-    doneTutorships,
-    mainScreen,
-    pendingRequests,
-    rejectedRequests,
+    AcceptedRequests,
+    DisplayCourseDetail,
+    DoneTutorships,
+    MainScreen,
+    PendingRequests,
+    RejectedRequests,
     RequestTutorship,
-    searchCourse,
+    SearchCourse,
     DisplayTutorDetail,
     RequestTutorshipTutor,
     JoinRequest,

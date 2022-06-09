@@ -40,7 +40,7 @@ class EditCourse(generic.View):
             if course is not None:
                 course_to_edit = Course.objects.get(pk=course)
                 course_to_edit.university = form.cleaned_data['university']
-                course_to_edit.course_name = form.cleaned_data['course_name']
+                course_to_edit.name = form.cleaned_data['name']
                 course_to_edit.description = form.cleaned_data['description']
                 course_to_edit.save()
                 messages.add_message(request, messages.SUCCESS, 'Cambios guardados exitosamente')
