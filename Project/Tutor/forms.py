@@ -99,17 +99,20 @@ class ProfileForm(forms.Form):
     choices_session = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,
                                                      queryset=Session.objects.all(),
                                                      initial=None,
-                                                     label="Tipo de sesión a impartir:")
+                                                     label="Tipo de sesión a impartir:",
+                                                     required=False)
 
     choices_modality = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,
                                                       queryset=Modality.objects.all(),
                                                       initial=None,
-                                                      label="Tipo de modalidad a impartir:")
+                                                      label="Tipo de modalidad a impartir:",
+                                                      required=False)
 
     choices_payment = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,
                                                      queryset=Payment.objects.all(),
                                                      initial=None,
-                                                     label="Método de pago preferido:")
+                                                     label="Método de pago preferido:",
+                                                     required=False)
 
     helper = FormHelper()
     helper.use_custom_control = False

@@ -9,7 +9,7 @@ from Course.models import Course
 
 def get_context_view_calendar(tutor: User, course_name: str):
     try:
-        course = Course.objects.get(course_name=course_name)
+        course = Course.objects.get(name=course_name)
         tutors = TutorCourse.objects.filter(course=course).values("user")
         tutors_display = User.objects.filter(id__in=tutors)
 
@@ -40,8 +40,7 @@ def get_context_view_calendar(tutor: User, course_name: str):
         }
 
         return context
-    except Exception as e:
-        print(e)
+    except Exception:
         raise Exception("Error in get_context_view_calendar")
 
 
@@ -52,7 +51,7 @@ class DisplayCourseDetail(generic.View):
         if request.user.is_authenticated:
             try:
                 context = get_context_view_calendar(None, course_name)
-            except:
+            except Exception:
                 context = {'error': 1}
             return render(request, "Student/courseDetail.html", context)
         else:

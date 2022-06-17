@@ -22,18 +22,28 @@ def create_context(modality_form):
 
 class ProfileView(generic.View):
     template_name = 'Tutor/tutorProfile.html'
-    user: User = None
     form_class: TutorProfileForm = TutorProfileForm
 
+    def __init__(self, *args, **kwargs):
+        super(ProfileView, self).__init__(*args, **kwargs)
+        self.user = None
+
     def get(self, request):
-        user: User = User.objects.get(pk=request.user.id)
+        try:
+            user = User.objects.get(id=request.user.id)
+        except User.DoesNotExist:
+            raise Exception("User does not exist")
+
         profile_form = ProfileForm(request.GET or None, **{'user': user})
 
         user_to_edit = User.objects.get(id=request.user.id)
         form = self.form_class(instance=user_to_edit)
         selected_user = user_to_edit
 
+        tutor = Tutor.objects.get(user_id=user.id)
+
         region = Tutor.objects.get(user_id=user.id).region
+
         tutorship_price = Tutor.objects.get(user_id=user.id).amount_per_person
         increment_half_hour = Tutor.objects.get(user_id=user.id).increment_per_half_hour
         session = Tutor.objects.get(user_id=user.id).session_type.all()

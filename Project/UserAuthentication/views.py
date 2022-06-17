@@ -19,6 +19,7 @@ def index(request):
     if models.User.objects.filter(pk=request.user.id).exists():
         user: User = models.User.objects.get(pk=request.user.id)
         if user.is_tutor():
+            context['tutor'] = user
             return render(request, "UserAuthentication/tutorLogin.html", context)
         elif user.is_admin():
             return render(request, "UserAuthentication/adminLogin.html", context)

@@ -20,7 +20,7 @@ class Tutor(models.Model):
     payment_type = models.ManyToManyField(Payment)
     session_type = models.ManyToManyField(Session)
     modality_type = models.ManyToManyField(Modality)
-    region = models.ForeignKey(Regions, on_delete=models.CASCADE, default=1)
+    region = models.ForeignKey(Regions, on_delete=models.SET_NULL, null=True, blank=True)
 
 
 class TutorAvailableSchedule(models.Model):

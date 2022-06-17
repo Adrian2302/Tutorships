@@ -95,9 +95,9 @@ def request_maker(dict_values, course_name=None):
         session_requested = Session.objects.get(name=dict_values['sesion'])
         modality_requested = Modality.objects.get(name=dict_values['modalidad'])
         if course_name is not None:
-            course_requested = Course.objects.get(course_name=course_name)
+            course_requested = Course.objects.get(name=course_name)
         else:
-            course_requested = Course.objects.get(course_name=dict_values['curso'])
+            course_requested = Course.objects.get(name=dict_values['curso'])
 
         start_date = datetime.strptime(dict_values['fecha'], "%Y-%m-%d")
         initial_hour, initial_minutes = dict_values['inicial'].split(":")
