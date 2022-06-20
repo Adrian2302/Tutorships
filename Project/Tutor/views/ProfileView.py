@@ -20,6 +20,20 @@ def create_context(modality_form):
     return context
 
 
+def edit_sessions(tutor, choices_session):
+    tutor.session_type.clear()
+    tutor.session_type.add(*choices_session)
+
+
+def edit_modalities(tutor, choices_modality):
+    tutor.modality_type.clear()
+    tutor.modality_type.add(*choices_modality)
+
+
+def edit_payments(tutor, choices_payment):
+    tutor.payment_type.clear()
+    tutor.payment_type.add(*choices_payment)
+
 class ProfileView(generic.View):
     template_name = 'Tutor/tutorProfile.html'
     form_class: TutorProfileForm = TutorProfileForm
@@ -46,9 +60,9 @@ class ProfileView(generic.View):
 
         tutorship_price = Tutor.objects.get(user_id=user.id).amount_per_person
         increment_half_hour = Tutor.objects.get(user_id=user.id).increment_per_half_hour
-        session = Tutor.objects.get(user_id=user.id).session_type.all()
+        sessions = Tutor.objects.get(user_id=user.id).session_type.all()
         modality = Tutor.objects.get(user_id=user.id).modality_type.all()
-        payment = Tutor.objects.get(user_id=user.id).payment_type.all()
+        payments = Tutor.objects.get(user_id=user.id).payment_type.all()
 
         context = {
             'form': profile_form,
@@ -57,9 +71,9 @@ class ProfileView(generic.View):
             'region': region,
             'tutorship_price': tutorship_price,
             'increment_half_hour': increment_half_hour,
-            'session': session,
+            'sessions': sessions,
             'modality': modality,
-            'payment': payment,
+            'payments': payments,
             'user': user,
             'title_page': "Perfil",
             'select_navbar_profile': 1
@@ -87,9 +101,9 @@ class ProfileView(generic.View):
             tutor.amount_per_person = profile_form.cleaned_data['tutorship_price']
             tutor.increment_per_half_hour = profile_form.cleaned_data['increment_half_hour']
 
-            tutor.payment_type.add(*profile_form.cleaned_data['choices_payment'])
-            tutor.session_type.add(*profile_form.cleaned_data['choices_session'])
-            tutor.modality_type.add(*profile_form.cleaned_data['choices_modality'])
+            edit_payments(tutor, profile_form.cleaned_data['choices_payment'])
+            edit_sessions(tutor, profile_form.cleaned_data['choices_session'])
+            edit_modalities(tutor, profile_form.cleaned_data['choices_modality'])
             tutor.save()
             messages.add_message(request, messages.SUCCESS, 'Perfil actualizado exitosamente')
         else:
