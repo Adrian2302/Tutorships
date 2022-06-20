@@ -10,6 +10,10 @@ pip install django-allauth
 pip install django-bootstrap4
 pip install django-bootstrap-datepicker-plus
 pip install django-crispy-forms
+
+
+django==4.0.4
+psycopg2-binary==2.9.3
 ```
 
 ## Execute

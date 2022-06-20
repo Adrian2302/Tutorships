@@ -1,5 +1,6 @@
 from django.views import generic
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 from UserAuthentication.models import User
 from Student.models import Request
@@ -19,7 +20,10 @@ def create_context(user):
 
     context = {
         'requests': query_set,
-        'message': message}
+        'message': message,
+        'title_page' : "Tutorías agendadas",
+        'select_navbar_tutorships' : 1
+    }
     return context
 
 
@@ -31,10 +35,11 @@ class AcceptedRequestView(generic.View):
         user = User.objects.get(pk=request.user.id)
         if user.is_tutor():
             if request.GET.get('accion') == 'terminada':
-                request = Request.objects.get(pk=request_pk, tutor_requested_id=user)
-                request.set_done()
-                tutorship = Tutorship.objects.get(request=request)
+                req = Request.objects.get(pk=request_pk, tutor_requested_id=user)
+                req.set_done()
+                tutorship = Tutorship.objects.get(request=req)
                 tutorship.set_done()
+                messages.add_message(request, messages.SUCCESS, 'La tutoría ha sido marcada como terminada exitosamente')
                 return redirect('tutor_accepted_requests')
             elif request.GET.get('accion') == 'ver':
                 return redirect('tutor_tutorship_view', request_pk=request_pk)

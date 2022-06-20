@@ -24,11 +24,20 @@ class EditResource(generic.View):
             resource_to_edit = Resource.objects.get(pk=resource)
             form = self.form_class(instance=resource_to_edit)
             selected_resource = resource_to_edit
+        elif request.GET.get('accion') == 'eliminar':
+            try:
+                resource_to_edit = Resource.objects.get(pk=resource)
+                resource_to_edit.delete()
+                messages.add_message(request, messages.SUCCESS, 'Cambios guardados exitosamente')
+            except:
+                messages.add_message(request, messages.ERROR, 'No se han realizado los cambios')
 
         context = {
             'form': form,
             'resources': Resource.objects.all(),
-            'selected_resource': selected_resource
+            'selected_resource': selected_resource,
+            'title_page' : "Recursos",
+            'select_navbar_resources' : 1
         }
         return render(request, self.template_name, context)
 
@@ -44,7 +53,7 @@ class EditResource(generic.View):
                 resource_to_edit.url = form.cleaned_data['url']
                 resource_to_edit.author = form.cleaned_data['author']
                 resource_to_edit.save()
-                messages.success(request, 'Cambios guardados exitosamente')
+                messages.add_message(request, messages.SUCCESS, 'Cambios guardados exitosamente')
             else:
                 resource = Resource(
                     name=form_resource.cleaned_data['name'],
@@ -55,5 +64,5 @@ class EditResource(generic.View):
                     uploader=user
                 )
                 resource.save()
-                messages.error(request, 'No se han realizado los cambios')
+                messages.add_message(request, messages.ERROR, 'No se han realizado los cambios')
         return redirect('edit_resource')

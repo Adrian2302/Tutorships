@@ -35,7 +35,7 @@
             <h3> Calendario de {{calendar_title}}</h3>
             <div id="calendar"></div>
         
-            <form action="{% url 'request_tutorship' course_name=course %}" method="GET" id="form_report">
+            <form action="{% url 'request_tutorship' course_name=course.name %}" method="GET" id="form_report">
                 <input type="hidden" name="schedule_number" id="schedule">
             </form>
         </div>

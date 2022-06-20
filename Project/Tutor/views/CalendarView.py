@@ -23,7 +23,9 @@ def create_context(user: User, form: TutorScheduleForm):
         )
     context = {
         'form': form,
-        'events': event_list
+        'events': event_list,
+        'title_page': "Calendario",
+        'select_navbar_calendar' : 1
     }
     return context
 
@@ -58,10 +60,10 @@ class CalendarView(TemplateView):
             form_end_date = form.cleaned_data['end_time']
             clean_form_end_date = form_end_date.strftime("%Y-%m-%d %H:%M")
             if clean_form_start_date == clean_form_end_date:
-                messages.error(request, 'No se ha agendado su horario, por favor, elija una hora final diferente a la hora de inicio')
+                messages.add_message(request, messages.WARNING, 'No se ha agendado su horario, por favor, elija una hora final diferente a la hora de inicio')
             elif clean_form_start_date >= clean_current_date:
                 scheduled_block.save()
-                messages.success(request, 'Horario agendado exitosamente')
+                messages.add_message(request, messages.SUCCESS, 'Horario agendado exitosamente')
             else:
-                messages.error(request, 'No se ha agendado su horario, por favor, elija una hora mayor a la actual')
+                messages.add_message(request, messages.WARNING, 'No se ha agendado su horario, por favor, elija una hora mayor a la actual')
         return render(request, self.template_name, create_context(user, form))

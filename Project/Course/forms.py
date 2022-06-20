@@ -7,18 +7,18 @@ class AddCourseForm(forms.ModelForm):
         model = models.Course
         fields = [
             'university',
-            'course_name',
+            'name',
             'description'
         ]
 
         labels = {
             'university': 'Universidad',
-            'course_name': 'Nombre del curso',
+            'name': 'Nombre del curso',
             'description': 'Descripción del curso'
         }
 
         widgets = {
             'university': forms.TextInput(attrs={'class': 'form-control', 'required': 'true'}),
-            'course_name': forms.TextInput(attrs={'class': 'form-control', 'required': 'true'}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'required': 'true'}),
             'description': forms.TextInput(attrs={'class': 'form-control', 'required': 'true'})
         }

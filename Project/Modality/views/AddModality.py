@@ -2,12 +2,14 @@ from django.shortcuts import render, redirect
 from Modality import models
 from Modality.forms import AddModalityForm
 from django.views import generic
+from django.contrib import messages
 # noinspection PyUnresolvedReferences
 from UserAuthentication.models import User
 
 
 def create_context(form):
-    return {'form': form}
+    return {'form': form, 'title_page': "Modalidades", 'select_navbar_modalities' : 1}
+
 
 class AddModality(generic.View):
     """This is the view for the add modality admin page."""
@@ -37,6 +39,9 @@ class AddModality(generic.View):
                     description=form.cleaned_data['description'],
                 )
                 modality.save()
+                messages.add_message(request, messages.SUCCESS, 'Modalidad agregada exitosamente')
+            else:
+                messages.add_message(request, messages.ERROR, 'Ocurrió un error, por favor, intente más tarde')
             
             context = create_context(form)
 

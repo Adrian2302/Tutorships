@@ -9,6 +9,7 @@
         <div class = "container-fluid">
             <div class="form-check">
                 <div class="col-md-8 offset-md-2 mt-2">
+                    {% include 'messages.html' %}
                     <table class="table">
                         <thead>
                         <tr>
@@ -24,47 +25,29 @@
                         <tbody>
                         {% for tutorship in tutorships %}
                             <tr>
-                                <td class="text-center"><a href="#">{{tutorship.request.tutor_requested.get_full_name}}</a></td>
-                                <td class="text-center">{{tutorship.request.course_requested.course_name}}</td>
-                                <td class="text-center">{{tutorship.request.session_requested.name}}</td>
-                                <td class="text-center">{{tutorship.request.display_meeting_type}}</td>
-                                <td class="text-center">{{tutorship.request.date_start}}</td>
-                                <td class="text-center">{{tutorship.request.date_end}}</td>
+                                <td class="text-center"><a href="#">{{tutorship.request.request.tutor_requested.get_full_name}}</a></td>
+                                <td class="text-center">{{tutorship.request.request.course_requested.name}}</td>
+                                <td class="text-center">{{tutorship.request.request.session_requested.name}}</td>
+                                <td class="text-center">{{tutorship.request.request.display_meeting_type}}</td>
+                                <td class="text-center">{{tutorship.request.request.date_start}}</td>
+                                <td class="text-center">{{tutorship.request.request.date_end}}</td>
+
+                                {% if tutorship.scored is 0%}
                                 <td><a onclick="score('{{tutorship.id}}')" class="btn btn-primary" data-toggle="modal" data-target="#modal-score">Puntuar</a></td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
 
-                        {% for tutorship in join_tutorships %}
-                            <tr>
-                                <td class="text-center"><a href="#">{{tutorship.request.tutor_requested.get_full_name}}</a></td>
-                                <td class="text-center">{{tutorship.request.course_requested.course_name}}</td>
-                                <td class="text-center">{{tutorship.request.session_requested.name}}</td>
-                                <td class="text-center">{{tutorship.request.display_meeting_type}}</td>
-                                <td class="text-center">{{tutorship.request.date_start}}</td>
-                                <td class="text-center">{{tutorship.request.date_end}}</td>
-                                <td><a onclick="score('{{tutorship.id}}')" class="btn btn-primary" data-toggle="modal" data-target="#modal-score">Puntuar</a></td>
-                            </tr>
-                        {% endfor %}
                         </tbody>
                     </table>
-                    {% if messages %}
-                    {% for message in messages %}
-                    <div class="alert alert-success text-center" role="alert">
-                        {{ message }}
-                    </div>
-                    {% endfor %}
-                    {% endif %}
                 </div>
             </div>
         </div>
         <div class="modal fade show" tabindex="-1" role="dialog" id="modal-score" aria-hidden="true">
              <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                    <div class="modal-header bg-primary">
+                    <div class="modal-header">
                         <h5 class="modal-title text-white text-center" id="exampleModalLongTitle">Puntar tutoría</h5>
-                        <button id="modalClose1" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                     </div>
                     <form method="POST">
                         {% csrf_token %}
@@ -101,7 +84,7 @@
                         </div>
                         <div class="modal-footer">
                             <button id="modalClose2" type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary">Puntuar</button>
+                            <button type="submit" class="btn btn-primary button-blue">Puntuar</button>
                         </div>
                     </form>
                 </div>

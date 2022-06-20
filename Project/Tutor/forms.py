@@ -8,9 +8,10 @@ from Modality.models import Modality
 from Session.models import Session
 from Tutor.models import Tutor
 from Course.models import Course
+from Region.models import Regions
 from Tutorship.models import Tutorship
 from django import forms
-from bootstrap_datepicker_plus import DateTimePickerInput
+from bootstrap_datepicker_plus.widgets import DateTimePickerInput
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Submit, Div
 from crispy_forms.bootstrap import PrependedText
@@ -82,6 +83,11 @@ class TutorResourceForm(forms.Form):
 
 
 class ProfileForm(forms.Form):
+    choices_region = forms.ModelChoiceField(widget=forms.RadioSelect,
+                                            queryset=Regions.objects.all(),
+                                            initial=None,
+                                            label="Región:")
+
     tutorship_price = forms.CharField(widget=forms.TextInput,
                                       initial=None,
                                       label="Precio de mis tutorías:")
@@ -90,25 +96,29 @@ class ProfileForm(forms.Form):
                                           initial=None,
                                           label="Precio por el incremento de media hora:")
 
-    choices_session = forms.ModelChoiceField(widget=forms.RadioSelect,
-                                             queryset=Session.objects.all(),
-                                             initial=None,
-                                             label="Tipo de sesión a impartir:")
+    choices_session = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,
+                                                     queryset=Session.objects.all(),
+                                                     initial=None,
+                                                     label="Tipo de sesión a impartir:",
+                                                     required=False)
 
-    choices_modality = forms.ModelChoiceField(widget=forms.RadioSelect,
-                                              queryset=Modality.objects.all(),
-                                              initial=None,
-                                              label="Tipo de modalidad a impartir:")
+    choices_modality = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,
+                                                      queryset=Modality.objects.all(),
+                                                      initial=None,
+                                                      label="Tipo de modalidad a impartir:",
+                                                      required=False)
 
-    choices_payment = forms.ModelChoiceField(widget=forms.RadioSelect,
-                                             queryset=Payment.objects.all(),
-                                             initial=None,
-                                             label="Método de pago preferido:")
+    choices_payment = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,
+                                                     queryset=Payment.objects.all(),
+                                                     initial=None,
+                                                     label="Método de pago preferido:",
+                                                     required=False)
 
     helper = FormHelper()
     helper.use_custom_control = False
     helper.form_class = 'blueForms'
     helper.layout = Layout(
+        Field('choices_region'),
         Div(PrependedText('tutorship_price', '₡', css_class='form-control'),
             css_class='input-group-prepend'),
         Div(PrependedText('increment_half_hour', '₡', css_class='form-control'),
@@ -122,14 +132,17 @@ class ProfileForm(forms.Form):
     def __init__(self, *args, **kwargs):
         if kwargs.get('user'):
             user = kwargs.pop('user')
+            region = Tutor.objects.get(user_id=user.id).region
             tutorship_price = Tutor.objects.get(user_id=user.id).amount_per_person
             increment_half_hour = Tutor.objects.get(user_id=user.id).increment_per_half_hour
-            session = Tutor.objects.get(user_id=user.id).session_type_id
-            modality = Tutor.objects.get(user_id=user.id).modality_type_id
-            payment = Tutor.objects.get(user_id=user.id).payment_type_id
+
+            session = Tutor.objects.get(user_id=user.id).session_type.all()
+            modality = Tutor.objects.get(user_id=user.id).modality_type.all()
+            payment = Tutor.objects.get(user_id=user.id).payment_type.all()
 
             super(ProfileForm, self).__init__(*args, **kwargs)
 
+            self.fields['choices_region'].initial = region
             self.fields['tutorship_price'].initial = tutorship_price
             self.fields['increment_half_hour'].initial = increment_half_hour
             self.fields['choices_session'].initial = session
@@ -155,7 +168,7 @@ class AddCourseForm(forms.Form):
         else:
             super(AddCourseForm, self).__init__(*args, **kwargs)
 
-    fields = ['course_name']
+    fields = ['name']
 
     choices = forms.ModelChoiceField(widget=forms.Select(
         attrs={'class': 'custom-select'}),
@@ -185,12 +198,31 @@ class EditTutorshipInfo(forms.ModelForm):
             'url': forms.TextInput(attrs={'class': 'form-control'})
         }
 
+
 class ProfitForm(forms.Form):
-    date=forms.DateTimeField(
+    date = forms.DateTimeField(
         input_formats=['%m/%Y'],
         widget=forms.DateInput(attrs={
             'class': 'form-control datetimepicker-input',
             'data-target': '#datetimepicker1'
         })
-    ) 
+    )
 
+
+class TutorProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            'name',
+            'lastname'
+        ]
+
+        labels = {
+            'name': 'Nombre',
+            'lastname': 'Apellido'
+        }
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'lastname': forms.TextInput(attrs={'class': 'form-control'})
+        }

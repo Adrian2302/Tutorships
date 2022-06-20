@@ -84,8 +84,8 @@ class Request(models.Model):
         self.state = self.DONE
         self.save()
 
-    def __str__(self):
-        return self.user_requester.get_full_name() + ' - ' + self.tutor_requested.get_full_name()
+    # def __str__(self):
+    #     return self.user_requester.get_full_name() + ' - ' + self.tutor_requested.get_full_name()
 
 
 class Requesters(models.Model):

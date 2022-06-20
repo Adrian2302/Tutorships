@@ -50,9 +50,12 @@ INSTALLED_APPS = [
     'Tutorship',
     'Course',
     'Student',
+    'Region',
+    'Chat',
     'bootstrap4',
     'bootstrap_datepicker_plus',
-    'crispy_forms'
+    'crispy_forms',
+    'AdminModule'
 ]
 
 MIDDLEWARE = [
@@ -94,16 +97,18 @@ WSGI_APPLICATION = 'Project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'KAIZEN_TUTORSHIP_SYSTEM',
-        'USER': 'eq1',
-        'PASSWORD': 'kaizen1',
-        'HOST': '172.16.202.128',
+        'NAME': 'Kaizen',
+        'USER': 'kaizenadmin',
+        'PASSWORD': '95346',
+        'HOST': '172.16.202.78',
         'PORT': '1433',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
         }
     }
 }
+
+# CI0127BD
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -163,7 +168,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
-SITE_ID = 6
+SITE_ID = 8
 
 BOOTSTRAP4 = {
     'include_jquery': True,

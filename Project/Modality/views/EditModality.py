@@ -23,7 +23,9 @@ class EditModality(generic.View):
         context = {
             'form': form,
             'modalities': Modality.objects.all(),
-            'selected_modality': selected_modality
+            'selected_modality': selected_modality,
+            'title_page' : "Modalidades",
+            'select_navbar_modalities' : 1
         }
         return render(request, self.template_name, context)
 
@@ -35,8 +37,8 @@ class EditModality(generic.View):
                 modality_to_edit.name = form.cleaned_data['name']
                 modality_to_edit.description = form.cleaned_data['description']
                 modality_to_edit.save()
-                messages.success(request, 'Cambios guardados exitosamente')
+                messages.add_message(request, messages.SUCCESS, 'Cambios guardados exitosamente')
             else:
                 form.save()
-                messages.error(request, 'No se han realizado los cambios')
+                messages.add_message(request, messages.ERROR, 'No se han realizado los cambios')
         return redirect('edit_modality') 
