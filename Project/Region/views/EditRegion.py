@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 class EditRegion(generic.View):
 
     def get(self, request, region_id=None):
-        form = None
+        form = AddRegionForm()
         selected_region = None
 
         edit_region_is_requested = request.GET.get('accion') == 'editar'
