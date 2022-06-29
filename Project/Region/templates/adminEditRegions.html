@@ -33,7 +33,7 @@
                             <tr>
                                 <td class="text-center">{{ region.region_name }}</td>
                                 <td class="text-center">{{ region.country }}</td>
-                                <td><a href="{% url 'edit_region' region=region.id %}?accion=editar"
+                                <td><a href="{% url 'edit_region' region_id=region.id %}?accion=editar"
                                     class="btn btn-primary button-blue">Editar</a></td>
                             </tr>
                         {% endfor %}

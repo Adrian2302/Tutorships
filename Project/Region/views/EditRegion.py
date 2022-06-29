@@ -6,15 +6,15 @@ from django.shortcuts import render,redirect
 
 class EditRegion(generic.View):
 
-    def get(self, request, region=None):
-        form = AddRegionForm()
+    def get(self, request, region_id=None):
+        form = None
         selected_region = None
 
         edit_region_is_requested = request.GET.get('accion') == 'editar'
 
         if edit_region_is_requested:
-            region_to_edit = Regions.objects.get(pk=region)
-            form = form(instance=region_to_edit)
+            region_to_edit = Regions.objects.get(pk=region_id)
+            form = AddRegionForm(instance=region_to_edit)
             selected_region = region_to_edit
 
         context = {
