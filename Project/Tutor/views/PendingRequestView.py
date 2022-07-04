@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from Tutor.models import Tutor, TutorAvailableSchedule
 from Student.models import Request
-from Tutorship.models import RequestNotification
+from Tutorship.models import Tutorship, RequestNotification
 
 
 def deny_request(request_id):
@@ -48,6 +48,7 @@ class PendingRequestView(ListView):
             deny_request(request_pk)
             messages.add_message(request, messages.SUCCESS, 'La tutoría ha sido rechazada')
         elif request.GET.get('accion') == 'aceptar':
+            user = self.user
             request_tutorship = Request.objects.get(pk=request_pk, tutor_requested_id=user)
             request_tutorship.state = 'AP'
             request_tutorship.save()
