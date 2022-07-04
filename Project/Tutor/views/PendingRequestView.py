@@ -5,6 +5,7 @@ from django.contrib import messages
 from Tutor.models import Tutor, TutorAvailableSchedule
 from Student.models import Request
 from Tutorship.models import RequestNotification
+from Tutorship.models import Tutorship
 
 
 def deny_request(request_id):
@@ -48,7 +49,7 @@ class PendingRequestView(ListView):
             deny_request(request_pk)
             messages.add_message(request, messages.SUCCESS, 'La tutoría ha sido rechazada')
         elif request.GET.get('accion') == 'aceptar':
-            request_tutorship = Request.objects.get(pk=request_pk, tutor_requested_id=user)
+            request_tutorship = Request.objects.get(pk=request_pk, tutor_requested_id=self.user)
             request_tutorship.state = 'AP'
             request_tutorship.save()
             messages.add_message(request, messages.SUCCESS, 'La tutoría ha sido aceptada')
@@ -66,7 +67,7 @@ class PendingRequestView(ListView):
             tutorship_end_date = end_date.strftime("%Y-%m-%d %H:%M")
 
             # reject the other requests
-            query_set = list(Request.objects.filter(tutor_requested_id=user,
+            query_set = list(Request.objects.filter(tutor_requested_id=self.user,
                                                     state='PN',
                                                     date_start__gte=tutorship_start_date))
             for tutorship_to_check in query_set:
@@ -87,7 +88,7 @@ class PendingRequestView(ListView):
                     )
                     notification.save()
 
-            schedule_selected = list(TutorAvailableSchedule.objects.filter(user=user,
+            schedule_selected = list(TutorAvailableSchedule.objects.filter(user=self.user,
                                                                            start_time__lte=tutorship_start_date,
                                                                            end_time__gte=tutorship_end_date))
 
@@ -111,7 +112,7 @@ class PendingRequestView(ListView):
                     new_end_time = schedule_date_end
                     schedule.end_time = tutorship_start_date
                     scheduled_block = TutorAvailableSchedule(
-                        user_id=user.id,
+                        user_id=self.user.id,
                         start_time=tutorship_end_date,
                         end_time=new_end_time,
                     )
