@@ -24,8 +24,8 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class"col-6 col-md-4">
-                                            {% if user.photo_profile %}
-                                                <img class="img-fluid img-thumbnail " src="{{user.photo_profile.url}}" width = "185" height = "185">
+                                            {% if user_info.photo_profile %}
+                                                <img class="img-fluid img-thumbnail " src="{{user_info.photo_profile.url}}" width = "185" height = "185">
                                             {% else %}
                                                 <img class="img-fluid img-thumbnail " src="{% static "images/default.jpg" %}" width = "185" height = "185">
                                             {% endif %}
