@@ -7,18 +7,15 @@ class ProfileForm(forms.ModelForm):
         model = User
         fields = [
             'name',
-            'lastname',
-            'photo_profile'
+            'lastname'
         ]
 
         labels = {
             'name': 'Nombre',
-            'lastname': 'Apellido',
-            'photo_profile': 'Foto de perfil'
+            'lastname': 'Apellido'
         }
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'lastname': forms.TextInput(attrs={'class': 'form-control'}),
-            'photo_profile': forms.FileInput(attrs={'title': 'Elegir Archivo'})
+            'lastname': forms.TextInput(attrs={'class': 'form-control'})
         }
