@@ -214,15 +214,18 @@ class TutorProfileForm(forms.ModelForm):
         model = User
         fields = [
             'name',
-            'lastname'
+            'lastname',
+            'photo_profile'
         ]
 
         labels = {
             'name': 'Nombre',
-            'lastname': 'Apellido'
+            'lastname': 'Apellido',
+            'photo_profile': 'Foto de perfil'
         }
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'lastname': forms.TextInput(attrs={'class': 'form-control'})
+            'lastname': forms.TextInput(attrs={'class': 'form-control'}),
+            'photo_profile': forms.FileInput(attrs={'title': 'Elegir Archivo'})
         }

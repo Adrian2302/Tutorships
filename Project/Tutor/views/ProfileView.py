@@ -86,12 +86,13 @@ class ProfileView(generic.View):
 
     def post(self, request):
         profile_form = ProfileForm(request.POST or None)
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST, request.FILES)
         
         if form.is_valid():
             user_to_edit = User.objects.get(id=request.user.id)
             user_to_edit.name = form.cleaned_data['name']
             user_to_edit.lastname = form.cleaned_data['lastname']
+            user_to_edit.photo_profile = form.cleaned_data['photo_profile']
             user_to_edit.save()
             messages.add_message(request, messages.SUCCESS, 'Perfil actualizado exitosamente')        
         elif profile_form.is_valid():
