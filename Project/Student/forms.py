@@ -20,5 +20,5 @@ class ProfileForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'lastname': forms.TextInput(attrs={'class': 'form-control'}),
-            'photo_profile': forms.FileInput(attrs={'title': 'Elegir Archivo'})
+            'photo_profile': forms.FileInput()
         }
