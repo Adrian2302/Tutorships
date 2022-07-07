@@ -1,6 +1,10 @@
 from django.contrib import admin
-from .models import RequestNotification
+from .models import RequestNotification, Tutorship
 
 # Register your models here.
-admin.site.register(RequestNotification)
+class TutorshipAdmin(admin.ModelAdmin):
+    pass
 
+
+admin.site.register(RequestNotification)
+admin.site.register(Tutorship, TutorshipAdmin)

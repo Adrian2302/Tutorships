@@ -30,6 +30,9 @@ class Tutorship(models.Model):
     def remaining_capacity(self):
         return self.max_people - self.request.num_requesters
 
+    def __str__(self):
+        return 'Tutor: {}, State: {}'.format(self.request.tutor_requested.get_full_name, self.state)
+
 
 class TutorshipScore(models.Model):
     """Model for the TutorshipScore"""

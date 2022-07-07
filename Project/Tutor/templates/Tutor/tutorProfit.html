@@ -23,18 +23,20 @@
             <form method="POST">
                 {% csrf_token %}
                 <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                    {{ form.date}}
+                    {{ form.date }}
                     <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
                 </div>
                 <br><button type="submit" class="btn btn-primary button-blue">Calcular</button>
             </form>
-            {% if profit %}
-            {% if time %}
+            <div class="pt-3">
+                {% if profit %}
                 <h4> En este mes usted ha ganado {{ profit }} colones en un total de {{ time }} horas trabajadas</h4>
-            {% endif %}
-            {% endif %}
+                {% else %}
+                <h4> No hay ganancias registradas para este mes </h4>
+                {% endif %}
+            </div>
         </div>
     </body>
     <script>
