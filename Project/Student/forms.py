@@ -7,14 +7,12 @@ class ProfileForm(forms.ModelForm):
         model = User
         fields = [
             'name',
-            'lastname',
-            'photo_profile'
+            'lastname'
         ]
 
         labels = {
             'name': 'Nombre',
-            'lastname': 'Apellido',
-            'photo_profile': 'Foto de perfil'
+            'lastname': 'Apellido'
         }
 
         widgets = {

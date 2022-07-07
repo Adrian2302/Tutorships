@@ -52,11 +52,10 @@ class ProfitView(generic.View):
                         profit += tutorship.num_requesters * tutor.amount_per_person
                         time += without_increment
 
-
                 context = {
                     'form': profit_form,
                     'profit': profit,
-                    'time': new_time,
+                    'time': time,
                     'title_page': "Ganancias",
                     'select_navbar_profit': 1
                 }
