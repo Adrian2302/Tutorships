@@ -1,3 +1,10 @@
 from django.contrib import admin
+from .models import TutorAvailableSchedule
 
-# Register your models here.
+
+class TutorAvailableScheduleAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(TutorAvailableSchedule, TutorAvailableScheduleAdmin)
+

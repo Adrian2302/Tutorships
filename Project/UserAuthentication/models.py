@@ -25,6 +25,9 @@ class User(models.Model):
     def is_admin(self):
         return self.type == 3
 
+    def __str__(self):
+        return f'{self.name} {self.lastname}, {self.type}'
+
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
