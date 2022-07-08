@@ -10,7 +10,7 @@ class User(models.Model):
     name = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
     type = models.IntegerField()
-    photo_profile = models.CharField(max_length=300)
+    photo_profile = models.ImageField(default='_static/images/default.jpg')
 
     @property
     def get_full_name(self):
@@ -24,6 +24,9 @@ class User(models.Model):
 
     def is_admin(self):
         return self.type == 3
+
+    def __str__(self):
+        return f'{self.name} {self.lastname}, {self.type}'
 
     class Meta:
         verbose_name = 'User'

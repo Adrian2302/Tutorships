@@ -1,7 +1,4 @@
-from django.db import connections
 from django.db import models
-from django.db.models.fields.related import ForeignKey
-from datetime import datetime, date
 from Course.models import Course
 from Session.models import Session
 from Modality.models import Modality
@@ -22,12 +19,18 @@ class Tutor(models.Model):
     modality_type = models.ManyToManyField(Modality)
     region = models.ForeignKey(Regions, on_delete=models.SET_NULL, null=True, blank=True)
 
+    def __str__(self):
+        return f'{self.user.get_full_name}'
+
 
 class TutorAvailableSchedule(models.Model):
     """Models for tha tables describing the hours the tutor has available."""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+
+    def __str__(self):
+        return f'{self.user.get_full_name}, Start: {self.start_time}, End: {self.end_time}'
 
 
 class TutorCourse(models.Model):

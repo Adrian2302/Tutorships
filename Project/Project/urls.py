@@ -30,4 +30,4 @@ urlpatterns = [
     path('', include("Student.urls")),
     path('', include("Region.urls")),
     path('', include("Chat.urls")),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
