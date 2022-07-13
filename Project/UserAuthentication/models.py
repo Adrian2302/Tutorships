@@ -10,7 +10,7 @@ class User(models.Model):
     name = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
     type = models.IntegerField()
-    photo_profile = models.ImageField(default='_static/images/default.jpg')
+    photo_profile = models.ImageField(default='_static/images/default.jpg', upload_to='images/')
 
     @property
     def get_full_name(self):
