@@ -12,7 +12,6 @@ from Resource.forms import ResourceForm
 from django.db.models import Q
 from django.contrib import messages
 
-
 class TutorshipView(View):
     template_name = 'Tutor/tutorshipView.html'
     user: User = None
@@ -53,7 +52,7 @@ class TutorshipView(View):
                 'resources': tutorship_resources,
                 'requesters': requesters,
                 'public_resources': public_resources,
-                'title_page' : "Tutoría"
+                'title_page': "Tutoría"
             }
             return render(request, self.template_name, context)
         else:
@@ -61,7 +60,7 @@ class TutorshipView(View):
 
     def post(self, request, request_pk=None):
         form_info = self.form_info_class(request.POST)
-        form_resource = self.form_resource_class(request.POST)
+        form_resource = self.form_resource_class(request.POST, request.FILES)
         user = User.objects.get(pk=request.user.id)
 
         list(messages.get_messages(request))
@@ -88,7 +87,8 @@ class TutorshipView(View):
                     description=form_resource.cleaned_data['resource_description'],
                     url=form_resource.cleaned_data['resource_url'],
                     author=form_resource.cleaned_data['author'],
-                    uploader=user
+                    uploader=user,
+                    file=request.FILES['file']
                 )
                 resource.save()
 
@@ -120,4 +120,3 @@ class TutorshipView(View):
             messages.add_message(request, messages.SUCCESS, 'Información editada exitosamente')
 
         return redirect('tutor_tutorship_view', request_pk=request_pk)
-

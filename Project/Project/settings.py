@@ -149,7 +149,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, '_static')
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, '_static/images')
+MEDIA_ROOT = os.path.join(BASE_DIR, '_static/')
 MEDIA_URL = '/images/'
 
 AUTHENTICATION_BACKENDS = [

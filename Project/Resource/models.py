@@ -12,6 +12,7 @@ class Resource(models.Model):
     url = models.URLField()
     author = models.CharField(max_length=50)
     uploader = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    file = models.FileField(default=None, upload_to='user_resources/', blank=True)
 
 
 class ResourceTutorship(models.Model):

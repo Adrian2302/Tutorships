@@ -67,6 +67,9 @@ class TutorResourceForm(forms.Form):
                              initial=None,
                              label='Fuente:')
 
+    file = forms.FileField(initial=None,
+                           label='Archivo:')
+
     helper = FormHelper()
     helper.use_custom_control = True
     helper.layout = Layout(
@@ -74,7 +77,8 @@ class TutorResourceForm(forms.Form):
         Field('resource_description', css_class='form-control'),
         Field('is_public', css_class='form-control'),
         Field('resource_url', css_class='form-control'),
-        Field('author', css_class='form-control')
+        Field('author', css_class='form-control'),
+        Field('resource_file', css_class='form-control')
     )
 
     def __init__(self, *args, **kwargs):
