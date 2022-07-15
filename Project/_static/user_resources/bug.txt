@@ -1,0 +1,10 @@
+Bug agregar recursos
+Mensajes de exito mal admin
+Editar perfil tutor
+CRUD Sesiones
+Editar regiones agregadas
+Display tutor sesiones/etc.
+Puntuar tutoria
+Trigger BD
+
+Recurso no link
