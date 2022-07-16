@@ -7,16 +7,18 @@ from .TutorshipView import TutorshipView
 from .ProfitView import ProfitView
 from .DoneTutorships import DoneTutorships
 from .CalificationsTutorships import CalificationsTutorships
+from .PostRecurringScheduleView import PostRecurringScheduleView
 
 
 __all__ = [
-    CalendarView,
-    ProfileView,
-    CourseView,
-    PendingRequestView,
-    AcceptedRequestView,
-    TutorshipView,
-    ProfitView,
-    DoneTutorships,
-    CalificationsTutorships
+    'CalendarView',
+    'ProfileView',
+    'PendingRequestView',
+    'AcceptedRequestView',
+    'TutorshipView',
+    'CourseView',
+    'ProfitView',
+    'DoneTutorships',
+    'CalificationsTutorships',
+    'PostRecurringScheduleView'
 ]

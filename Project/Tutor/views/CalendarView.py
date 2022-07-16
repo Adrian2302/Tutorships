@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView
-from django import forms
 from Tutor.forms import TutorScheduleForm
+from Tutor.extra_forms import RecurrentScheduleForm
 from Tutor import models
 from UserAuthentication.models import User
 from django.shortcuts import render, redirect
@@ -21,8 +21,10 @@ def create_context(user: User, form: TutorScheduleForm):
                 'end': event.end_time.strftime("%Y-%m-%d %H:%M"),
             }
         )
+    recurrent_form = RecurrentScheduleForm()
     context = {
         'form': form,
+        'recurrent_form': recurrent_form,
         'events': event_list,
         'title_page': "Calendario",
         'select_navbar_calendar' : 1
@@ -34,6 +36,7 @@ class CalendarView(TemplateView):
     template_name = 'Tutor/tutorCalendar.html'
     user: User = None
     form_class: TutorScheduleForm = TutorScheduleForm
+    
 
     def get(self, request):
         user = User.objects.get(pk=request.user.id)
@@ -55,6 +58,7 @@ class CalendarView(TemplateView):
 
             current_date = datetime.now()
             clean_current_date = current_date.strftime("%Y-%m-%d %H:%M")
+            
             form_start_date = form.cleaned_data['start_time']
             clean_form_start_date = form_start_date.strftime("%Y-%m-%d %H:%M")
             form_end_date = form.cleaned_data['end_time']
