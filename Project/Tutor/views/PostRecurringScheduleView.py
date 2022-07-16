@@ -14,13 +14,8 @@ class PostRecurringScheduleView(View):
             end_day = datetime.strptime(request.POST['end_day'], '%Y-%m-%d')
 
             start_time = datetime.strptime(request.POST['start_time'], '%H:%M')
-            end_time = datetime.strptime(request.POST['end_time'], '%H:%M')
-
-            print(start_day)
-            print(end_day)            
-            
-            # get all days between two dates
-            # day_delta = datetime.strptime(end_day, '%Y-%m-%d') - datetime.strptime(start_day, '%Y-%m-%d')
+            end_time = datetime.strptime(request.POST['end_time'], '%H:%M')         
+        
 
             days = [start_day + timedelta(days=x) for x in range(0, (end_day - start_day).days + 1)]
             for day in days:
