@@ -1,5 +1,3 @@
-from django.db.models import fields, query
-from django.forms import widgets
 from UserAuthentication.models import User
 from . import models
 from Tutor.models import TutorCourse
@@ -16,33 +14,32 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Submit, Div
 from crispy_forms.bootstrap import PrependedText
 
-import datetime
 
+class TutorScheduleForm(forms.Form):
+    fields = ['start_time', 'end_time']
+    labels = {
+        'start_time': 'Inicio del bloque',
+        'end_time': 'Fin del bloque'
+    }
+    widgets = {
+        'start_time': DateTimePickerInput(
+            format='%Y-%m-%d %H:%M',
+            options={
+                'locale': 'es',
+                'stepping': '30'
+            }
+        ).start_of('block'),
+        'end_time': DateTimePickerInput(
+            format='%Y-%m-%d %H:%M',
+            options={
+                'locale': 'es',
+                'stepping': '30'
+            }
+        ).end_of('block'),
+    }
 
-class TutorScheduleForm(forms.ModelForm):
-    class Meta:
-        model = models.TutorAvailableSchedule
-        fields = ['start_time', 'end_time']
-        labels = {
-            'start_time': 'Inicio del bloque',
-            'end_time': 'Fin del bloque'
-        }
-        widgets = {
-            'start_time': DateTimePickerInput(
-                format='%Y-%m-%d %H:%M',
-                options={
-                    'locale': 'es',
-                    'stepping': '30'
-                }
-            ).start_of('block'),
-            'end_time': DateTimePickerInput(
-                format='%Y-%m-%d %H:%M',
-                options={
-                    'locale': 'es',
-                    'stepping': '30'
-                }
-            ).end_of('block'),
-        }
+    start_time = forms.DateTimeField(label=labels['start_time'], widget=widgets['start_time'])
+    end_time = forms.DateTimeField(label=labels['end_time'], widget=widgets['end_time'])
 
 
 class TutorResourceForm(forms.Form):

@@ -20,5 +20,6 @@ urlpatterns = [
 
     path('ganancias', views.ProfitView.as_view(), name='tutor_profit'),
     path('historial', views.DoneTutorships.as_view(), name='tutor_done_requests'),
-    path('calificación/<int:request_pk>', views.CalificationsTutorships.as_view(), name='tutorship_califications')
+    path('calificación/<int:request_pk>', views.CalificationsTutorships.as_view(), name='tutorship_califications'),
+    path('calendario/recurrente', views.PostRecurringScheduleView.as_view(), name='post_recurrent'),
 ]

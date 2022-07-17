@@ -1,88 +1,154 @@
-<!DOCTYPE html>
-{% load static %}
+{% load static %}<!DOCTYPE html>
 <html>
     <head>
         {% include "baseHead.html" %}
         <link rel="stylesheet" href="{% static 'fullcalendar/lib/main.css' %}">
         <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
     <body>
         {% include "tutorHeader.html" %}
     <div class="container mt-2">
         {% include 'messages.html' %}
         <div class="row">
-        <div class="col-md-10 offset-md-1" id="calendar">
-        </div>
+            <div class="col-md-10 offset-md-1 pt-3" id="calendar">
+            </div>
         </div>
         <div class="modal fade show" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title text-white" id="exampleModalLongTitle">Agregar bloque de disponibilidad</h5>
-                            <button id="modalClose1" type="button" class="close" data-dismiss="modal" aria-label="Close" hidden>
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form method="POST">
-                            {% csrf_token %}
-                            <div class="modal-body">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-white">Agregar bloque de disponibilidad</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" hidden>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <button type="button" class="btn btn-primary btn-lg- btn-block" onclick="toggleRecurrentModal()">Crear horario recurrente</button>
+                        <div class="pt-3">
+                            <form method="POST">
+                                {% csrf_token %}
                                 <div class="form-group">
                                     {{ form.media }}
                                     {{ form.as_p }}
-                                </div>
+                                </div>              
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" onclick="toggleEventModal()">Cerrar</button>
+                                    <button type="submit" class="btn btn-primary button-blue">Guardar</button>
+                                </div>              
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade show" id="recurrentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-white">Agregar horario recurrente</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" id="post-recurrent-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ recurrent_form }}
                             </div>
                             <div class="modal-footer">
-                                <button id="modalClose2" type="button" class="btn btn-danger">Cerrar</button>
+                                <button type="button" class="btn btn-danger" onclick="toggleRecurrentModal()">Cerrar</button>
                                 <button type="submit" class="btn btn-primary button-blue">Guardar</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+        </div>
     </div>
     </body>
     <script src="{% static 'fullcalendar/lib/main.js' %}"></script>
     <script src="{% static 'fullcalendar/lib/locales/es.js' %}"></script>
     <script>
+        var showingRecurrentModal = false;
+        var showingEventModal = false;
+        var calendar;
+
         document.addEventListener('DOMContentLoaded', function(){
-
-        var calendarUI = document.getElementById('calendar')
-        var calendar = new FullCalendar.Calendar(calendarUI, {
-            locale: 'es',
-            selectable: true,
-            selectMirror: true,
-            select: function(arg) {
-                var modal = document.getElementById('eventModal')
-                modal.style.display = 'block'
-                calendar.unselect()
-            },
-            eventStartEditable: false,
-            editable: true,
-            allDay: false,
-            nextDayThreshold: '00:00',
-            displayEventTime: false,
-            events: [
-                {% for event in events %}
-                    {
-                        title: '{{event.message}}',
-                        start: '{{event.start}}',
-                        end: '{{event.end}}',
-                    },
-                {% endfor %}
-            ]
+            calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
+                locale: 'es',
+                selectable: true,
+                selectMirror: true,
+                select: function(arg) {
+                    toggleEventModal();
+                    calendar.unselect()
+                },
+                eventStartEditable: false,
+                editable: true,
+                nextDayThreshold: '00:00',
+                displayEventTime: false,
+                events: [
+                    {% for event in events %}
+                        {
+                            title: '{{event.message}}',
+                            start: '{{event.start}}',
+                            end: '{{event.end}}',
+                        },
+                    {% endfor %}
+                ]
+            });
+            calendar.render();
         });
-        calendar.render();
-    });
 
-    const closeBtn1 = document.getElementById('modalClose1');
-    const closeBtn2 = document.getElementById('modalClose2');
-    closeBtn1.addEventListener('click',()=>{
-        const eventModal = document.getElementById('eventModal')
-        eventModal.style.display = 'none';
-    });
-    closeBtn2.addEventListener('click',()=>{
-        const eventModal = document.getElementById('eventModal')
-        eventModal.style.display = 'none';
-    });
+        $(document).on('submit', '#post-recurrent-form', function(e){
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{% url 'post_recurrent' %}',
+                data: {
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                    'start_day': $('#recurrent_start_day').val(),
+                    'end_day': $('#recurrent_end_day').val(),
+                    'start_time': $('#recurrent_start_time').val(),
+                    'end_time': $('#recurrent_end_time').val(),
+                },
+                success: function(data){
+                    if (data.status == 'success') {
+                        toggleRecurrentModal();
+                        Swal.fire({
+                            title: '¡Listo!',
+                            text: 'Horario recurrente agregado con éxito',
+                            icon: 'success',
+                            confirmButtonText: 'Ok'
+                        }).then((result) => {
+                            if (result.value) {                                                   
+                                window.location.href = window.location.href;
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'No se pudo agregar el horario recurrente',
+                            icon: 'error',
+                            confirmButtonText: 'Ok'
+                        })
+                    }
+                }
+            });
+        });
+
+        function toggleRecurrentModal() {
+            if (showingEventModal){
+                toggleEventModal();
+            }
+            $('#recurrentModal').modal('toggle');
+            showingRecurrentModal = !showingRecurrentModal;
+        }
+
+        function toggleEventModal() {
+            if (showingRecurrentModal){
+                toggleRecurrentModal();
+            }
+            $('#eventModal').modal('toggle');
+            showingEventModal = !showingEventModal;
+        }        
     </script>
 </html>
